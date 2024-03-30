@@ -5,9 +5,10 @@ import GpsLocating from "./GpsLocating";
 import OpenCamera from "./OpenCamera";
 import MaximizedText from "./FullscreenMonitoring";
 import OnTabMonitor from "./OnTabMonitor";
-import OnTabtest from "./TestTab";
-import Temp from "./temp";
-import TempMerging from "./TempMerging";
+import OnBrowserMonitor from "./OnBrowserMonitor";
+import FaceLandmarksLogger from "./FaceLandmarksLogger";
+import FacePoseLogger from "./FacePoseLogger";
+import FacePoseLoggerWithSound from "./FacePoseLoggerWithSound";
 
 function App() {
   return (
@@ -17,10 +18,11 @@ function App() {
       {/* <FullscreenMonitoring /> */}
       {/* <MaximizedText /> */}
       {/* <OnTabMonitor /> */}
-      {/* <OnTabtest /> */}
-      {/* <Temp /> */}
-      <TempMerging />
+      {/* <OnBrowserMonitor /> */}
       {/* <OpenCamera /> */}
+      {/* <FaceLandmarksLogger /> */}
+      {/* <FacePoseLogger /> */}
+      {/* <FacePoseLoggerWithSound /> */}
     </>
   );
 }
