@@ -9,12 +9,14 @@ import OnBrowserMonitor from "./OnBrowserMonitor";
 import FaceLandmarksLogger from "./FaceLandmarksLogger";
 import FacePoseLogger from "./FacePoseLogger";
 import FacePoseLoggerWithSound from "./FacePoseLoggerWithSound";
+import ChatApiSeperateQuestions from "./ChatApiSeperateQuestions";
 
 function App() {
   return (
     <>
       {/* <GpsLocating /> */}
-      {/* <ChatApi /> */}
+      <ChatApi />
+      {/* <ChatApiSeperateQuestions /> */}
       {/* <FullscreenMonitoring /> */}
       {/* <MaximizedText /> */}
       {/* <OnTabMonitor /> */}
