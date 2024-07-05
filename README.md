@@ -1,21 +1,3 @@
-<p align='center'>
-  <img src='https://api.iconify.design/carbon:chart-radar.svg?color=%23939598' alt='Reactive - Opinionated Vite Starter Template' width='80'/>
-</p>
-
-<p align='center'>
-Mocking up web app with <b>Reactive</b><br>
-</p>
-
-<br>
-
-<p align='center'>
-<a href="https://reactive-template.netlify.app/">Live Demo</a>
-</p>
-
-<br>
-
-> linguijs have issue with `t` macro, use `<Trans>` micro as much as possible instead, until [issue](https://github.com/lingui/js-lingui/issues/1933) solverd
-
 ## Features
 
 - ⚡️ [React 18](https://react.dev/), [Vite](https://github.com/vitejs/vite), [pnpm](https://pnpm.io/), [esbuild](https://github.com/evanw/esbuild) - born with fastness
