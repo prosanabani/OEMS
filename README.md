@@ -68,7 +68,15 @@ And, enjoy :)
 Just run and visit http://localhost:5173
 
 ```bash
-pnpm dev
+pnpm run dev
+```
+
+### Lintfixing
+
+To lint fix the entire project, run
+
+```bash
+pnpm lint:fix
 ```
 
 ### Build
@@ -85,11 +93,8 @@ And you will see the generated file in `dist` that ready to be served.
 
 Go to [Netlify](https://app.netlify.com/start) and select your clone, `OK` along the way, and your App will be live in a minute.
 
-## Why
 
-Configure apps is a headeach, I loved vitesse template for vue, so I decided do one for react.
-
-## Expanding the ESLint configuration
+## Expanding the ESLint configuration 
 
 If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
 
