@@ -28,8 +28,7 @@
 
 - 🦾 TypeScript, of course
 
-- ⚙️ Unit Testing with [Vitest](https://github.com/vitest-dev/vitest), E2E Testing with [Cypress](https://cypress.io/)
-  <!--on [GitHub Actions](https://github.com/features/actions) # miss ci piplines-->
+- ⚙️ Unit Testing with [Vitest](https://github.com/vitest-dev/vitest),
 
 - ☁️ Deploy on Netlify, zero-config
 
@@ -37,7 +36,6 @@
 
 - 🔎 Inspect code with - [Vite Inspect](https://github.com/antfu/vite-plugin-inspect), and UnoCSS, visit them at `/__inspect` and `__unocss`. also open compnents in editor with [Alt + Right-Click](https://github.com/ArnaudBarre/vite-plugin-react-click-to-component)
 
-- 📝 Mocking Server API with [json-server](https://github.com/yracnet/vite-plugin-json-server/tree/main)
 
 > for component preview add [Preview.js](https://marketplace.visualstudio.com/items?itemName=zenclabs.previewjs) to vscode
 
