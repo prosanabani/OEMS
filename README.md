@@ -45,6 +45,12 @@
 
 > Reactive requires Node >=14.18
 
+
+## Make sure pnpm is installed!
+
+> Reactive prefers using pnpm
+
+
 ### Clone to local
 
 If you prefer to do it manually with the cleaner git history
