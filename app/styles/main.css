@@ -1,12 +1,14 @@
-/* use it for dynamic themes */
 @import '@fontsource/red-hat-display';
 
 * {
   font-family: 'Red Hat Display', sans-serif;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
 html.dark {
-  background: #121212;
+  /* background: #121212; */
   color-scheme: dark;
 }
 

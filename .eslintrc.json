@@ -6,6 +6,7 @@
     "plugin:sonarjs/recommended",
     "eslint:recommended",
     "plugin:react-hooks/recommended"
+    "./.eslintrc-auto-import.json",
   ],
   "ignorePatterns": [
     "dist",
@@ -13,7 +14,6 @@
     "*.d.ts",
     "*.json",
     "pnpm-lock.yaml",
-    "unimport.d.ts"
   ],
   "parser": "@typescript-eslint/parser",
   "plugins": [
@@ -25,14 +25,12 @@
   ],
   "rules": {
     "react-refresh/only-export-components": [
-      "off",
+      "warn",
       { "allowConstantExport": true }
     ],
     "react-compiler/react-compiler": "error",
 
     // Don't like
-    "no-undef": "off", // disable coz typescript check it already
-    "prettier/prettier": "off",
     "canonical/filename-match-exported": "off",
     "func-style": "off",
     "canonical/filename-match-regex": "off",
@@ -41,6 +39,6 @@
     "react/jsx-no-undef": "off",
     "import/no-unassigned-import": "off",
     "import/extensions": "off",
-    "react/forbid-component-props": "on"
+    "react/forbid-component-props": "off"
   }
 }

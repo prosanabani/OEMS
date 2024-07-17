@@ -2,7 +2,7 @@ export type Mode = 'system' | 'light' | 'dark'
 
 export const mode = {
   // used for mode event listners
-  darkListner({ matches }: { matches: boolean }) {
+  darkListener({ matches }: { matches: boolean }) {
     document.documentElement.classList.toggle('dark', matches)
   },
 
@@ -14,7 +14,7 @@ export const mode = {
       : this.value === 'dark'
   },
 
-  get isPreferdDark() {
+  get isPreferredDark() {
     return this.darkMedia.matches
   },
 
@@ -23,12 +23,12 @@ export const mode = {
   set(_mode: Mode) {
     if (_mode === 'system') {
       localStorage.removeItem('mode')
-      this.darkListner({ matches: this.darkMedia.matches })
-      this.darkMedia.addEventListener('change', this.darkListner)
+      this.darkListener({ matches: this.darkMedia.matches })
+      this.darkMedia.addEventListener('change', this.darkListener)
     } else {
       localStorage.mode = _mode
-      this.darkListner({ matches: _mode === 'dark' })
-      this.darkMedia.removeEventListener('change', this.darkListner)
+      this.darkListener({ matches: _mode === 'dark' })
+      this.darkMedia.removeEventListener('change', this.darkListener)
     }
   },
 
