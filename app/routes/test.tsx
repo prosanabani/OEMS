@@ -6,7 +6,8 @@ export default function Component() {
       <Outlet />
       <div className="mx-auto mt-5 text-center text-sm opacity-50">
         <Trans>test</Trans>
-        <button>dkjcndsk 'kdjc'</button>
+        cljdsnc dclkdsn
+        <button>dkjcndsk 'kdj dskjnc dkjcndskcknds kjcnds cljdsnc'</button>
       </div>
     </main>
   );

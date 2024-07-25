@@ -1,5 +1,5 @@
-import { Outlet } from 'react-router-dom';
 import Block from './components/Block';
+import { Outlet } from 'react-router-dom';
 
 export function Component() {
   return (

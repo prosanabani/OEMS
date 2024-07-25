@@ -2,18 +2,18 @@
 // import '@unocss/reset/tailwind.css'
 import './styles/main.css';
 import 'virtual:uno.css';
+// import 'primereact/resources/themes/lara-light-purple/theme.css'
+// import 'primereact/resources/themes/lara-dark-purple/theme.css'
+import 'primereact/resources/primereact.min.css';
+import 'primeicons/primeicons.css';
+import queryClient from './config/queryClient';
 import { I18nProvider } from '@lingui/react';
+import { QueryClientProvider } from '@tanstack/react-query';
 import { ClickToComponent } from 'click-to-react-component';
 // js imports
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import { RouterProvider } from 'react-router-dom';
-import { QueryClientProvider } from '@tanstack/react-query';
-import queryClient from './config/queryClient';
-// import 'primereact/resources/themes/lara-light-purple/theme.css'
-// import 'primereact/resources/themes/lara-dark-purple/theme.css'
-import 'primereact/resources/primereact.min.css';
-import 'primeicons/primeicons.css';
 // import 'primeflex/primeflex.css'
 
 export function Loader() {

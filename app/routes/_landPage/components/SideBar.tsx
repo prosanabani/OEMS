@@ -1,7 +1,7 @@
+import SidebarHeader from './SidebarHeader';
 import { Button } from 'primereact/button';
 import { Sidebar } from 'primereact/sidebar';
 import { useState } from 'react';
-import SidebarHeader from './SidebarHeader';
 
 function SideBar() {
   const [visible, setVisible] = useState<boolean>(true);

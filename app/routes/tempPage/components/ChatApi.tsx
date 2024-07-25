@@ -1,6 +1,6 @@
+import ChatApiSeparateQuestions from './ChatApiSeperateQuestions';
 import OpenAI from 'openai';
 import { useState } from 'react';
-import ChatApiSeparateQuestions from './ChatApiSeperateQuestions';
 
 // remain : to make this in the backend
 function ChatApi() {
