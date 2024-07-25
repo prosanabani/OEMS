@@ -10,6 +10,7 @@ import queryClient from './config/queryClient';
 import { I18nProvider } from '@lingui/react';
 import { QueryClientProvider } from '@tanstack/react-query';
 import { ClickToComponent } from 'click-to-react-component';
+import { type APIOptions, PrimeReactProvider } from 'primereact/api';
 // js imports
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
@@ -24,12 +25,18 @@ export function Loader() {
   );
 }
 
+const value: Partial<APIOptions> = {
+  appendTo: 'self',
+};
+
 createRoot(document.querySelector('#root') as Element).render(
   <StrictMode>
     <QueryClientProvider client={queryClient}>
       <I18nProvider i18n={i18n}>
+        <PrimeReactProvider value={value}>
         <RouterProvider fallbackElement={<Loader />} router={router} />
         <ClickToComponent />
+        </PrimeReactProvider>
       </I18nProvider>
     </QueryClientProvider>
   </StrictMode>

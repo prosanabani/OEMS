@@ -29,7 +29,6 @@
       "off",
       { "allowConstantExport": true }
     ],
-    "react-compiler/react-compiler": "error",
 
     // Don't like
     "no-undef": "off", // disable coz typescript check it already
