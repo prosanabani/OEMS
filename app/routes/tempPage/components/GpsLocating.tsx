@@ -1,8 +1,6 @@
-import React, { useEffect,useState  } from "react";
+import React, { useEffect, useState } from 'react';
 
-
-
-const GpsLocating = () => {
+function GpsLocating() {
   // const [latitude, setLatitude] = useState(null);
   // const [longitude, setLongitude] = useState(null);
 
@@ -56,6 +54,6 @@ const GpsLocating = () => {
       </div>
     </div>
   );
-};
+}
 
 export default GpsLocating;

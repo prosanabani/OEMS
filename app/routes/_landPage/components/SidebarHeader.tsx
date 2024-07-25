@@ -1,5 +1,5 @@
-const SidebarHeader = () => {
-  return <div>SidebarHeader</div>
+function SidebarHeader() {
+  return <div>SidebarHeader</div>;
 }
 
-export default SidebarHeader
+export default SidebarHeader;

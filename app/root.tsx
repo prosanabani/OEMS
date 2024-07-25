@@ -1,5 +1,5 @@
-import { Trans } from '@lingui/macro'
-import { useRouteError } from 'react-router-dom'
+import { Trans } from '@lingui/macro';
+import { useRouteError } from 'react-router-dom';
 
 export function Component() {
   return (
@@ -11,20 +11,20 @@ export function Component() {
       />
       <Outlet />
     </>
-  )
+  );
 }
 
 export function ErrorBoundray() {
-  const navigate = useNavigate()
-  const error = useRouteError()
+  const navigate = useNavigate();
+  const error = useRouteError();
 
   // log error in sentry or other log service
   // eslint-disable-next-line no-console
-  console.log(error)
+  console.log(error);
 
   function logout() {
     // also remove tokens
-    navigate('/login')
+    navigate('/login');
   }
 
   return (
@@ -33,19 +33,13 @@ export function ErrorBoundray() {
         <Trans>Sorry, there is an error.</Trans>
       </h1>
       <div className="flex gap-3">
-        <button
-          onClick={() => navigate('/')}
-          type="button"
-        >
+        <button onClick={() => navigate('/')} type="button">
           <Trans>Go to Home</Trans>
         </button>
-        <button
-          onClick={() => logout()}
-          type="button"
-        >
+        <button onClick={() => logout()} type="button">
           <Trans>Logout</Trans>
         </button>
       </div>
     </div>
-  )
+  );
 }

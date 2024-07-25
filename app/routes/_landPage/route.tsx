@@ -1,4 +1,4 @@
-import SideBar from './components/SideBar'
+import SideBar from './components/SideBar';
 
 export function Component() {
   return (
@@ -6,5 +6,5 @@ export function Component() {
       <SideBar />
       <Outlet />
     </main>
-  )
+  );
 }

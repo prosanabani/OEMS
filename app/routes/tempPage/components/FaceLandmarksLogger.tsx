@@ -1,17 +1,17 @@
-import * as faceapi from "face-api.js";
-import React, { useEffect,useState } from "react";
-import Webcam from "react-webcam";
+import * as faceapi from 'face-api.js';
+import React, { useEffect, useState } from 'react';
+import Webcam from 'react-webcam';
 
-const FacePoseLogger = () => {
+function FacePoseLogger() {
   const [modelLoaded, setModelLoaded] = useState(false);
   const webcamRef = React.useRef(null);
 
   useEffect(() => {
     const loadModels = async () => {
       await Promise.all([
-        faceapi.nets.tinyFaceDetector.loadFromUri("/models"),
-        faceapi.nets.faceLandmark68Net.loadFromUri("/models"),
-        faceapi.nets.faceRecognitionNet.loadFromUri("/models"),
+        faceapi.nets.tinyFaceDetector.loadFromUri('/models'),
+        faceapi.nets.faceLandmark68Net.loadFromUri('/models'),
+        faceapi.nets.faceRecognitionNet.loadFromUri('/models'),
       ]);
       setModelLoaded(true);
     };
@@ -35,8 +35,8 @@ const FacePoseLogger = () => {
         .detectSingleFace(img, new faceapi.TinyFaceDetectorOptions())
         .withFaceLandmarks();
       if (detections) {
-        const landmarks = detections.landmarks;
-        console.log("Landmarks:", landmarks);
+        const { landmarks } = detections;
+        console.log('Landmarks:', landmarks);
 
         // Calculate the centroids of nose, left eye, and right eye
         const nose = getCentroid(landmarks.getNose());
@@ -52,14 +52,14 @@ const FacePoseLogger = () => {
           // Calculate the average tilt angle
           const faceTilt = (leftTilt + rightTilt) / 2;
 
-          console.log("Face tilt:", faceTilt.toFixed(2), "degrees");
+          console.log('Face tilt:', faceTilt.toFixed(2), 'degrees');
         } else {
           console.log(
-            "Error: Not all required landmarks detected or have valid centroids"
+            'Error: Not all required landmarks detected or have valid centroids'
           );
         }
       } else {
-        console.log("No face detected");
+        console.log('No face detected');
       }
     }
   };
@@ -94,9 +94,9 @@ const FacePoseLogger = () => {
           mirrored // Mirror the webcam feed for better user experience
           ref={webcamRef}
           style={{
-            height: "auto",
-            maxHeight: "calc(100vh - 200px)",
-            width: "100%", // Adjust height as needed
+            height: 'auto',
+            maxHeight: 'calc(100vh - 200px)',
+            width: '100%', // Adjust height as needed
           }}
         />
       ) : (
@@ -104,6 +104,6 @@ const FacePoseLogger = () => {
       )}
     </div>
   );
-};
+}
 
 export default FacePoseLogger;

@@ -1,9 +1,9 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useState } from 'react';
 
-const OpenCamera = () => {
+function OpenCamera() {
   const videoRef = useRef(null); // Ref to the video element
   const [error, setError] = useState(null); // Error state
-  const [facingMode, setFacingMode] = useState("user"); // Initial facing mode
+  const [facingMode, setFacingMode] = useState('user'); // Initial facing mode
   const [isStreaming, setIsStreaming] = useState(false); // Streaming state
 
   const handleStartStream = async () => {
@@ -16,10 +16,10 @@ const OpenCamera = () => {
         videoRef.current.play();
         setIsStreaming(true);
       } else {
-        setError("Unable to access video stream.");
+        setError('Unable to access video stream.');
       }
     } catch (error_) {
-      setError(error_.message || "Error accessing camera.");
+      setError(error_.message || 'Error accessing camera.');
     }
   };
 
@@ -30,7 +30,7 @@ const OpenCamera = () => {
   };
 
   const handleFacingModeChange = () => {
-    setFacingMode(facingMode === "user" ? "environment" : "user");
+    setFacingMode(facingMode === 'user' ? 'environment' : 'user');
   };
 
   return (
@@ -57,6 +57,6 @@ const OpenCamera = () => {
       </div>
     </div>
   );
-};
+}
 
 export default OpenCamera;

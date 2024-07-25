@@ -1,16 +1,16 @@
-import { create } from 'zustand'
+import { create } from 'zustand';
 
 export type UserStore = {
   actions: {
-    setNewName: (name: string) => void
-  }
+    setNewName: (name: string) => void;
+  };
   filters: {
-    otherNames: () => string[]
-    usedNames: () => string[]
-  }
-  previousNames: Set<string>
-  savedName: string
-}
+    otherNames: () => string[];
+    usedNames: () => string[];
+  };
+  previousNames: Set<string>;
+  savedName: string;
+};
 
 export const useUserStore = create<UserStore>((set, get) => ({
   actions: {
@@ -18,10 +18,10 @@ export const useUserStore = create<UserStore>((set, get) => ({
       if (get().savedName) {
         set((state) => ({
           previousNames: new Set([...state.previousNames, name]),
-        }))
+        }));
       }
 
-      set({ savedName: name })
+      set({ savedName: name });
     },
   },
   filters: {
@@ -33,6 +33,6 @@ export const useUserStore = create<UserStore>((set, get) => ({
   },
   previousNames: new Set(),
   savedName: '',
-}))
+}));
 
-export const { setNewName } = useUserStore.getState().actions
+export const { setNewName } = useUserStore.getState().actions;

@@ -1,4 +1,4 @@
-const ChatApiSeparateQuestions = ({ ChatApiResponse: any }) => {
+function ChatApiSeparateQuestions({ ChatApiResponse: any }) {
   // console.log(JSON.parse(ChatApiResponse));
 
   // function separateQuestions(string) {
@@ -44,7 +44,7 @@ const ChatApiSeparateQuestions = ({ ChatApiResponse: any }) => {
         </div>
       ))}
     </div>
-  )
+  );
 }
 
-export default ChatApiSeparateQuestions
+export default ChatApiSeparateQuestions;

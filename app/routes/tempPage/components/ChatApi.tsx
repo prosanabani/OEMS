@@ -1,18 +1,18 @@
-import ChatApiSeparateQuestions from './ChatApiSeperateQuestions'
-import OpenAI from 'openai'
-import { useState } from 'react'
+import OpenAI from 'openai';
+import { useState } from 'react';
+import ChatApiSeparateQuestions from './ChatApiSeperateQuestions';
 
 // remain : to make this in the backend
-const ChatApi = () => {
-  const [prompt, setPrompt] = useState('')
-  const [ChatApiResponse, setChatApiResponse] = useState({})
+function ChatApi() {
+  const [prompt, setPrompt] = useState('');
+  const [ChatApiResponse, setChatApiResponse] = useState({});
 
   const handleSubmit = async (e) => {
-    e.preventDefault()
+    e.preventDefault();
     const openAI = new OpenAI({
       apiKey: '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',
       dangerouslyAllowBrowser: true, // This is also the default, can be omitted
-    })
+    });
     const getChatCompletion = async () => {
       const chatCompletion = await openAI.chat.completions.create({
         messages: [
@@ -22,15 +22,15 @@ const ChatApi = () => {
           },
         ],
         model: 'gpt-3.5-turbo',
-      })
+      });
       // console.log(JSON.parse(chatCompletion.choices[0].message.content));
-      setChatApiResponse(JSON.parse(chatCompletion.choices[0].message.content))
-    }
+      setChatApiResponse(JSON.parse(chatCompletion.choices[0].message.content));
+    };
 
-    getChatCompletion()
-  }
+    getChatCompletion();
+  };
 
-  console.log(ChatApiResponse)
+  console.log(ChatApiResponse);
   return (
     <div>
       <form onSubmit={handleSubmit}>
@@ -45,7 +45,7 @@ const ChatApi = () => {
         <ChatApiSeparateQuestions ChatApiResponse={ChatApiResponse} />
       )} */}
     </div>
-  )
+  );
 }
 
-export default ChatApi
+export default ChatApi;

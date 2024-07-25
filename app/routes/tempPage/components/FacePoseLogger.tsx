@@ -1,8 +1,8 @@
-import * as faceapi from "face-api.js";
-import React, { useEffect,useState } from "react";
-import Webcam from "react-webcam";
+import * as faceapi from 'face-api.js';
+import React, { useEffect, useState } from 'react';
+import Webcam from 'react-webcam';
 
-const FacePoseLogger = () => {
+function FacePoseLogger() {
   const [modelLoaded, setModelLoaded] = useState(false);
   const [faceDirection, setFaceDirection] = useState(0); // 0 represents center, positive for right, negative for left
   const webcamRef = React.useRef(null);
@@ -10,9 +10,9 @@ const FacePoseLogger = () => {
   useEffect(() => {
     const loadModels = async () => {
       await Promise.all([
-        faceapi.nets.tinyFaceDetector.loadFromUri("/models"),
-        faceapi.nets.faceLandmark68Net.loadFromUri("/models"),
-        faceapi.nets.faceRecognitionNet.loadFromUri("/models"),
+        faceapi.nets.tinyFaceDetector.loadFromUri('/models'),
+        faceapi.nets.faceLandmark68Net.loadFromUri('/models'),
+        faceapi.nets.faceRecognitionNet.loadFromUri('/models'),
       ]);
       setModelLoaded(true);
     };
@@ -36,7 +36,7 @@ const FacePoseLogger = () => {
         .detectSingleFace(img, new faceapi.TinyFaceDetectorOptions())
         .withFaceLandmarks();
       if (detections) {
-        const landmarks = detections.landmarks;
+        const { landmarks } = detections;
 
         // Calculate the centroid of left and right eye
         const leftEye = getCentroid(landmarks.getLeftEye());
@@ -57,7 +57,7 @@ const FacePoseLogger = () => {
       } else {
         // Reset face direction if no face is detected
         setFaceDirection(9_898);
-        console.log("No face detected");
+        console.log('No face detected');
       }
     }
   };
@@ -81,23 +81,23 @@ const FacePoseLogger = () => {
   return (
     <div>
       {modelLoaded ? (
-        <div style={{ display: "inline-block", position: "relative" }}>
+        <div style={{ display: 'inline-block', position: 'relative' }}>
           <Webcam
             mirrored // Mirror the webcam feed for better user experience
             ref={webcamRef}
             style={{
-              height: "auto",
-              maxHeight: "calc(100vh - 200px)",
-              width: "100%", // Adjust height as needed
+              height: 'auto',
+              maxHeight: 'calc(100vh - 200px)',
+              width: '100%', // Adjust height as needed
             }}
           />
           <div
             style={{
-              color: "red",
-              left: "50%",
-              position: "absolute",
-              top: "50%",
-              transform: "translate(-50%, -50%)",
+              color: 'red',
+              left: '50%',
+              position: 'absolute',
+              top: '50%',
+              transform: 'translate(-50%, -50%)',
             }}
           >
             <p>Face Direction: {faceDirection.toFixed(2)} degrees</p>
@@ -108,6 +108,6 @@ const FacePoseLogger = () => {
       )}
     </div>
   );
-};
+}
 
 export default FacePoseLogger;

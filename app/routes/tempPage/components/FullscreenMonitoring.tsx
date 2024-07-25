@@ -1,6 +1,6 @@
-import React, { useEffect,useState } from "react";
+import React, { useEffect, useState } from 'react';
 
-const MaximizedText = () => {
+function MaximizedText() {
   const [isMaximized, setIsMaximized] = useState(false);
 
   useEffect(() => {
@@ -8,9 +8,9 @@ const MaximizedText = () => {
       setIsMaximized(window.innerWidth === window.screen.width);
     };
 
-    window.addEventListener("resize", handleResize);
+    window.addEventListener('resize', handleResize);
     // use effect clear function
-    return () => window.removeEventListener("resize", handleResize);
+    return () => window.removeEventListener('resize', handleResize);
   }, []);
 
   return (
@@ -20,6 +20,6 @@ const MaximizedText = () => {
       </div>
     </div>
   );
-};
+}
 
 export default MaximizedText;

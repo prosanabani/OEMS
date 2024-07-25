@@ -1,5 +1,5 @@
-const Block = () => {
-  return <div>Block</div>
+function Block() {
+  return <div>Block</div>;
 }
 
-export default Block
+export default Block;

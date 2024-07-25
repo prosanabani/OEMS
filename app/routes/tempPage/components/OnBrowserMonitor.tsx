@@ -1,6 +1,6 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef } from 'react';
 
-const OnBrowserMonitor = () => {
+function OnBrowserMonitor() {
   const audioContextRef = useRef(null);
   const oscillatorRef = useRef(null);
   const gainNodeRef = useRef(null);
@@ -20,7 +20,7 @@ const OnBrowserMonitor = () => {
     if (!oscillatorRef.current) {
       // Create oscillator
       oscillatorRef.current = audioContext.createOscillator();
-      oscillatorRef.current.type = "sine";
+      oscillatorRef.current.type = 'sine';
       oscillatorRef.current.frequency.value = 1_000; // Adjust the frequency as desired
 
       // Create gain node
@@ -37,13 +37,13 @@ const OnBrowserMonitor = () => {
 
   useEffect(() => {
     const handleVisibilityChange = () => {
-      if (document.visibilityState === "hidden") {
+      if (document.visibilityState === 'hidden') {
         // User switched to a different tab or left the browser
-        console.log("User switched to a different tab or left the browser");
+        console.log('User switched to a different tab or left the browser');
         createOscillator();
-      } else if (document.visibilityState === "visible") {
+      } else if (document.visibilityState === 'visible') {
         // User came back to the tab or returned to the browser
-        console.log("User came back to the tab or returned to the browser");
+        console.log('User came back to the tab or returned to the browser');
         if (gainNodeRef.current) {
           // Gradually decrease the volume to make the sound fade out quickly
           const initialVolume = gainNodeRef.current.gain.value;
@@ -67,11 +67,11 @@ const OnBrowserMonitor = () => {
       }
     };
 
-    document.addEventListener("visibilitychange", handleVisibilityChange);
+    document.addEventListener('visibilitychange', handleVisibilityChange);
 
     // Cleanup the event listener when the component unmounts
     return () => {
-      document.removeEventListener("visibilitychange", handleVisibilityChange);
+      document.removeEventListener('visibilitychange', handleVisibilityChange);
       if (oscillatorRef.current) {
         oscillatorRef.current.stop();
         oscillatorRef.current.disconnect();
@@ -81,6 +81,6 @@ const OnBrowserMonitor = () => {
   }, []);
 
   return null; // This component does not render anything in the DOM
-};
+}
 
 export default OnBrowserMonitor;

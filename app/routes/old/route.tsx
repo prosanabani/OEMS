@@ -1,13 +1,14 @@
-import { Button } from 'primereact/button'
+import { Button } from 'primereact/button';
+
 export function Component() {
-  const [mode, setMode] = useState('dark')
+  const [mode, setMode] = useState('dark');
   const changeTheme = (newTheme: string) => {
-    const themeLink = document.getElementById('theme-link') as HTMLLinkElement
+    const themeLink = document.getElementById('theme-link') as HTMLLinkElement;
     if (themeLink) {
-      themeLink.href = `/themes/lara-${newTheme}-blue/theme.css`
-      setMode((prev) => (prev === 'light' ? 'dark' : 'light'))
+      themeLink.href = `/themes/lara-${newTheme}-blue/theme.css`;
+      setMode((prev) => (prev === 'light' ? 'dark' : 'light'));
     }
-  }
+  };
 
   return (
     <>
@@ -25,5 +26,5 @@ export function Component() {
         />
       </div>
     </>
-  )
+  );
 }

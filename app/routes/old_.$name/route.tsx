@@ -1,6 +1,6 @@
 export function Component() {
-  const { name } = useParams()
+  const { name } = useParams();
 
-  console.log(name)
-  return <div>{name}</div>
+  console.log(name);
+  return <div>{name}</div>;
 }
