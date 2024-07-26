@@ -1,5 +1,6 @@
 import {
   defineConfig,
+  presetIcons,
   presetTypography,
   presetUno,
   presetWebFonts,
@@ -10,6 +11,13 @@ import {
 
 export default defineConfig({
   presets: [
+    presetIcons({
+      extraProperties: {
+        display: 'inline-block',
+        'vertical-align': 'middle',
+        // ...
+      },
+    }),
     presetUno(), // by default follow existinse of `.dark` class, to follow system only set ({ dark: 'media' })
     // presetTheme({
     //   theme: {
