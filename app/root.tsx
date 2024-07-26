@@ -4,11 +4,7 @@ import { useRouteError } from 'react-router-dom';
 export function Component() {
   return (
     <>
-      <title>Reactive</title>
-      <meta
-        content="Opinionated React Starter Template, ispired by vitesse"
-        name="description"
-      />
+      <title>OEMS</title>
       <Outlet />
     </>
   );

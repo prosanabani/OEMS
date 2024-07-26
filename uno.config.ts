@@ -4,8 +4,9 @@ import {
   presetUno,
   presetWebFonts,
   transformerVariantGroup,
-} from 'unocss'
-// import presetTheme from 'unocss-preset-theme'
+} from 'unocss';
+
+// import presetTheme from 'unocss-preset-theme';
 
 export default defineConfig({
   presets: [
@@ -42,4 +43,4 @@ export default defineConfig({
     },
   },
   transformers: [transformerVariantGroup()],
-})
+});
