@@ -10,7 +10,7 @@ export function Component() {
           end={<ThemeButton />}
           pt={{
             root: {
-              className: 'w-full bg-red',
+              className: 'w-full',
             },
           }}
           start={<PageSlider />}

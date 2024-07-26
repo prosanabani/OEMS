@@ -1,67 +1,91 @@
-import SidebarHeader from './PageSlider.SidebarHeader';
 import { Button } from 'primereact/button';
 import { type MenuItem } from 'primereact/menuitem';
 import { PanelMenu } from 'primereact/panelmenu';
 import { Sidebar } from 'primereact/sidebar';
 
 const PageSlider = () => {
+  // const navigate = useNavigate();
   const [visible, setVisible] = useState<boolean>(true);
+
+  const listIcon = 'pi pi-list';
+  const plusIcon = 'pi pi-plus';
 
   const items: MenuItem[] = [
     {
-      icon: 'pi pi-file',
+      icon: 'pi pi-qrcode',
+      label: 'Dashboard',
+    },
+    {
+      icon: 'i-ic:outline-class w-18px h-18px mr-[3px] ',
       items: [
         {
-          icon: 'pi pi-file',
-          items: [
-            {
-              icon: 'pi pi-file-pdf',
-              items: [
-                {
-                  icon: 'pi pi-stop',
-                  label: 'Pending',
-                },
-                {
-                  icon: 'pi pi-check-circle',
-                  label: 'Paid',
-                },
-              ],
-              label: 'Invoices',
-            },
-            {
-              icon: 'pi pi-users',
-              label: 'Clients',
-            },
-          ],
-          label: 'Documents',
+          icon: listIcon,
+          label: 'Course list',
         },
         {
-          icon: 'pi pi-image',
-          items: [
-            {
-              icon: 'pi pi-image',
-              label: 'Logos',
-            },
-          ],
-          label: 'Images',
+          icon: plusIcon,
+          label: 'Add New course ',
+        },
+        {
+          icon: 'pi pi-eye',
+          label: 'View enrolled courses',
         },
       ],
-      label: 'Files',
+      label: 'Courses',
+    },
+
+    {
+      icon: 'pi pi-user',
+      items: [
+        { icon: 'pi pi-users', label: 'User List' },
+        { icon: plusIcon, label: 'Add new User' },
+      ],
+      label: 'Users',
+    },
+    {
+      icon: 'pi pi-book',
+      items: [
+        { icon: listIcon, label: 'Exams list' },
+        { icon: plusIcon, label: 'Add New exam' },
+      ],
+      label: 'Exams',
+    },
+    {
+      icon: 'i-quill:paper w-18px h-18px',
+      items: [
+        { icon: plusIcon, label: 'Add New Question' },
+        { icon: listIcon, label: 'Question list' },
+        { icon: 'pi pi-question', label: 'AI Generated questions' },
+      ],
+      label: 'Questions',
+    },
+    {
+      icon: 'pi pi-chart-line',
+      label: 'Reports & Analytics',
     },
   ];
 
   return (
-    <div className="card flex justify-content-center">
+    <div className="card flex justify-center">
       <Sidebar
+        appendTo="self"
         closeIcon={<Button icon="pi pi-times" />}
-        header={<SidebarHeader />}
         onHide={() => setVisible(false)}
         visible={visible}
       >
-        <PanelMenu model={items} />
+        <PanelMenu
+          model={items}
+          pt={{
+            headerLabel: {
+              className: 'text-18px ',
+            },
+            root: {
+              className: 'text-18px',
+            },
+          }}
+        />
       </Sidebar>
-
-      <Button label="click" onClick={() => setVisible(true)} />
+      <Button icon="pi pi-bars" onClick={() => setVisible(true)} />
     </div>
   );
 };
