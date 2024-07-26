@@ -5,7 +5,7 @@ import { Sidebar } from 'primereact/sidebar';
 
 const PageSlider = () => {
   // const navigate = useNavigate();
-  const [visible, setVisible] = useState<boolean>(true);
+  const [visible, setVisible] = useState<boolean>(false);
 
   const listIcon = 'pi pi-list';
   const plusIcon = 'pi pi-plus';
