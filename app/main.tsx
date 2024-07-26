@@ -1,5 +1,5 @@
 // css imports
-import '@unocss/reset/tailwind.css';
+// import '@unocss/reset/tailwind.css';
 import './styles/main.css';
 import 'virtual:uno.css';
 import 'primereact/resources/primereact.css';
