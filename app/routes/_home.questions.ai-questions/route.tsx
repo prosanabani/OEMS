@@ -4,10 +4,5 @@ export function Component() {
   // const data = fetchChatCompletion('what  is your name?');
 
   // console.log(data);
-  return (
-    <>
-      <div className="">hi</div>
-      <div className="" />
-    </>
-  );
+  return <div className="">ai questions</div>;
 }
