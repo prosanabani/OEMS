@@ -62,6 +62,7 @@
     "@vitejs/plugin-react": "^4.3.0",
     "@vitest/coverage-v8": "^0.34.6",
     "@vitest/ui": "^0.34.7",
+    "axios": "^1.7.2",
     "babel-plugin-macros": "^3.1.0",
     "click-to-react-component": "^1.1.0",
     "cross-env": "^7.0.3",
