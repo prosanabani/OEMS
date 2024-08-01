@@ -2,7 +2,6 @@ import { Button } from 'primereact/button';
 import { type MenuItem } from 'primereact/menuitem';
 import { PanelMenu } from 'primereact/panelmenu';
 import { Sidebar } from 'primereact/sidebar';
-import { eventNames } from 'process';
 
 const PageSlider = () => {
   const navigate = useNavigate();
