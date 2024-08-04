@@ -7,7 +7,7 @@
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "dev": "vite --host 0.0.0.0",
-    "build": "vite build && tsc && vite build",
+    "build": "tsc && vite build",
     "format": "prettier --write .",
     "format:check": "prettier . --check",
     "preview": "vite preview",
