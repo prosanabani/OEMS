@@ -26,6 +26,12 @@ importers:
       '@tanstack/react-query-devtools':
         specifier: ^5.51.1
         version: 5.51.1(@tanstack/react-query@5.51.1(react@18.0.0))(react@18.0.0)
+      '@tensorflow-models/blazeface':
+        specifier: ^0.1.0
+        version: 0.1.0(@tensorflow/tfjs-converter@4.20.0(@tensorflow/tfjs-core@4.20.0))(@tensorflow/tfjs-core@4.20.0)
+      '@tensorflow/tfjs':
+        specifier: ^4.20.0
+        version: 4.20.0(seedrandom@3.0.5)
       '@unocss/reset':
         specifier: ^0.56.5
         version: 0.56.5
@@ -62,6 +68,9 @@ importers:
       react-router-dom:
         specifier: ^6.23.1
         version: 6.24.1(react-dom@18.0.0(react@18.0.0))(react@18.0.0)
+      react-webcam:
+        specifier: ^7.2.0
+        version: 7.2.0(react-dom@18.0.0(react@18.0.0))(react@18.0.0)
       vite-plugin-pwa:
         specifier: ^0.16.7
         version: 0.16.7(vite@4.5.3(@types/node@20.14.9)(terser@5.31.1))(workbox-build@7.1.1(@types/babel__core@7.20.5))(workbox-window@7.1.0)
@@ -2043,9 +2052,51 @@ packages:
     peerDependencies:
       react: ^18.0.0
 
+  '@tensorflow-models/blazeface@0.1.0':
+    resolution: {integrity: sha512-Qc5Wii8/OE5beC7XfehkhF9SEFLaPbVKnxxalV0T9JXsUynXqvLommc9Eko7b8zXKy4SJ1BtVlcX2cmCzQrn9A==}
+    peerDependencies:
+      '@tensorflow/tfjs-converter': ^4.10.0
+      '@tensorflow/tfjs-core': ^4.10.0
+
+  '@tensorflow/tfjs-backend-cpu@4.20.0':
+    resolution: {integrity: sha512-1QRQ6AqAa/VB8JOArf5nY3Dc/QQHXbfuxgdIdQhKrABEHgvlaWt2Vv696UhIlVl75YoNY+vWlCwBdGQIKYfFGw==}
+    engines: {yarn: '>= 1.3.2'}
+    peerDependencies:
+      '@tensorflow/tfjs-core': 4.20.0
+
+  '@tensorflow/tfjs-backend-webgl@4.20.0':
+    resolution: {integrity: sha512-M03fJonJGxm2u3SCzRNA2JLh0gxaAye64SEmGAXOehizowxy42l+lMsPWU8xU7r7mN6PEilBNkuKAf5YJ7Xumg==}
+    engines: {yarn: '>= 1.3.2'}
+    peerDependencies:
+      '@tensorflow/tfjs-core': 4.20.0
+
+  '@tensorflow/tfjs-converter@4.20.0':
+    resolution: {integrity: sha512-UJ2ntQ1TNtVHB5qGMwB0j306bs3KH1E1HKJ9Dxvrc6PUaivOV+CPKqmbidOFG5LylXeRC36JBdhe+gVT2nFHNw==}
+    peerDependencies:
+      '@tensorflow/tfjs-core': 4.20.0
+
   '@tensorflow/tfjs-core@1.7.0':
     resolution: {integrity: sha512-uwQdiklNjqBnHPeseOdG0sGxrI3+d6lybaKu2+ou3ajVeKdPEwpWbgqA6iHjq1iylnOGkgkbbnQ6r2lwkiIIHw==}
     engines: {yarn: '>= 1.3.2'}
+
+  '@tensorflow/tfjs-core@4.20.0':
+    resolution: {integrity: sha512-m/cc9qDc63al9UhdbXRUYTLGfJJlhuN5tylAX/2pJMLj32c8a6ThGDJYoKzpf32n5g3MQGYLchjClDxeGdXMPQ==}
+    engines: {yarn: '>= 1.3.2'}
+
+  '@tensorflow/tfjs-data@4.20.0':
+    resolution: {integrity: sha512-k6S8joXhoXkatcoT6mYCxBzRCsnrLfnl6xjLe46SnXO0oEEy4Vuzbmp5Ydl1uU2hHr73zL91EdAC1k8Hng/+oA==}
+    peerDependencies:
+      '@tensorflow/tfjs-core': 4.20.0
+      seedrandom: ^3.0.5
+
+  '@tensorflow/tfjs-layers@4.20.0':
+    resolution: {integrity: sha512-SCHZH29Vyw+Y9eoaJHiaNo6yqM9vD3XCKncoczonRRywejm3FFqddg1AuWAfSE9XoNPE21o9PsknvKLl/Uh+Cg==}
+    peerDependencies:
+      '@tensorflow/tfjs-core': 4.20.0
+
+  '@tensorflow/tfjs@4.20.0':
+    resolution: {integrity: sha512-+ZLfJq2jyIOE2/+yKPoyD/gfy3RZypbfMrlzvBDgodTK5jnexprihhX38hxilh9HPWvWQXJqiUjKJP5ECCikrw==}
+    hasBin: true
 
   '@testing-library/dom@9.3.4':
     resolution: {integrity: sha512-FlS4ZWlp97iiNWig0Muq8p+3rVDjRiYE+YKGbAqXOu9nwJFFOdL00kFpz42M+4huzYi86vAK1sOOfyOG45muIQ==}
@@ -2100,6 +2151,9 @@ packages:
   '@types/json5@0.0.29':
     resolution: {integrity: sha512-dRLjCWHYg4oaA77cxO64oO+7JwCwnIzkZPdrrC71jQmQtlhM556pwKo5bUzqvZndkVbeFLIIi+9TC40JNF5hNQ==}
 
+  '@types/long@4.0.2':
+    resolution: {integrity: sha512-MqTGEo5bj5t157U6fA/BiDynNkn0YknVdh48CMPkTSpFTVmvao5UQmm7uEF6xBEo7qIMAlY/JSleYaE6VOdpaA==}
+
   '@types/node-fetch@2.6.11':
     resolution: {integrity: sha512-24xFj9R5+rfQJLRyM56qh+wnVSYhyXC2tkoBndtY0U+vubqNsYXGjufB2nn8Q6gt0LrARwL6UBtMCSVCwl4B1g==}
 
@@ -2114,6 +2168,9 @@ packages:
 
   '@types/offscreencanvas@2019.3.0':
     resolution: {integrity: sha512-esIJx9bQg+QYF0ra8GnvfianIY8qWB0GBx54PK5Eps6m+xTj86KLavHv6qDhzKcu5UUOgNfJ2pWaIIV7TRUd9Q==}
+
+  '@types/offscreencanvas@2019.7.3':
+    resolution: {integrity: sha512-ieXiYmgSRXUDeOntE1InxjWyvEelZGP63M+cGuquuRLuIKKT1osnkXjxev9B7d1nXSug5vpunx+gNlbVxMlC9A==}
 
   '@types/parse-json@4.0.2':
     resolution: {integrity: sha512-dISoDXWWQwUquiKsyZ4Ng+HX2KsPL7LyHKHQwgGFEA3IaKac4Obd+h2a/a6waisAoepJlBcx9paWqjA8/HVjCw==}
@@ -2135,6 +2192,9 @@ packages:
 
   '@types/seedrandom@2.4.27':
     resolution: {integrity: sha512-YvMLqFak/7rt//lPBtEHv3M4sRNA+HGxrhFZ+DQs9K2IkYJbNwVIb8avtJfhDiuaUBX/AW0jnjv48FV8h3u9bQ==}
+
+  '@types/seedrandom@2.4.34':
+    resolution: {integrity: sha512-ytDiArvrn/3Xk6/vtylys5tlY6eo7Ane0hvcx++TKo6RxQXuVfW0AF/oeWqAj9dN29SyhtawuXstgmPlwNcv/A==}
 
   '@types/semver@7.5.8':
     resolution: {integrity: sha512-I8EUhyrgfLrcTkzV3TSsGyl1tSuPrEDzr0yd5m90UgNxQkyDXULk3b6MlQqTCpZpNtWe1K0hzclnZkTcLBe2UQ==}
@@ -2459,6 +2519,9 @@ packages:
   '@vitest/utils@0.34.7':
     resolution: {integrity: sha512-ziAavQLpCYS9sLOorGrFFKmy2gnfiNU0ZJ15TsMz/K92NAPS/rp9K4z6AJQQk5Y8adCy4Iwpxy7pQumQ/psnRg==}
 
+  '@webgpu/types@0.1.38':
+    resolution: {integrity: sha512-7LrhVKz2PRh+DD7+S+PVaFd5HxaWQvoMqBbsV9fNJO1pjUs1P8bM2vQVNfk+3URTqbuTI7gkXi0rfsN0IadoBA==}
+
   '@whatwg-node/events@0.0.3':
     resolution: {integrity: sha512-IqnKIDWfXBJkvy/k6tzskWTc2NK3LcqHlb+KHGCrjOCH4jfQckRX0NAiIcC/vIqQkzLYw2r2CTSwAxcrtcD6lA==}
 
@@ -2770,6 +2833,9 @@ packages:
     peerDependencies:
       react: '>=16.8.0'
 
+  cliui@7.0.4:
+    resolution: {integrity: sha512-OcRE68cOsVMXp1Yvonl/fzkQOyjLSu/8bhPDfQt0e0/Eb283TKP20Fs2MqoPsr9SwA595rRCA+QMzYc9nBP+JQ==}
+
   cliui@8.0.1:
     resolution: {integrity: sha512-BSeNnyus75C4//NQ9gQt1/csTXyo/8Sb+afLAkzAptFuMsod9HFokGNudZpi/oQV73hnVK+sR+5PVRMd+Dr7YQ==}
     engines: {node: '>=12'}
@@ -2842,6 +2908,9 @@ packages:
 
   core-js-pure@3.37.1:
     resolution: {integrity: sha512-J/r5JTHSmzTxbiYYrzXg9w1VpqrYt+gexenBE9pugeyhwPZTAEJddyiReJWsLO6uNQ8xJZFbod6XC7KKwatCiA==}
+
+  core-js@3.29.1:
+    resolution: {integrity: sha512-+jwgnhg6cQxKYIIjGtAHq2nwUOolo9eoFZ4sHfUH09BLXBgxnH4gA0zEd+t+BO2cNB8idaBtZFcFTRjQJRJmAw==}
 
   cosmiconfig@7.1.0:
     resolution: {integrity: sha512-AdmX6xUzdNASswsFtmwSt7Vj8po9IuqXm0UXz7QKPuEUmPB4XyjGfaAr2PSuELMwkRMVH1EpIkX5bTZGRB3eCA==}
@@ -4226,6 +4295,9 @@ packages:
     resolution: {integrity: sha512-8XPvpAA8uyhfteu8pIvQxpJZ7SYYdpUivZpGy6sFsBuKRY/7rQGavedeB8aK+Zkyq6upMFVL/9AW6vOYzfRyLg==}
     engines: {node: '>=10'}
 
+  long@4.0.0:
+    resolution: {integrity: sha512-XsP+KhQif4bjX1kbuSiySJFNAehNxgLb6hPRGJ9QsUr8ajHkuXGdrHmFUTUUXhDwVX2R5bY4JNZEwbUiMhV+MA==}
+
   long@5.2.3:
     resolution: {integrity: sha512-lcHwpNoggQTObv5apGNCTdJrO69eHOZMi4BNC+rTLER8iHAqGrUVeLh/irVIM7zTw2bOXA8T6uNPeujwOLg/2Q==}
 
@@ -4385,6 +4457,15 @@ packages:
   node-fetch@2.1.2:
     resolution: {integrity: sha512-IHLHYskTc2arMYsHZH82PVX8CSKT5lzb7AXeyO06QnjGDKtkv+pv3mEki6S7reB/x1QPo+YPxQRNEVgR5V/w3Q==}
     engines: {node: 4.x || >=6.0.0}
+
+  node-fetch@2.6.13:
+    resolution: {integrity: sha512-StxNAxh15zr77QvvkmveSQ8uCQ4+v5FkvNTj0OESmiHu+VRi/gXArXtkWMElOsOUNLtUEvI4yS+rdtOHZTwlQA==}
+    engines: {node: 4.x || >=6.0.0}
+    peerDependencies:
+      encoding: ^0.1.0
+    peerDependenciesMeta:
+      encoding:
+        optional: true
 
   node-fetch@2.7.0:
     resolution: {integrity: sha512-c4FRfUm/dbcWZ7U+1Wq0AwCyFL+3nt2bEw05wfxSz+DWpWsitgmSgYmy2dQdWyKC1694ELPqMs/YzUSNozLt8A==}
@@ -4739,6 +4820,12 @@ packages:
       react: '>=16.6.0'
       react-dom: '>=16.6.0'
 
+  react-webcam@7.2.0:
+    resolution: {integrity: sha512-xkrzYPqa1ag2DP+2Q/kLKBmCIfEx49bVdgCCCcZf88oF+0NPEbkwYk3/s/C7Zy0mhM8k+hpdNkBLzxg8H0aWcg==}
+    peerDependencies:
+      react: '>=16.2.0'
+      react-dom: '>=16.2.0'
+
   react@18.0.0:
     resolution: {integrity: sha512-x+VL6wbT4JRVPm7EGxXhZ8w8LTROaxPXOqhlGyVSrv0sB1jkyFGgXxJ8LVoPRLvPR6/CIZGFmfzqUa2NYeMr2A==}
     engines: {node: '>=0.10.0'}
@@ -4781,6 +4868,9 @@ packages:
 
   regenerate@1.4.2:
     resolution: {integrity: sha512-zrceR/XhGYU/d/opr2EKO7aRHUeiBI8qjtfHqADTwZd6Szfy16la6kqD0MIUs5z5hx6AaKa+PixpPrR289+I0A==}
+
+  regenerator-runtime@0.13.11:
+    resolution: {integrity: sha512-kY1AZVr2Ra+t+piVaJ4gxaFaReZVH40AKNo7UCX6W+dEwBo/2oZJzqfuN1qLq1oL45o56cPaTXELwrTh8Fpggg==}
 
   regenerator-runtime@0.14.1:
     resolution: {integrity: sha512-dYnhHh0nJoMfnkZs6GmmhFknAGRrLznOu5nc9ML+EJxGvrx6H7teuevqVqCuPcPK//3eDrrjQhehXVx9cnkGdw==}
@@ -4921,6 +5011,9 @@ packages:
 
   seedrandom@2.4.3:
     resolution: {integrity: sha512-2CkZ9Wn2dS4mMUWQaXLsOAfGD+irMlLEeSP3cMxpGbgyOOzJGFa+MWCOMTOCMyZinHRPxyOj/S/C57li/1to6Q==}
+
+  seedrandom@3.0.5:
+    resolution: {integrity: sha512-8OwmbklUNzwezjGInmZ+2clQmExQPvomqjL7LFqOYqtmuxRgQYqOD3mHaU+MvZn5FLUeVxVfQjwLZW/n/JFuqg==}
 
   semver-compare@1.0.0:
     resolution: {integrity: sha512-YM3/ITh2MJ5MtzaM429anh+x2jiLVjqILF4m4oyQB18W7Ggea7BfqdH/wGMK7dDiMghv/6WG7znWMwUDzJiXow==}
@@ -5737,9 +5830,17 @@ packages:
     engines: {node: '>= 14'}
     hasBin: true
 
+  yargs-parser@20.2.9:
+    resolution: {integrity: sha512-y11nGElTIV+CT3Zv9t7VKl+Q3hTQoT9a1Qzezhhl6Rp21gJ/IVTW7Z3y9EWXhuUBC2Shnf+DX0antecpAwSP8w==}
+    engines: {node: '>=10'}
+
   yargs-parser@21.1.1:
     resolution: {integrity: sha512-tVpsJW7DdjecAiFpbIB1e3qxIQsE6NoPc5/eTdrbbIC4h0LVsWhnoa3g+m2HclBIujHzsxZ4VJVA+GUuc2/LBw==}
     engines: {node: '>=12'}
+
+  yargs@16.2.0:
+    resolution: {integrity: sha512-D1mvvtDG0L5ft/jGWkLpG1+m0eQxOfaBvTNELraWj22wSVUMWxZUvYgJYcKh6jGGIkJFhH4IZPQhR4TKpc8mBw==}
+    engines: {node: '>=10'}
 
   yargs@17.7.2:
     resolution: {integrity: sha512-7dSzzRQ++CKnNI/krKnYRV7JKKPUXMEh61soaHKg9mrWEhzFWhFnxPxGl+69cD1Ou63C13NUPCnmIcrvqCuM6w==}
@@ -7927,6 +8028,29 @@ snapshots:
       '@tanstack/query-core': 5.51.1
       react: 18.0.0
 
+  '@tensorflow-models/blazeface@0.1.0(@tensorflow/tfjs-converter@4.20.0(@tensorflow/tfjs-core@4.20.0))(@tensorflow/tfjs-core@4.20.0)':
+    dependencies:
+      '@tensorflow/tfjs-converter': 4.20.0(@tensorflow/tfjs-core@4.20.0)
+      '@tensorflow/tfjs-core': 4.20.0
+
+  '@tensorflow/tfjs-backend-cpu@4.20.0(@tensorflow/tfjs-core@4.20.0)':
+    dependencies:
+      '@tensorflow/tfjs-core': 4.20.0
+      '@types/seedrandom': 2.4.34
+      seedrandom: 3.0.5
+
+  '@tensorflow/tfjs-backend-webgl@4.20.0(@tensorflow/tfjs-core@4.20.0)':
+    dependencies:
+      '@tensorflow/tfjs-backend-cpu': 4.20.0(@tensorflow/tfjs-core@4.20.0)
+      '@tensorflow/tfjs-core': 4.20.0
+      '@types/offscreencanvas': 2019.3.0
+      '@types/seedrandom': 2.4.34
+      seedrandom: 3.0.5
+
+  '@tensorflow/tfjs-converter@4.20.0(@tensorflow/tfjs-core@4.20.0)':
+    dependencies:
+      '@tensorflow/tfjs-core': 4.20.0
+
   '@tensorflow/tfjs-core@1.7.0':
     dependencies:
       '@types/offscreencanvas': 2019.3.0
@@ -7935,6 +8059,49 @@ snapshots:
       '@types/webgl2': 0.0.4
       node-fetch: 2.1.2
       seedrandom: 2.4.3
+
+  '@tensorflow/tfjs-core@4.20.0':
+    dependencies:
+      '@types/long': 4.0.2
+      '@types/offscreencanvas': 2019.7.3
+      '@types/seedrandom': 2.4.34
+      '@webgpu/types': 0.1.38
+      long: 4.0.0
+      node-fetch: 2.6.13
+      seedrandom: 3.0.5
+    transitivePeerDependencies:
+      - encoding
+
+  '@tensorflow/tfjs-data@4.20.0(@tensorflow/tfjs-core@4.20.0)(seedrandom@3.0.5)':
+    dependencies:
+      '@tensorflow/tfjs-core': 4.20.0
+      '@types/node-fetch': 2.6.11
+      node-fetch: 2.6.13
+      seedrandom: 3.0.5
+      string_decoder: 1.3.0
+    transitivePeerDependencies:
+      - encoding
+
+  '@tensorflow/tfjs-layers@4.20.0(@tensorflow/tfjs-core@4.20.0)':
+    dependencies:
+      '@tensorflow/tfjs-core': 4.20.0
+
+  '@tensorflow/tfjs@4.20.0(seedrandom@3.0.5)':
+    dependencies:
+      '@tensorflow/tfjs-backend-cpu': 4.20.0(@tensorflow/tfjs-core@4.20.0)
+      '@tensorflow/tfjs-backend-webgl': 4.20.0(@tensorflow/tfjs-core@4.20.0)
+      '@tensorflow/tfjs-converter': 4.20.0(@tensorflow/tfjs-core@4.20.0)
+      '@tensorflow/tfjs-core': 4.20.0
+      '@tensorflow/tfjs-data': 4.20.0(@tensorflow/tfjs-core@4.20.0)(seedrandom@3.0.5)
+      '@tensorflow/tfjs-layers': 4.20.0(@tensorflow/tfjs-core@4.20.0)
+      argparse: 1.0.10
+      chalk: 4.1.2
+      core-js: 3.29.1
+      regenerator-runtime: 0.13.11
+      yargs: 16.2.0
+    transitivePeerDependencies:
+      - encoding
+      - seedrandom
 
   '@testing-library/dom@9.3.4':
     dependencies:
@@ -8002,6 +8169,8 @@ snapshots:
 
   '@types/json5@0.0.29': {}
 
+  '@types/long@4.0.2': {}
+
   '@types/node-fetch@2.6.11':
     dependencies:
       '@types/node': 20.14.9
@@ -8018,6 +8187,8 @@ snapshots:
   '@types/normalize-package-data@2.4.4': {}
 
   '@types/offscreencanvas@2019.3.0': {}
+
+  '@types/offscreencanvas@2019.7.3': {}
 
   '@types/parse-json@4.0.2': {}
 
@@ -8039,6 +8210,8 @@ snapshots:
   '@types/resolve@1.20.2': {}
 
   '@types/seedrandom@2.4.27': {}
+
+  '@types/seedrandom@2.4.34': {}
 
   '@types/semver@7.5.8': {}
 
@@ -8538,6 +8711,8 @@ snapshots:
       loupe: 2.3.7
       pretty-format: 29.7.0
 
+  '@webgpu/types@0.1.38': {}
+
   '@whatwg-node/events@0.0.3': {}
 
   '@whatwg-node/fetch@0.8.8':
@@ -8913,6 +9088,12 @@ snapshots:
       - '@types/react'
       - react-dom
 
+  cliui@7.0.4:
+    dependencies:
+      string-width: 4.2.3
+      strip-ansi: 6.0.1
+      wrap-ansi: 7.0.0
+
   cliui@8.0.1:
     dependencies:
       string-width: 4.2.3
@@ -8972,6 +9153,8 @@ snapshots:
       browserslist: 4.23.1
 
   core-js-pure@3.37.1: {}
+
+  core-js@3.29.1: {}
 
   cosmiconfig@7.1.0:
     dependencies:
@@ -10688,6 +10871,8 @@ snapshots:
       chalk: 4.1.2
       is-unicode-supported: 0.1.0
 
+  long@4.0.0: {}
+
   long@5.2.3: {}
 
   loose-envify@1.4.0:
@@ -10823,6 +11008,10 @@ snapshots:
   node-fetch-native@1.6.4: {}
 
   node-fetch@2.1.2: {}
+
+  node-fetch@2.6.13:
+    dependencies:
+      whatwg-url: 5.0.0
 
   node-fetch@2.7.0:
     dependencies:
@@ -11171,6 +11360,11 @@ snapshots:
       react: 18.0.0
       react-dom: 18.0.0(react@18.0.0)
 
+  react-webcam@7.2.0(react-dom@18.0.0(react@18.0.0))(react@18.0.0):
+    dependencies:
+      react: 18.0.0
+      react-dom: 18.0.0(react@18.0.0)
+
   react@18.0.0:
     dependencies:
       loose-envify: 1.4.0
@@ -11229,6 +11423,8 @@ snapshots:
       regenerate: 1.4.2
 
   regenerate@1.4.2: {}
+
+  regenerator-runtime@0.13.11: {}
 
   regenerator-runtime@0.14.1: {}
 
@@ -11366,6 +11562,8 @@ snapshots:
   scule@1.3.0: {}
 
   seedrandom@2.4.3: {}
+
+  seedrandom@3.0.5: {}
 
   semver-compare@1.0.0: {}
 
@@ -12283,7 +12481,19 @@ snapshots:
 
   yaml@2.5.0: {}
 
+  yargs-parser@20.2.9: {}
+
   yargs-parser@21.1.1: {}
+
+  yargs@16.2.0:
+    dependencies:
+      cliui: 7.0.4
+      escalade: 3.1.2
+      get-caller-file: 2.0.5
+      require-directory: 2.1.1
+      string-width: 4.2.3
+      y18n: 5.0.8
+      yargs-parser: 20.2.9
 
   yargs@17.7.2:
     dependencies:

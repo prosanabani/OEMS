@@ -27,6 +27,8 @@
     "@lingui/react": "^4.11.2",
     "@tanstack/react-query": "^5.51.1",
     "@tanstack/react-query-devtools": "^5.51.1",
+    "@tensorflow-models/blazeface": "^0.1.0",
+    "@tensorflow/tfjs": "^4.20.0",
     "@unocss/reset": "^0.56.5",
     "face-api.js": "^0.22.2",
     "firebase": "^10.12.3",
@@ -39,6 +41,7 @@
     "react-dom": "18.0.0",
     "react-hook-form": "^7.52.1",
     "react-router-dom": "^6.23.1",
+    "react-webcam": "^7.2.0",
     "vite-plugin-pwa": "^0.16.7",
     "zustand": "^4.5.2"
   },
