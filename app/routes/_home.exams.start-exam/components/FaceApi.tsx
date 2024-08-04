@@ -1,9 +1,25 @@
+/* eslint-disable unicorn/no-array-reduce */
 /* eslint-disable react-hooks/exhaustive-deps */
 import * as faceApi from 'face-api.js';
 import Webcam from 'react-webcam';
 
 type Point = { x: number; y: number };
 type Landmark = Point[];
+
+const getCentroid = (points: Landmark): Point | null => {
+  if (!points || points.length === 0) return null;
+  const centroid = points.reduce(
+    (accumulator, point) => {
+      accumulator.x += point.x;
+      accumulator.y += point.y;
+      return accumulator;
+    },
+    { x: 0, y: 0 }
+  );
+  centroid.x /= points.length;
+  centroid.y /= points.length;
+  return centroid;
+};
 
 const FaceApi = () => {
   const [modelLoaded, setModelLoaded] = useState<boolean>(false);
@@ -15,7 +31,7 @@ const FaceApi = () => {
 
   const createAudioContext = () => {
     if (!audioContextRef.current) {
-      const AudioContext = window.AudioContext || window.webkitAudioContext;
+      const AudioContext = window.AudioContext;
       audioContextRef.current = new AudioContext();
     }
 
@@ -46,21 +62,6 @@ const FaceApi = () => {
   };
 
   // Function to calculate the centroid of an array of points
-
-  const getCentroid = (points: Landmark): Point | null => {
-    if (!points || points.length === 0) return null;
-    const centroid = points.reduce(
-      (accumulator, point) => {
-        accumulator.x += point.x;
-        accumulator.y += point.y;
-        return accumulator;
-      },
-      { x: 0, y: 0 }
-    );
-    centroid.x /= points.length;
-    centroid.y /= points.length;
-    return centroid;
-  };
 
   const captureAndLogFacePose = async () => {
     if (modelLoaded && webcamRef.current) {

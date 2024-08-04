@@ -1,4 +1,4 @@
-import GlobalBreadCrumb from '@/components/GlobalBreadCrumb';
+// import GlobalBreadCrumb from '@/components/GlobalBreadCrumb';
 import { type MenuItem } from 'primereact/menuitem';
 import { TabMenu } from 'primereact/tabmenu';
 
@@ -32,12 +32,12 @@ export function Component() {
 
   return (
     <>
-      <GlobalBreadCrumb
+      {/* <GlobalBreadCrumb
         items={[
           { label: 'Courses', path: '/courses' },
           { label: 'Course List', path: '/courses/course-list' },
         ]}
-      />
+      /> */}
       <TabMenu
         activeIndex={activeIndex}
         model={TapMenuItems}

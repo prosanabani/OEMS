@@ -1,6 +1,6 @@
 // src/hooks/useFacePoseDetection.ts
 import '@tensorflow/tfjs-backend-webgl';
-import * as blazeface from '@tensorflow-models/blazeface';
+import * as blazeFace from '@tensorflow-models/blazeface';
 
 type Face = {
   bottomRight: [number, number];
@@ -13,12 +13,12 @@ type Face = {
 export const useFacePoseDetection = (
   videoRef: React.RefObject<HTMLVideoElement>
 ) => {
-  const [model, setModel] = useState<blazeface.BlazeFaceModel | null>(null);
+  const [model, setModel] = useState<blazeFace.BlazeFaceModel | null>(null);
   const [faces, setFaces] = useState<Face[]>([]);
 
   useEffect(() => {
     const loadModel = async () => {
-      const loadedModel = await blazeface.load();
+      const loadedModel = await blazeFace.load();
       setModel(loadedModel);
     };
 
@@ -51,7 +51,9 @@ export const useFacePoseDetection = (
         const predictions = await model.estimateFaces(videoRef.current, false);
         const facesWithRotation = predictions.map((prediction) => ({
           ...prediction,
-          rotation: calculateRotation(prediction.landmarks ?? []),
+
+          // @ts-expect-error until it is resolved from the library
+          rotation: calculateRotation(prediction.landmarks || []),
         }));
         setFaces(facesWithRotation as unknown as Face[]);
       }
