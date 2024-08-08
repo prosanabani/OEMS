@@ -1,5 +1,6 @@
 // src/hooks/useFacePoseDetection.ts
 import '@tensorflow/tfjs-backend-webgl';
+import useBeepSound from './useBeepSound';
 import * as blazeFace from '@tensorflow-models/blazeface';
 
 type Face = {
@@ -16,9 +17,7 @@ export const useTensorFlowFacePoseDetection = (
   const [model, setModel] = useState<blazeFace.BlazeFaceModel | null>(null);
   const [faces, setFaces] = useState<Face[]>([]);
 
-  const audioContextRef = useRef<AudioContext | null>(null);
-  const oscillatorRef = useRef<OscillatorNode | null>(null);
-  const gainNodeRef = useRef<GainNode | null>(null);
+  const { playBeepSound, stopBeepSound } = useBeepSound();
 
   useEffect(() => {
     const loadModel = async () => {
@@ -28,38 +27,6 @@ export const useTensorFlowFacePoseDetection = (
 
     loadModel();
   }, []);
-
-  const createAudioContext = () => {
-    if (!audioContextRef.current) {
-      const AudioContext = window.AudioContext;
-      audioContextRef.current = new AudioContext();
-    }
-
-    return audioContextRef.current;
-  };
-
-  const playBeepSound = () => {
-    const audioContext = createAudioContext();
-    if (!oscillatorRef.current) {
-      oscillatorRef.current = audioContext.createOscillator();
-      oscillatorRef.current.type = 'sine';
-      oscillatorRef.current.frequency.value = 1_000; // Adjust the frequency as desired
-
-      gainNodeRef.current = audioContext.createGain();
-      oscillatorRef.current.connect(gainNodeRef.current);
-      gainNodeRef.current.connect(audioContext.destination);
-
-      oscillatorRef.current.start();
-    }
-  };
-
-  const stopBeepSound = () => {
-    if (oscillatorRef.current) {
-      oscillatorRef.current.stop();
-      oscillatorRef.current.disconnect();
-      oscillatorRef.current = null;
-    }
-  };
 
   useEffect(() => {
     if (faces.some((face) => face.rotation < 45 || face.rotation > 55)) {

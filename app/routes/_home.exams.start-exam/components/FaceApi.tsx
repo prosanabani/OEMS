@@ -92,7 +92,7 @@ const FaceApi = () => {
       } else {
         // Reset face direction if no face is detected
         setFaceDirection(0);
-        console.log('No face detected');
+        // console.log('No face detected');
       }
     }
   };
