@@ -1,11 +1,9 @@
-// import FaceApi from './components/FaceApi';
-import RenderResult from './components/RenderResult';
+// import TensorFlowPoseMonitoring from './components/TensorflowPoseMonitoring';
 
 export function Component() {
   return (
     <div className="">
-      {/* <FaceApi /> */}
-      <RenderResult />
+      {/* <TensorFlowPoseMonitoring /> */}
       <p />
     </div>
   );

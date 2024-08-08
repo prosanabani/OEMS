@@ -1,9 +1,9 @@
-import { useCamera } from './UseCamera';
-import { useFacePoseDetection } from './useFacePoseDetection';
+import { useCamera } from '../hooks/useCamera';
+import { useTensorFlowFacePoseDetection } from '../hooks/useTensorFlowFacePoseDetection';
 
-const RenderResult = () => {
+const TensorFlowPoseMonitoring = () => {
   const videoRef = useCamera();
-  const faces = useFacePoseDetection(videoRef);
+  const faces = useTensorFlowFacePoseDetection(videoRef);
 
   return (
     <div
@@ -70,4 +70,4 @@ const RenderResult = () => {
   );
 };
 
-export default RenderResult;
+export default TensorFlowPoseMonitoring;
