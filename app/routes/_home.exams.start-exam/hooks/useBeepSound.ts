@@ -3,16 +3,16 @@ const useBeepSound = () => {
   const oscillatorRef = useRef<OscillatorNode | null>(null);
   const gainNodeRef = useRef<GainNode | null>(null);
 
-  const createAudioContext = () => {
+  const createAudioContext = useCallback(() => {
     if (!audioContextRef.current) {
       const AudioContext = window.AudioContext;
       audioContextRef.current = new AudioContext();
     }
 
     return audioContextRef.current;
-  };
+  }, []);
 
-  const playBeepSound = () => {
+  const playBeepSound = useCallback(() => {
     const audioContext = createAudioContext();
     if (!oscillatorRef.current) {
       oscillatorRef.current = audioContext.createOscillator();
@@ -25,15 +25,22 @@ const useBeepSound = () => {
 
       oscillatorRef.current.start();
     }
-  };
+  }, []);
 
-  const stopBeepSound = () => {
+  const stopBeepSound = useCallback(() => {
     if (oscillatorRef.current) {
       oscillatorRef.current.stop();
       oscillatorRef.current.disconnect();
       oscillatorRef.current = null;
+      gainNodeRef.current = null; // Clear gainNodeRef as well
     }
-  };
+  }, []);
+
+  useEffect(() => {
+    return () => {
+      stopBeepSound(); // Ensure cleanup when component unmounts
+    };
+  }, []);
 
   return { playBeepSound, stopBeepSound };
 };
