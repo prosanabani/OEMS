@@ -3,6 +3,7 @@ export function Component() {
     <div className="">
       {/* <TensorFlowPoseMonitoring /> */}
       {/* <OnTapMonitoring /> */}
+      {/* <FullscreenBeep /> */}
       <p />
     </div>
   );

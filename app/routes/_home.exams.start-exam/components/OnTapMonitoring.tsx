@@ -19,7 +19,7 @@ const OnTapMonitoring = () => {
     };
   }, [playBeepSound, stopBeepSound]);
 
-  return <div>OnTapMonitoring</div>;
+  return null; // this component wont render anything
 };
 
 export default OnTapMonitoring;
