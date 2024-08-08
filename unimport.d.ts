@@ -10,6 +10,7 @@ declare global {
   const afterAll: typeof import('vitest')['afterAll']
   const afterEach: typeof import('vitest')['afterEach']
   const analytics: typeof import('D:/Users/Ali/Documents/GitHub/OEMS/app/config/firebase')['analytics']
+  const apiClient: typeof import('D:/Users/Ali/Documents/GitHub/OEMS/app/config/apiClient')['apiClient']
   const app: typeof import('D:/Users/Ali/Documents/GitHub/OEMS/app/config/firebase')['app']
   const assert: typeof import('vitest')['assert']
   const auth: typeof import('D:/Users/Ali/Documents/GitHub/OEMS/app/config/firebase')['auth']
