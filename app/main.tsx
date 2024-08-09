@@ -4,7 +4,7 @@ import './styles/main.css';
 import 'virtual:uno.css';
 import 'primereact/resources/primereact.css';
 import 'primeicons/primeicons.css';
-// import 'primereact/resources/themes/lara-light-purple/theme.css';
+import 'primereact/resources/themes/lara-light-blue/theme.css';
 import queryClient from './config/queryClient';
 import { I18nProvider } from '@lingui/react';
 import { QueryClientProvider } from '@tanstack/react-query';
