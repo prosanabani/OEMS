@@ -1,9 +1,11 @@
 export {}
 declare global {
+  const AppStore: typeof import('D:/Users/Ali/Documents/GitHub/OEMS/app/stores/AppStore')['default']
   const GlobalBreadCrumb: typeof import('D:/Users/Ali/Documents/GitHub/OEMS/app/components/GlobalBreadCrumb')['default']
   const Link: typeof import('react-router-dom')['Link']
   const NavLink: typeof import('react-router-dom')['NavLink']
   const Navigate: typeof import('react-router-dom')['Navigate']
+  const OEMSToast: typeof import('D:/Users/Ali/Documents/GitHub/OEMS/app/components/OEMSToast')['default']
   const Outlet: typeof import('react-router-dom')['Outlet']
   const Route: typeof import('react-router-dom')['Route']
   const Routes: typeof import('react-router-dom')['Routes']
@@ -27,6 +29,7 @@ declare global {
   const queryClient: typeof import('D:/Users/Ali/Documents/GitHub/OEMS/app/config/queryClient')['default']
   const router: typeof import('D:/Users/Ali/Documents/GitHub/OEMS/app/config/routes')['router']
   const setNewName: typeof import('D:/Users/Ali/Documents/GitHub/OEMS/app/stores/user')['setNewName']
+  const showToast: typeof import('D:/Users/Ali/Documents/GitHub/OEMS/app/stores/AppStore')['showToast']
   const suite: typeof import('vitest')['suite']
   const test: typeof import('vitest')['test']
   const useCallback: typeof import('react')['useCallback']

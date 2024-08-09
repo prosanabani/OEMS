@@ -35,6 +35,7 @@ createRoot(document.querySelector('#root') as Element).render(
       <I18nProvider i18n={i18n}>
         <PrimeReactProvider value={value}>
           <RouterProvider fallbackElement={<Loader />} router={router} />
+          <OEMSToast />
           <ClickToComponent />
         </PrimeReactProvider>
       </I18nProvider>

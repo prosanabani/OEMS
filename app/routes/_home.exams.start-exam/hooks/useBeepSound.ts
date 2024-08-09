@@ -25,6 +25,7 @@ const useBeepSound = () => {
 
       oscillatorRef.current.start();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const stopBeepSound = useCallback(() => {
@@ -40,6 +41,7 @@ const useBeepSound = () => {
     return () => {
       stopBeepSound(); // Ensure cleanup when component unmounts
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return { playBeepSound, stopBeepSound };
