@@ -1,6 +1,25 @@
-export const test = () => {
-  return null;
+import { create } from 'zustand';
+
+export type NewQuestionStore = {
+  actions: {
+    // submitAddNewQuestion: (payload: {}) => void;
+    setGeneratedQuestions: (payload: []) => void;
+  };
+  generatedQuestions: [];
 };
+
+export const useNewQuestionStore = create<NewQuestionStore>((set) => ({
+  actions: {
+    setGeneratedQuestions: (payload) =>
+      set({
+        generatedQuestions: payload,
+      }),
+  },
+  generatedQuestions: [],
+}));
+
+export const { setGeneratedQuestions } = useNewQuestionStore.getState().actions;
+
 // import { apiClient } from '@/config/apiClient';
 // import { create } from 'zustand';
 

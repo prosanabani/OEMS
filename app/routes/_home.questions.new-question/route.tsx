@@ -1,31 +1,18 @@
-import MultiChoiceForm from './components/MultiChoiceForm';
-import TheoreticalQuestionForm from './components/TheoreticalQuestionForm';
-import TrueOrFalseForm from './components/TrueOrFalseForm';
+import DialogContent from './components/DialogContent';
+import Form from './components/Form';
 import { t } from '@lingui/macro';
 import { Button } from 'primereact/button';
 import { Dialog } from 'primereact/dialog';
-import { TabPanel, TabView } from 'primereact/tabview';
 
 export function Component() {
-  const [visible, setVisible] = useState(false);
+  const [visible, setVisible] = useState(true);
 
   return (
-    <div className="">
+    <Form>
       <Button label={t`Add question`} onClick={() => setVisible(true)} />
       <Dialog
-        closable={false}
         dismissableMask
         draggable={false}
-        footer={
-          <>
-            <Button label={t`Create Question`} />
-            <Button
-              label={t`Cancel`}
-              onClick={() => setVisible(false)}
-              severity="danger"
-            />
-          </>
-        }
         header={t`Add new question`}
         onHide={() => setVisible(false)}
         pt={{
@@ -33,23 +20,13 @@ export function Component() {
             className: 'w-20 h-20',
           },
           root: {
-            className: 'w-30vw ',
+            className: 'w-80vw h-90vh ',
           },
         }}
         visible={visible}
       >
-        <TabView>
-          <TabPanel header={t`theoretical`}>
-            <TheoreticalQuestionForm />
-          </TabPanel>
-          <TabPanel header={t`True Or False `}>
-            <TrueOrFalseForm />
-          </TabPanel>
-          <TabPanel header={t`Multi Choice`}>
-            <MultiChoiceForm />
-          </TabPanel>
-        </TabView>
+        <DialogContent />
       </Dialog>
-    </div>
+    </Form>
   );
 }
