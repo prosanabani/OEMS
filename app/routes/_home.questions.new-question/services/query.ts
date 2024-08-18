@@ -1,16 +1,18 @@
+import { type TFormQuestions } from '../components/Form';
 import { GoogleGenerativeAI } from '@google/generative-ai';
 import { useQuery } from '@tanstack/react-query';
-import { TFormQuestions } from '../components/Form';
+
+// `make me 5 questions about ${FromData.question} and return them in array of {question , id } format.`
 
 const useNewQuestionData = (
-  payload?: TFormQuestions,
-  generateQuestion?: boolean
+  payload?: TFormQuestions
+  // generateQuestion?: boolean
 ) => {
   // console.log(payload);
   // const question = JSON.stringify(payload);
   // console.log(payload.question);
   return useQuery({
-    enabled: generateQuestion,
+    // enabled: generateQuestion,
     queryFn: async () => {
       //   const genAI = new GoogleGenerativeAI(import.meta.env.VITE_APi_KEY);
       const genAI = new GoogleGenerativeAI(

@@ -8,8 +8,11 @@ const QuestionsTabs = () => {
   return (
     <TabView
       pt={{
-        panelContainer: {
-          className: 'p-40px h-110',
+        navContent: {
+          className: 'mb-5',
+        },
+        root: {
+          className: 'h-65vh',
         },
       }}
     >
