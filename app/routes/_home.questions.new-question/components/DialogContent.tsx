@@ -40,7 +40,7 @@ const DialogContent = () => {
         </div>
       </StepperPanel>
       <StepperPanel
-        header={t`AI generated Question`}
+        header={t`AI generated Questions`}
         pt={{
           root: { className: 'h-full' },
         }}

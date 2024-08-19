@@ -1,24 +1,17 @@
 import { type TFormQuestions } from '../components/Form';
+import { generatePrompt } from '../utils/functions';
 import { GoogleGenerativeAI } from '@google/generative-ai';
 import { useQuery } from '@tanstack/react-query';
 
-// `make me 5 questions about ${FromData.question} and return them in array of {question , id } format.`
+const useNewQuestionData = (payload?: TFormQuestions) => {
+  const Prompt = generatePrompt(payload);
 
-const useNewQuestionData = (
-  payload?: TFormQuestions
-  // generateQuestion?: boolean
-) => {
-  // console.log(payload);
-  // const question = JSON.stringify(payload);
-  // console.log(payload.question);
   return useQuery({
-    // enabled: generateQuestion,
     queryFn: async () => {
       //   const genAI = new GoogleGenerativeAI(import.meta.env.VITE_APi_KEY);
       const genAI = new GoogleGenerativeAI(
         'AIzaSyAMDkXz6GiMI7KdhVm3T6i9Xc0i0mDwCEg'
       );
-      // 'AIzaSyAMDkXz6GiMI7KdhVm3T6i9Xc0i0mDwCEg'
 
       const model = genAI.getGenerativeModel({
         generationConfig: {
@@ -27,11 +20,28 @@ const useNewQuestionData = (
         model: 'gemini-1.5-flash',
       });
 
-      const result = await model.generateContent(payload?.question || '');
+      const result = await model.generateContent(Prompt || '');
       const response = result.response;
       return JSON.parse(response.text());
     },
-    queryKey: ['newQuestionData', payload?.question],
+    queryKey: ['newQuestionData', Prompt],
+
+    select: (
+      data: Array<{ choices: string; id: number; question: string }>
+    ) => {
+      return {
+        correctAnswer: payload?.correctAnswer,
+        generatedQuestions: [
+          {
+            choices: payload?.answers || '',
+            id: 9_999,
+            question: payload?.question || '',
+          },
+          ...data,
+        ],
+        questionType: payload?.questionType,
+      };
+    },
   });
 };
 
