@@ -1,16 +1,38 @@
-import DialogContent from './components/DialogContent';
 import Form from './components/Form';
-import { t } from '@lingui/macro';
+import GenerateAiQuestionContent from './components/GenerateAiQuestionContent';
+import GenerateNormalQuestionContent from './components/GenerateNormalQuestionContent';
+import { t, Trans } from '@lingui/macro';
 import { Dialog } from 'primereact/dialog';
+import {
+  ToggleButton,
+  type ToggleButtonChangeEvent,
+} from 'primereact/togglebutton';
 
 export function Component() {
   const navigate = useNavigate();
+  const [checked, setChecked] = useState<boolean>(false);
   return (
     <Form>
       <Dialog
         dismissableMask
         draggable={false}
-        header={t`Add new question`}
+        header={
+          <div className="flex justify-between px-5">
+            <div className="">
+              <Trans>Add new question</Trans>
+            </div>
+            <ToggleButton
+              checked={checked}
+              offIcon="i-quill:paper w-18px h-18x"
+              offLabel={t`Normal Question`}
+              onChange={(event: ToggleButtonChangeEvent) =>
+                setChecked(event.value)
+              }
+              onIcon="i-hugeicons:artificial-intelligence-02"
+              onLabel={t`Ai Question`}
+            />
+          </div>
+        }
         onHide={() => navigate('/questions/list')}
         pt={{
           closeButtonIcon: {
@@ -22,7 +44,11 @@ export function Component() {
         }}
         visible
       >
-        <DialogContent />
+        {checked ? (
+          <GenerateAiQuestionContent />
+        ) : (
+          <GenerateNormalQuestionContent />
+        )}
       </Dialog>
     </Form>
   );

@@ -14,8 +14,18 @@ export function Component() {
       <DataTable
         header={<QuestionsTableHeader />}
         paginator
-        rows={5}
+        pt={{
+          header: {
+            className: 'rounded-t-5',
+          },
+          root: {
+            className: 'mx-5 mt-5',
+          },
+        }}
+        rows={20}
         rowsPerPageOptions={[5, 10, 25, 50]}
+        scrollHeight="65vh"
+        scrollable
         stripedRows
         value={questions}
       >
@@ -29,7 +39,7 @@ export function Component() {
         />
         <Column field="answers" header={t`Answers`} sortable />
         <Column field="correctAnswer" header={t`Correct Answer`} sortable />
-        <Column body={ActionBodyTemplate} header={t`Actions`} sortable />
+        <Column body={ActionBodyTemplate} header={t`Actions`} />
       </DataTable>
       <Outlet />
     </div>

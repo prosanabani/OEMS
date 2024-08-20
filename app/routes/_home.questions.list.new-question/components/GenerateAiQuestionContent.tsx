@@ -9,7 +9,7 @@ import { Stepper } from 'primereact/stepper';
 import { StepperPanel } from 'primereact/stepperpanel';
 import { useFormContext } from 'react-hook-form';
 
-const DialogContent = () => {
+const GenerateAiQuestionContent = () => {
   const stepperRef = useRef<any>(null);
 
   const { handleSubmit } = useFormContext();
@@ -82,4 +82,4 @@ const DialogContent = () => {
   );
 };
 
-export default DialogContent;
+export default GenerateAiQuestionContent;
