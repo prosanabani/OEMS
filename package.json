@@ -22,6 +22,7 @@
   },
   "dependencies": {
     "@fontsource/red-hat-display": "^5.0.20",
+    "@google/generative-ai": "^0.17.0",
     "@lingui/core": "^4.11.1",
     "@lingui/macro": "^4.11.1",
     "@lingui/react": "^4.11.2",
@@ -36,7 +37,7 @@
     "openai": "^4.55.0",
     "primeflex": "3.3.1",
     "primeicons": "^6.0.1",
-    "primereact": "^10.5.1",
+    "primereact": "^10.8.2",
     "react": "18.0.0",
     "react-dom": "18.0.0",
     "react-hook-form": "^7.52.1",
