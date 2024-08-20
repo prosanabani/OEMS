@@ -27,6 +27,7 @@ export function Loader() {
 
 const value: Partial<APIOptions> = {
   appendTo: 'self',
+  ripple: true,
 };
 
 createRoot(document.querySelector('#root') as Element).render(

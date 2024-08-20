@@ -1,7 +1,7 @@
 export function Component() {
   return (
     <>
-      <div className="">questions</div>
+      {/* <div className="">questions</div> */}
       <Outlet />
     </>
   );

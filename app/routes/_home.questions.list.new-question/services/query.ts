@@ -7,12 +7,12 @@ const useNewQuestionData = (payload?: TFormQuestions) => {
   const Prompt = generatePrompt(payload);
 
   return useQuery({
+    enabled: Boolean(payload?.question),
     queryFn: async () => {
       //   const genAI = new GoogleGenerativeAI(import.meta.env.VITE_APi_KEY);
       const genAI = new GoogleGenerativeAI(
         'AIzaSyAMDkXz6GiMI7KdhVm3T6i9Xc0i0mDwCEg'
       );
-
       const model = genAI.getGenerativeModel({
         generationConfig: {
           responseMimeType: 'application/json',
