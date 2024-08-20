@@ -18,13 +18,18 @@ export function Component() {
           header: {
             className: 'rounded-t-5',
           },
+          paginator: {
+            root: {
+              className: 'bg-slate-200',
+            },
+          },
           root: {
             className: 'mx-5 mt-5',
           },
         }}
         rows={20}
         rowsPerPageOptions={[5, 10, 25, 50]}
-        scrollHeight="65vh"
+        scrollHeight="55vh"
         scrollable
         stripedRows
         value={questions}
