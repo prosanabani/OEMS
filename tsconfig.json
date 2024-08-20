@@ -29,6 +29,6 @@
     "forceConsistentCasingInFileNames": true,
     "types": ["vite/client", "unplugin-icons/types/react"]
   },
-  "include": [".eslintrc.cjs", "unimport.d.ts", "app"],
+  "include": [".eslintrc.cjs", "app"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }
