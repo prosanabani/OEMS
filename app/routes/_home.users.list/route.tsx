@@ -8,7 +8,7 @@ import { DataTable } from 'primereact/datatable';
 
 export function Component() {
   const SearchInput = useUserListStore((state) => state.SearchInput);
-  const [value, setValue] = useState<string>('');
+
   const displayedData = filterData(productData, SearchInput);
   return (
     <div className="card">

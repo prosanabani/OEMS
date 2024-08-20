@@ -1,29 +1,10 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { t } from '@lingui/macro';
 import { Button } from 'primereact/button';
-import { ConfirmPopup, confirmPopup } from 'primereact/confirmpopup';
-import { Toast } from 'primereact/toast';
+import { ConfirmDialog } from 'primereact/confirmdialog';
 
-const Confirmpopu = () => {
+const ConfirmPopUP = () => {
   const [visible, setVisible] = useState<boolean>(false);
-  const toast = useRef<Toast>(null);
-  const buttonElement = useRef(null);
-
-  const accept = () => {
-    toast.current?.show({
-      detail: 'You have accepted',
-      life: 3_000,
-      severity: 'success',
-      summary: 'Confirmed',
-    });
-  };
-
-  const reject = () => {
-    toast.current?.show({
-      detail: 'You have rejected',
-      life: 3_000,
-      severity: 'warn',
-      summary: 'Rejected',
-    });
-  };
 
   return (
     <>
@@ -36,18 +17,20 @@ const Confirmpopu = () => {
         rounded
         severity="danger"
       />
-      <Toast ref={toast} />
-      <ConfirmPopup
-        accept={accept}
+      <ConfirmDialog
+        accept={() =>
+          showToast({ detail: 'You have accepted', severity: 'success' })
+        }
         icon="i-fluent:delete-32-light w-1em h-1em"
-        message="Are you sure you want delete this user?"
+        message={t`Are you sure you want delete this user?`}
         onHide={() => setVisible(false)}
-        reject={reject}
-        target={buttonElement.current}
+        reject={() =>
+          showToast({ detail: 'You have rejected', severity: 'warn' })
+        }
         visible={visible}
       />
     </>
   );
 };
 
-export default Confirmpopu;
+export default ConfirmPopUP;

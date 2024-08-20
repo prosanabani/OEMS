@@ -1,6 +1,6 @@
+import { type TUser } from '../utils/types';
 import { Button } from 'primereact/button';
 import { Dialog } from 'primereact/dialog';
-import { TUser } from '../utils/types';
 
 type TProps = {
   readonly UserData: TUser;

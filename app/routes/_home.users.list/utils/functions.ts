@@ -1,4 +1,4 @@
-import { TUser } from './types';
+import { type TUser } from './types';
 
 export const filterData = (data: TUser[], globalFilterValue: string) => {
   return data.filter((item) => {
