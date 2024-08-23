@@ -44,6 +44,7 @@
     "react/forbid-component-props": "off",
     "import/no-extraneous-dependencies": "off",
     "n/no-extraneous-import": "off",
-    "react/no-array-index-key": "off"
+    "react/no-array-index-key": "off",
+    "react/no-unstable-nested-components": "off"
   }
 }
