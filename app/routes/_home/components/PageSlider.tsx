@@ -139,7 +139,6 @@ const PageSlider = () => {
     <div className="card flex justify-center">
       <Sidebar
         appendTo="self"
-        closeIcon={<Button icon="pi pi-times" />}
         onHide={() => setVisible(false)}
         visible={visible}
       >
