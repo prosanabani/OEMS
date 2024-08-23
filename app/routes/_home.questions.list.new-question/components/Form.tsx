@@ -6,18 +6,18 @@ type TProps = {
 };
 
 export type TFormQuestions = {
-  answers: string | null | undefined;
-  correctAnswer: string;
   question: string;
-  questionType: string;
+  questionAnswers: string | null | undefined;
+  questionCorrectAnswer: string;
+  questionType: 'theoretical' | 'trueOrFalse' | 'multipleChoice' | null;
 };
 
 const Form = ({ children }: TProps) => {
   const values = {
-    answers: null,
-    correctAnswer: '',
     question: '',
-    questionType: '',
+    questionAnswers: null,
+    questionCorrectAnswer: '',
+    questionType: null,
   };
   const methods = useForm<TFormQuestions>({
     defaultValues: values,

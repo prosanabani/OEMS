@@ -30,15 +30,15 @@ const useNewQuestionData = (payload?: TFormQuestions) => {
       data: Array<{ choices: string; id: number; question: string }>
     ) => {
       return {
-        correctAnswer: payload?.correctAnswer,
         generatedQuestions: [
           {
-            choices: payload?.answers || '',
+            choices: payload?.questionAnswers || '',
             id: 9_999,
             question: payload?.question || '',
           },
           ...data,
         ],
+        questionCorrectAnswer: payload?.questionCorrectAnswer,
         questionType: payload?.questionType,
       };
     },

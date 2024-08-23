@@ -1,18 +1,30 @@
+import QuestionRowExpansion from './components/QuestionRowExpansion';
 import QuestionsTableHeader from './components/QuestionsTableHeader';
+import { useQuestionsTable } from './services/query';
+import { type TQuestion } from './types/types';
+import { isRowExpandable } from './utils/functions';
 import {
   ActionBodyTemplate,
+  AnswersTemplate,
   QuestionTypeBodyTemplate,
 } from './utils/generators';
-import { questions } from './utils/temperoryData';
 import { t } from '@lingui/macro';
 import { Column } from 'primereact/column';
 import { DataTable } from 'primereact/datatable';
 
 export function Component() {
+  const [expandedRows, setExpandedRows] = useState<TQuestion[] | null>(null);
+
+  const { data } = useQuestionsTable();
+
   return (
-    <div className="">
+    <>
       <DataTable
+        expandedRows={expandedRows || []}
         header={<QuestionsTableHeader />}
+        onRowToggle={(event: { data: TQuestion[] }) =>
+          setExpandedRows(event.data)
+        }
         paginator
         pt={{
           header: {
@@ -27,14 +39,18 @@ export function Component() {
             className: 'mx-5 mt-5',
           },
         }}
+        resizableColumns
+        rowExpansionTemplate={(rowData) => (
+          <QuestionRowExpansion data={rowData.aiGeneratedQuestions} />
+        )}
         rows={20}
         rowsPerPageOptions={[5, 10, 25, 50]}
         scrollHeight="55vh"
         scrollable
         stripedRows
-        value={questions}
+        value={data}
       >
-        <Column field="id" header={t`ID`} sortable />
+        <Column expander={isRowExpandable || undefined} />
         <Column field="question" header={t`Question`} sortable />
         <Column
           body={QuestionTypeBodyTemplate}
@@ -42,11 +58,20 @@ export function Component() {
           header={t`Type`}
           sortable
         />
-        <Column field="answers" header={t`Answers`} sortable />
-        <Column field="correctAnswer" header={t`Correct Answer`} sortable />
+        <Column
+          body={AnswersTemplate}
+          field="questionAnswers"
+          header={t`Answers`}
+          sortable
+        />
+        <Column
+          field="questionCorrectAnswer"
+          header={t`Correct Answer`}
+          sortable
+        />
         <Column body={ActionBodyTemplate} header={t`Actions`} />
       </DataTable>
       <Outlet />
-    </div>
+    </>
   );
 }

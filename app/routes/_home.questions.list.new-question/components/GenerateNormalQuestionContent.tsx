@@ -1,10 +1,10 @@
 import QuestionsTabs from './QuestionsTabs';
 import { t } from '@lingui/macro';
 import { Button } from 'primereact/button';
-import { useFormContext } from 'react-hook-form';
+// import { useFormContext } from 'react-hook-form';
 
 const GenerateNormalQuestionContent = () => {
-  const { handleSubmit } = useFormContext();
+  // const { handleSubmit } = useFormContext();
   return (
     <div>
       <QuestionsTabs />
@@ -12,7 +12,7 @@ const GenerateNormalQuestionContent = () => {
         icon="pi pi-arrow-right"
         iconPos="right"
         label={t`Add `}
-        onClick={handleSubmit((FormData) => console.log(FormData))}
+        // onClick={handleSubmit((FormData) => console.log(FormData))}
         type="submit"
       />
     </div>
