@@ -1,7 +1,7 @@
 import { type TFormQuestions } from '../components/Form';
 
 export const generatePrompt = (payload?: TFormQuestions) => {
-  const { question, answers, questionType } = payload || {};
+  const { question, questionAnswers, questionType } = payload || {};
 
   if (questionType === 'theoretical' || questionType === 'trueOrFalse') {
     return (
@@ -16,7 +16,7 @@ export const generatePrompt = (payload?: TFormQuestions) => {
       'paraphrase me 5 questions about ' +
       question +
       ' and make these choices  ' +
-      answers +
+      questionAnswers +
       'in different order and return them in array of {question : string , id : number , choices : string } format.'
     );
   }

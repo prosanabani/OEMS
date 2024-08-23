@@ -50,32 +50,32 @@ const TrueOrFalseForm = () => {
         <div className="flex items-center gap-2">
           <Controller
             control={control}
-            name="correctAnswer"
+            name="questionCorrectAnswer"
             render={({ field }) => (
               <>
                 <RadioButton
                   checked={field.value === 'true'}
-                  className={errors.correctAnswer ? 'p-invalid' : ''}
-                  inputId="correctAnswerTrue"
+                  className={errors.questionCorrectAnswer ? 'p-invalid' : ''}
+                  inputId="questionCorrectAnswerTrue"
                   onChange={(event) => field.onChange(event.value)}
                   value="true"
                 />
                 <label
                   className="hover:cursor-pointer"
-                  htmlFor="correctAnswerTrue"
+                  htmlFor="questionCorrectAnswerTrue"
                 >
                   <Trans>True</Trans>
                 </label>
                 <RadioButton
                   checked={field.value === 'false'}
-                  className={errors.correctAnswer ? 'p-invalid' : ''}
-                  inputId="correctAnswerFalse"
+                  className={errors.questionCorrectAnswer ? 'p-invalid' : ''}
+                  inputId="questionCorrectAnswerFalse"
                   onChange={(event) => field.onChange(event.value)}
                   value="false"
                 />
                 <label
                   className="hover:cursor-pointer"
-                  htmlFor="correctAnswerFalse"
+                  htmlFor="questionCorrectAnswerFalse"
                 >
                   <Trans>False</Trans>
                 </label>
@@ -84,8 +84,10 @@ const TrueOrFalseForm = () => {
             rules={{ required: 'Correct answer is required' }}
           />
         </div>
-        {errors.correctAnswer && (
-          <small className="p-error">{errors.correctAnswer.message}</small>
+        {errors.questionCorrectAnswer && (
+          <small className="p-error">
+            {errors.questionCorrectAnswer.message}
+          </small>
         )}
       </div>
     </div>
