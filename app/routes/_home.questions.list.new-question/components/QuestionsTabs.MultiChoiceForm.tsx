@@ -16,8 +16,8 @@ const MultiChoiceForm = () => {
     watch,
   } = useFormContext<TFormQuestions>();
 
-  const currentAnswers = watch('answers');
-  const correctAnswer = watch('correctAnswer');
+  const currentAnswers = watch('questionAnswers');
+  const questionCorrectAnswer = watch('questionCorrectAnswer');
 
   useEffect(() => {
     reset();
@@ -26,20 +26,21 @@ const MultiChoiceForm = () => {
   }, []);
 
   useEffect(() => {
-    if (correctAnswer !== undefined) {
-      const index = currentAnswers?.split(',').indexOf(correctAnswer) || -1;
+    if (questionCorrectAnswer !== undefined) {
+      const index =
+        currentAnswers?.split(',').indexOf(questionCorrectAnswer) || -1;
       if (index !== -1) {
         inputReferences.current[index]?.focus();
       }
     }
-  }, [correctAnswer, currentAnswers]);
+  }, [currentAnswers, questionCorrectAnswer]);
   const handleInputChange = (
     event: React.ChangeEvent<HTMLInputElement>,
     index: number
   ) => {
     const valueArray = currentAnswers?.split(',').filter(Boolean) || [];
     valueArray[index] = event.target.value;
-    setValue('answers', valueArray.join(','));
+    setValue('questionAnswers', valueArray.join(','));
   };
 
   return (
@@ -69,11 +70,11 @@ const MultiChoiceForm = () => {
         <div className="p-field" key={index}>
           <Controller
             control={control}
-            name="answers"
+            name="questionAnswers"
             render={() => (
               <FloatLabel>
                 <InputText
-                  className={errors.answers ? 'p-invalid' : ''}
+                  className={errors.questionAnswers ? 'p-invalid' : ''}
                   onChange={(event) => handleInputChange(event, index)}
                   pt={{
                     root: {
@@ -89,8 +90,8 @@ const MultiChoiceForm = () => {
               </FloatLabel>
             )}
           />
-          {errors.answers && (
-            <small className="p-error">{errors.answers.message}</small>
+          {errors.questionAnswers && (
+            <small className="p-error">{errors.questionAnswers.message}</small>
           )}
         </div>
       ))}
@@ -103,18 +104,21 @@ const MultiChoiceForm = () => {
             <div className="flex gap-2" key={index}>
               <Controller
                 control={control}
-                name="correctAnswer"
+                name="questionCorrectAnswer"
                 render={() => (
                   <>
                     <RadioButton
                       checked={
-                        correctAnswer === currentAnswers?.split(',')[index]
+                        questionCorrectAnswer ===
+                        currentAnswers?.split(',')[index]
                       }
-                      className={errors.correctAnswer ? 'p-invalid' : ''}
+                      className={
+                        errors.questionCorrectAnswer ? 'p-invalid' : ''
+                      }
                       inputId={`radio-${index}`}
-                      name="correctAnswer"
+                      name="questionCorrectAnswer"
                       onChange={(event) =>
-                        setValue('correctAnswer', event.value)
+                        setValue('questionCorrectAnswer', event.value)
                       }
                       value={currentAnswers?.split(',')[index] || ''}
                     />
