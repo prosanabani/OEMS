@@ -27,3 +27,13 @@ export const QuestionTypeBodyTemplate = (rowData: any) => {
   };
   return <div>{questionTypeObject[rowData.questionType]}</div>;
 };
+
+export const AnswersTemplate = (rowData: any) => {
+  return (
+    <div className="flex gap-2 ">
+      {rowData.questionAnswers.split(',').map((answer: string) => (
+        <Tag key={answer} severity="info" value={answer} />
+      ))}
+    </div>
+  );
+};

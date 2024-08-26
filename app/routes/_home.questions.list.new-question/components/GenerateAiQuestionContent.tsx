@@ -18,15 +18,21 @@ const GenerateAiQuestionContent = () => {
     <Stepper
       pt={{
         panelContainer: {
-          className: 'h-full',
+          className: 'p-0',
         },
-        root: {
-          className: 'h-75vh',
-        },
+        // root: {
+        //   className: 'h-75vh',
+        // },
+        // root: {
+        //   className: 'bg-red p-0',
+        // },
       }}
       ref={stepperRef}
     >
-      <StepperPanel header={t`Question`} pt={{ root: { className: 'h-full' } }}>
+      <StepperPanel
+        header={t`Question`}
+        pt={{ root: { className: 'h-full p-0' } }}
+      >
         <QuestionsTabs />
         <div className="flex flex-col justify-between">
           <div className="flex justify-end items-end">
