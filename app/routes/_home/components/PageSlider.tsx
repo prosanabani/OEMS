@@ -101,7 +101,7 @@ const PageSlider = () => {
         {
           command: () => {
             setVisible(false);
-            navigate('/questions/new-question');
+            navigate('/questions/list/new-question');
           },
           icon: plusIcon,
           label: 'Add New Question',
@@ -139,7 +139,6 @@ const PageSlider = () => {
     <div className="card flex justify-center">
       <Sidebar
         appendTo="self"
-        closeIcon={<Button icon="pi pi-times" />}
         onHide={() => setVisible(false)}
         visible={visible}
       >
