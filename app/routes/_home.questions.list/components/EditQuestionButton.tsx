@@ -1,12 +1,12 @@
+import { type TQuestion } from '../types/types';
+import { t, Trans } from '@lingui/macro';
 import { Button } from 'primereact/button';
 import { Dialog } from 'primereact/dialog';
 import { FloatLabel } from 'primereact/floatlabel';
 import { InputText } from 'primereact/inputtext';
-import { Controller, useForm } from 'react-hook-form';
-import { TQuestion } from '../types/types';
-import { t, Trans } from '@lingui/macro';
 import { RadioButton } from 'primereact/radiobutton';
 import { useEffect, useRef, useState } from 'react';
+import { Controller, useForm } from 'react-hook-form';
 
 type TProps = {
   readonly questionData: any;
@@ -19,10 +19,10 @@ const EditQuestionButton = ({ questionData }: TProps) => {
   const {
     control,
     formState: { errors, isDirty },
-    watch,
-    setValue,
-    reset,
     handleSubmit,
+    reset,
+    setValue,
+    watch,
   } = useForm<TQuestion>({
     defaultValues: {
       id: questionData.id,
@@ -37,16 +37,14 @@ const EditQuestionButton = ({ questionData }: TProps) => {
   const questionCorrectAnswer = watch('questionCorrectAnswer');
 
   useEffect(() => {
-    if (visible) {
-      if (questionCorrectAnswer !== undefined) {
-        const index =
-          currentAnswers?.split(',').indexOf(questionCorrectAnswer) || -1;
-        if (index !== -1) {
-          inputReferences.current[index]?.focus();
-        }
+    if (visible && questionCorrectAnswer !== undefined) {
+      const index =
+        currentAnswers?.split(',').indexOf(questionCorrectAnswer) || -1;
+      if (index !== -1) {
+        inputReferences.current[index]?.focus();
       }
     }
-  }, [visible, currentAnswers, questionCorrectAnswer]);
+  }, [currentAnswers, questionCorrectAnswer, visible]);
 
   const handleInputChange = (
     event: React.ChangeEvent<HTMLInputElement>,
@@ -60,18 +58,15 @@ const EditQuestionButton = ({ questionData }: TProps) => {
   return (
     <>
       <Dialog
-        pt={{
-          root: {
-            className: 'w-50vw h-50vh',
-          },
-        }}
+        dismissableMask
+        draggable={false}
         footer={
           <Button
-            type="submit"
-            label={t`Save`}
-            icon="pi pi-check"
             disabled={!isDirty}
+            icon="pi pi-check"
+            label={t`Save`}
             onClick={handleSubmit((FormData) => console.log(FormData))}
+            type="submit"
           />
         }
         header={
@@ -79,11 +74,14 @@ const EditQuestionButton = ({ questionData }: TProps) => {
             <Trans>Edit Question</Trans>
           </div>
         }
-        dismissableMask
-        draggable={false}
         onHide={() => {
           reset();
           setVisible(false);
+        }}
+        pt={{
+          root: {
+            className: 'w-50vw h-50vh',
+          },
         }}
         visible={visible}
       >
@@ -92,7 +90,6 @@ const EditQuestionButton = ({ questionData }: TProps) => {
             <Controller
               control={control}
               name="question"
-              rules={{ required: 'Question is required' }} // Added validation rule here
               render={({ field }) => (
                 <FloatLabel>
                   <InputText
@@ -109,6 +106,7 @@ const EditQuestionButton = ({ questionData }: TProps) => {
                   </label>
                 </FloatLabel>
               )}
+              rules={{ required: 'Question is required' }} // Added validation rule here
             />
             {errors.question && (
               <small className="p-error">{errors.question.message}</small>
@@ -120,8 +118,7 @@ const EditQuestionButton = ({ questionData }: TProps) => {
               <div className="p-field" key={index}>
                 <Controller
                   control={control}
-                  name={`questionAnswers`}
-                  rules={{ required: 'Answer is required' }} // Added validation rule here
+                  name="questionAnswers"
                   render={() => (
                     <FloatLabel>
                       <InputText
@@ -142,6 +139,7 @@ const EditQuestionButton = ({ questionData }: TProps) => {
                       </label>
                     </FloatLabel>
                   )}
+                  rules={{ required: 'Answer is required' }} // Added validation rule here
                 />
                 {errors.questionAnswers && (
                   <small className="p-error">
@@ -159,7 +157,6 @@ const EditQuestionButton = ({ questionData }: TProps) => {
                   <Controller
                     control={control}
                     name="questionCorrectAnswer"
-                    rules={{ required: 'Correct Answer is required' }} // Validation rule already exists here
                     render={() => (
                       <>
                         <RadioButton
@@ -182,6 +179,7 @@ const EditQuestionButton = ({ questionData }: TProps) => {
                         </label>
                       </>
                     )}
+                    rules={{ required: 'Correct Answer is required' }} // Validation rule already exists here
                   />
                 </div>
               ))}

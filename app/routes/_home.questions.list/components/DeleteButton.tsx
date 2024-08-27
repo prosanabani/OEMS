@@ -1,3 +1,5 @@
+import { useDeleteQuestion } from '../services/mutate';
+import { QueryKeys } from '@/utils/constants/QueryEnums';
 import { t, Trans } from '@lingui/macro';
 import { Button } from 'primereact/button';
 import { ConfirmDialog } from 'primereact/confirmdialog';
@@ -9,10 +11,35 @@ type TProps = {
 const DeleteQuestionButton = ({ questionId }: TProps) => {
   const [Visible, setVisible] = useState<boolean>(false);
 
+  const { isPending, mutate } = useDeleteQuestion();
+
   return (
     <>
       <ConfirmDialog
-        accept={() => console.log(questionId)}
+        accept={() => {
+          mutate(questionId, {
+            onError: () => {
+              showToast({
+                detail: t`Failed to delete the question`,
+                severity: 'error',
+                summary: t`Error`,
+              });
+              setVisible(false);
+            },
+            onSuccess: () => {
+              showToast({
+                detail: t`Question deleted successfully `,
+                severity: 'success',
+                summary: t`Success`,
+              });
+              // Invalidate and refetch the questions query to update the UI
+              queryClient.invalidateQueries({
+                queryKey: [QueryKeys.QUESTIONS_TABLE],
+              });
+              setVisible(false);
+            },
+          });
+        }}
         acceptClassName="p-button-danger"
         defaultFocus="reject"
         draggable={false}
@@ -29,6 +56,7 @@ const DeleteQuestionButton = ({ questionId }: TProps) => {
       <Button
         className="p-button-rounded mr-2"
         icon="pi pi-trash"
+        loading={isPending}
         onClick={() => setVisible(true)}
         severity="danger"
       />

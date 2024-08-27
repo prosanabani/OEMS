@@ -1,11 +1,12 @@
 import { fetchQuestionWithAiGeneratedQuestions } from './api';
 import { FirebaseDatabase } from '@/config/firebase';
 import { QueryKeys } from '@/utils/constants/QueryEnums';
-import { useQuery } from '@tanstack/react-query';
+import { keepPreviousData, useQuery } from '@tanstack/react-query';
 import { collection, getDocs } from 'firebase/firestore';
 
 export const useQuestionsTable = () => {
   return useQuery({
+    placeholderData: keepPreviousData,
     queryFn: async () => {
       const querySnapshot = await getDocs(
         collection(FirebaseDatabase, 'questions')
