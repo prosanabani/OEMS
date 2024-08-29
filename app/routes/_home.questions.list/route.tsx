@@ -15,13 +15,14 @@ import { DataTable } from 'primereact/datatable';
 export function Component() {
   const [expandedRows, setExpandedRows] = useState<TQuestion[] | null>(null);
 
-  const { data } = useQuestionsTable();
+  const { data, isLoading } = useQuestionsTable();
 
   return (
     <>
       <DataTable
         expandedRows={expandedRows || []}
         header={<QuestionsTableHeader />}
+        loading={isLoading}
         onRowToggle={(event: { data: TQuestion[] }) =>
           setExpandedRows(event.data)
         }

@@ -1,4 +1,6 @@
+import { useEditQuestion } from '../services/mutate';
 import { type TQuestion } from '../types/types';
+import { QueryKeys } from '@/utils/constants/QueryEnums';
 import { t, Trans } from '@lingui/macro';
 import { Button } from 'primereact/button';
 import { Dialog } from 'primereact/dialog';
@@ -9,12 +11,14 @@ import { useEffect, useRef, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 
 type TProps = {
-  readonly questionData: any;
+  readonly questionData: TQuestion;
 };
 
 const EditQuestionButton = ({ questionData }: TProps) => {
   const [visible, setVisible] = useState<boolean>(false);
   const inputReferences = useRef<Array<HTMLInputElement | null>>([]);
+
+  const { isPending, mutate } = useEditQuestion();
 
   const {
     control,
@@ -65,7 +69,31 @@ const EditQuestionButton = ({ questionData }: TProps) => {
             disabled={!isDirty}
             icon="pi pi-check"
             label={t`Save`}
-            onClick={handleSubmit((FormData) => console.log(FormData))}
+            loading={isPending}
+            onClick={handleSubmit((FormData) =>
+              mutate(FormData, {
+                onError: () => {
+                  showToast({
+                    detail: t`Failed to edit the question`,
+                    severity: 'error',
+                    summary: t`Error`,
+                  });
+                  setVisible(false);
+                },
+                onSuccess: () => {
+                  showToast({
+                    detail: t`Question Edited Successfully `,
+                    severity: 'success',
+                    summary: t`Success`,
+                  });
+                  // Invalidate and refetch the questions query to update the UI
+                  queryClient.invalidateQueries({
+                    queryKey: [QueryKeys.QUESTIONS_TABLE],
+                  });
+                  setVisible(false);
+                },
+              })
+            )}
             type="submit"
           />
         }
@@ -75,12 +103,12 @@ const EditQuestionButton = ({ questionData }: TProps) => {
           </div>
         }
         onHide={() => {
-          reset();
           setVisible(false);
+          reset();
         }}
         pt={{
           root: {
-            className: 'w-50vw h-50vh',
+            className: 'w-50vw',
           },
         }}
         visible={visible}
@@ -112,47 +140,45 @@ const EditQuestionButton = ({ questionData }: TProps) => {
               <small className="p-error">{errors.question.message}</small>
             )}
           </div>
-          {questionData?.questionAnswers
-            ?.split(',')
-            .map((answer: string, index: number) => (
-              <div className="p-field" key={index}>
-                <Controller
-                  control={control}
-                  name="questionAnswers"
-                  render={() => (
-                    <FloatLabel>
-                      <InputText
-                        className={errors.questionAnswers ? 'p-invalid' : ''}
-                        onChange={(event) => handleInputChange(event, index)}
-                        pt={{
-                          root: {
-                            className: 'w-full',
-                          },
-                        }}
-                        ref={(element) =>
-                          (inputReferences.current[index] = element)
-                        }
-                        value={currentAnswers?.split(',')[index] || ''}
-                      />
-                      <label>
-                        <Trans>Choice</Trans> {index + 1}
-                      </label>
-                    </FloatLabel>
-                  )}
-                  rules={{ required: 'Answer is required' }} // Added validation rule here
-                />
-                {errors.questionAnswers && (
-                  <small className="p-error">
-                    {errors.questionAnswers.message}
-                  </small>
+          {questionData?.questionAnswers?.split(',').map((_, index: number) => (
+            <div className="p-field" key={index}>
+              <Controller
+                control={control}
+                name="questionAnswers"
+                render={() => (
+                  <FloatLabel>
+                    <InputText
+                      className={errors.questionAnswers ? 'p-invalid' : ''}
+                      onChange={(event) => handleInputChange(event, index)}
+                      pt={{
+                        root: {
+                          className: 'w-full',
+                        },
+                      }}
+                      ref={(element) =>
+                        (inputReferences.current[index] = element)
+                      }
+                      value={currentAnswers?.split(',')[index] || ''}
+                    />
+                    <label>
+                      <Trans>Choice</Trans> {index + 1}
+                    </label>
+                  </FloatLabel>
                 )}
-              </div>
-            ))}
+                rules={{ required: 'Answer is required' }} // Added validation rule here
+              />
+              {errors.questionAnswers && (
+                <small className="p-error">
+                  {errors.questionAnswers.message}
+                </small>
+              )}
+            </div>
+          ))}
 
           <div className="flex mt-3 items-center gap-3">
             {questionData?.questionAnswers
               ?.split(',')
-              .map((_: any, index: number) => (
+              .map((_, index: number) => (
                 <div className="flex gap-2" key={index}>
                   <Controller
                     control={control}
