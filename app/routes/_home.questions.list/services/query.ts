@@ -21,14 +21,19 @@ export const useQuestionsTable = () => {
           const aiGeneratedQuestions =
             await fetchQuestionWithAiGeneratedQuestions(document.id);
 
+          // Ensure aiGeneratedQuestions is not undefined
+          const parsedAiGeneratedQuestions = aiGeneratedQuestions
+            ? aiGeneratedQuestions.map((question) => {
+                return {
+                  ...question,
+                  // questionAnswers: JSON.parse(question.questionAnswers),
+                };
+              })
+            : [];
+
           return {
             ...questionData,
-            aiGeneratedQuestions: aiGeneratedQuestions.map((question) => {
-              return {
-                ...question,
-                questionAnswers: JSON.parse(question.questionAnswers),
-              };
-            }),
+            aiGeneratedQuestions: parsedAiGeneratedQuestions,
           };
         })
       );
