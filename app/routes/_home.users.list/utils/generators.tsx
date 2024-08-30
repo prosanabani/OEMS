@@ -1,37 +1,44 @@
-import ConfirmPopUP from '../components/confirmpopu';
-import EditUserDialog from '../components/EditUserDialog';
+import { AddUserFormValues } from '@/routes/_home.users.list.new-user/services/types';
+import DeleteUserButton from '../components/DeleteUserButton';
 import { setSearchInput, useUserListStore } from '../store';
-import { type TUser } from './types';
 import { t } from '@lingui/macro';
 import { Button } from 'primereact/button';
-import { FloatLabel } from 'primereact/floatlabel';
+import { IconField } from 'primereact/iconfield';
+import { InputIcon } from 'primereact/inputicon';
 import { InputText } from 'primereact/inputtext';
+import EditUserButton from '../components/EditUserButton';
 
-export const actionBodyTemplate = (rowData: TUser) => {
+export const ActionBodyTemplate = (rowData: AddUserFormValues) => {
   return (
     <>
-      <EditUserDialog UserData={rowData} />
-      <ConfirmPopUP key={rowData.id} />
+      <EditUserButton userData={rowData} />
+      <DeleteUserButton id={rowData.id || ''} />
     </>
   );
 };
 
 export const SearchBodyTemplate = () => {
+  const navigate = useNavigate();
+
   const SearchInput = useUserListStore((state) => state.SearchInput);
   return (
-    <div className="flex justify-content-end">
+    <div className="flex justify-between ">
       {/* <IconField iconPosition="left"> */}
       {/* <InputIcon className="pi pi-search" /> */}
-      <FloatLabel>
+      <IconField iconPosition="left">
+        <InputIcon className="pi pi-search" />
+
         <InputText
           id="Search"
           onChange={(event) => setSearchInput(event.target.value)}
           placeholder={t`Keyword Search`}
           value={SearchInput}
         />
-        <label htmlFor="Search">Search</label>
-        <Button className="i-material-symbols:search w-1em h-1em" />
-      </FloatLabel>
+      </IconField>
+      <Button
+        label={t`Add user`}
+        onClick={() => navigate('/users/list/new-user')}
+      />
       {/* </IconField> */}
     </div>
   );

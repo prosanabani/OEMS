@@ -1,6 +1,9 @@
-import { type TUser } from './types';
+import { AddUserFormValues } from '@/routes/_home.users.list.new-user/services/types';
 
-export const filterData = (data: TUser[], globalFilterValue: string) => {
+export const filterData = (
+  data: AddUserFormValues[],
+  globalFilterValue: string
+) => {
   return data.filter((item) => {
     return Object.values(item).some(
       (value) =>
