@@ -6,6 +6,7 @@ import { collection, getDocs } from 'firebase/firestore';
 
 export const useQuestionsTable = () => {
   return useQuery({
+    // placeholderData: keepPreviousData,
     queryFn: async () => {
       const querySnapshot = await getDocs(
         collection(FirebaseDatabase, 'questions')
@@ -20,14 +21,19 @@ export const useQuestionsTable = () => {
           const aiGeneratedQuestions =
             await fetchQuestionWithAiGeneratedQuestions(document.id);
 
+          // Ensure aiGeneratedQuestions is not undefined
+          const parsedAiGeneratedQuestions = aiGeneratedQuestions
+            ? aiGeneratedQuestions.map((question) => {
+                return {
+                  ...question,
+                  // questionAnswers: JSON.parse(question.questionAnswers),
+                };
+              })
+            : [];
+
           return {
             ...questionData,
-            aiGeneratedQuestions: aiGeneratedQuestions.map((question) => {
-              return {
-                ...question,
-                questionAnswers: JSON.parse(question.questionAnswers),
-              };
-            }),
+            aiGeneratedQuestions: parsedAiGeneratedQuestions,
           };
         })
       );

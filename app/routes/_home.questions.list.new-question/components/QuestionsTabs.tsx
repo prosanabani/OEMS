@@ -12,7 +12,7 @@ const QuestionsTabs = () => {
           className: 'mb-5',
         },
         root: {
-          className: 'bg-red p-0',
+          className: 'p-0',
         },
       }}
     >

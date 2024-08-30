@@ -1,21 +1,14 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { Button } from 'primereact/button';
+import DeleteQuestionButton from '../components/DeleteButton';
+import EditQuestionButton from '../components/EditQuestionButton';
 import { Tag } from 'primereact/tag';
 
-export const ActionBodyTemplate = () => {
+export const ActionBodyTemplate = (rowData: any) => {
   return (
-    <div className="">
-      <Button
-        className="p-button-rounded mr-2"
-        icon="pi pi-pencil"
-        severity="success"
-      />
-      <Button
-        className="p-button-rounded mr-2"
-        icon="pi pi-trash"
-        severity="danger"
-      />
-    </div>
+    <>
+      <EditQuestionButton questionData={rowData} />
+      <DeleteQuestionButton questionId={rowData.id} />
+    </>
   );
 };
 

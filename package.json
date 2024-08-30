@@ -32,7 +32,7 @@
     "@tensorflow/tfjs": "^4.20.0",
     "@unocss/reset": "^0.56.5",
     "face-api.js": "^0.22.2",
-    "firebase": "^10.12.3",
+    "firebase": "^10.13.1",
     "moment": "^2.30.1",
     "openai": "^4.55.0",
     "primeflex": "3.3.1",
