@@ -17,13 +17,12 @@ type TProps = {
 
 const EditUserButton = ({ userData }: TProps) => {
   const [visible, setVisible] = useState<boolean>(false);
-  console.log('props', userData.fullName);
 
   const { isPending, mutate } = useEditUserFromFirebase();
 
   const {
     control,
-    formState: { isDirty, defaultValues },
+    formState: { isDirty },
     handleSubmit,
     reset,
     setValue,
@@ -40,7 +39,10 @@ const EditUserButton = ({ userData }: TProps) => {
       userId: userData.userId || '',
     },
   });
-  console.log('form', defaultValues?.fullName);
+
+  useEffect(() => {
+    reset(userData);
+  }, [userData, reset]);
 
   const selectedRole = watch('role');
 
