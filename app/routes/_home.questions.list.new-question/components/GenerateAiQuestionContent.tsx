@@ -1,8 +1,12 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
+import { useAddAiQuestionsToFirebase } from '../services/mutate';
+import { setTargetQuestionsToAdd, useNewQuestionStore } from '../store';
+import { type TFormQuestions } from './Form';
 import PickerTab from './PickerTab';
 import QuestionsTabs from './QuestionsTabs';
-import { t } from '@lingui/macro';
+import { QueryKeys } from '@/utils/constants/QueryEnums';
+import { t, Trans } from '@lingui/macro';
 import { Button } from 'primereact/button';
 import { ConfirmDialog, confirmDialog } from 'primereact/confirmdialog';
 import { Stepper } from 'primereact/stepper';
@@ -11,8 +15,39 @@ import { useFormContext } from 'react-hook-form';
 
 const GenerateAiQuestionContent = () => {
   const stepperRef = useRef<any>(null);
+  const navigate = useNavigate();
 
-  const { handleSubmit } = useFormContext();
+  const targetQuestionsToAdd = useNewQuestionStore(
+    (state) => state.targetQuestionsToAdd
+  );
+
+  const { handleSubmit } = useFormContext<TFormQuestions>();
+
+  const { isPending, mutate } = useAddAiQuestionsToFirebase();
+
+  const onSubmit = () => {
+    mutate(targetQuestionsToAdd, {
+      onError: () => {
+        showToast({
+          detail: t`Failed to add questions`,
+          severity: 'error',
+          summary: t`Error`,
+        });
+      },
+      onSuccess: () => {
+        showToast({
+          detail: t`Questions added successfully`,
+          severity: 'success',
+          summary: t`Success`,
+        });
+        setTargetQuestionsToAdd([]);
+        navigate('..');
+        queryClient.invalidateQueries({
+          queryKey: [QueryKeys.QUESTIONS_TABLE],
+        });
+      },
+    });
+  };
 
   return (
     <Stepper
@@ -20,12 +55,6 @@ const GenerateAiQuestionContent = () => {
         panelContainer: {
           className: 'p-0',
         },
-        // root: {
-        //   className: 'h-75vh',
-        // },
-        // root: {
-        //   className: 'bg-red p-0',
-        // },
       }}
       ref={stepperRef}
     >
@@ -61,7 +90,10 @@ const GenerateAiQuestionContent = () => {
               label={t`Return`}
               onClick={() =>
                 confirmDialog({
-                  accept: () => stepperRef.current.prevCallback(),
+                  accept: () => {
+                    stepperRef.current.prevCallback();
+                    setTargetQuestionsToAdd([]);
+                  },
                   acceptClassName: 'p-button-danger',
                   defaultFocus: 'reject',
                   draggable: false,
@@ -69,7 +101,7 @@ const GenerateAiQuestionContent = () => {
                   icon: 'pi pi-exclamation-triangle text-red',
                   message: (
                     <span className="p-error">
-                      Generated Questions will be discarded !
+                      <Trans>Generated Questions will be discarded !</Trans>
                     </span>
                   ),
 
@@ -80,7 +112,12 @@ const GenerateAiQuestionContent = () => {
             />
             <ConfirmDialog />
 
-            <Button label={t`Add to Questions`} onClick={() => {}} />
+            <Button
+              disabled={isPending}
+              label={t`Add to Questions`}
+              loading={isPending}
+              onClick={onSubmit}
+            />
           </div>
         </div>
       </StepperPanel>

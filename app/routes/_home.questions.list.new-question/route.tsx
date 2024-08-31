@@ -1,6 +1,7 @@
 import Form from './components/Form';
 import GenerateAiQuestionContent from './components/GenerateAiQuestionContent';
 import GenerateNormalQuestionContent from './components/GenerateNormalQuestionContent';
+import { setTargetQuestionsToAdd } from './store';
 import { t, Trans } from '@lingui/macro';
 import { Dialog } from 'primereact/dialog';
 import {
@@ -25,15 +26,19 @@ export function Component() {
               checked={checked}
               offIcon="i-quill:paper w-18px h-18x"
               offLabel={t`Normal Question`}
-              onChange={(event: ToggleButtonChangeEvent) =>
-                setChecked(event.value)
-              }
+              onChange={(event: ToggleButtonChangeEvent) => {
+                setChecked(event.value);
+                setTargetQuestionsToAdd([]);
+              }}
               onIcon="i-hugeicons:artificial-intelligence-02"
               onLabel={t`Ai Question`}
             />
           </div>
         }
-        onHide={() => navigate('/questions/list')}
+        onHide={() => {
+          navigate('/questions/list');
+          setTargetQuestionsToAdd([]);
+        }}
         pt={{
           closeButtonIcon: {
             className: 'w-20 h-20',
