@@ -34,11 +34,11 @@ export function Component() {
           header: {
             className: 'rounded-t-5',
           },
-          paginator: {
-            root: {
-              className: 'bg-slate-200',
-            },
-          },
+          // paginator: {
+          //   root: {
+          //     className: 'bg-slate-200',
+          //   },
+          // },
           root: {
             className: 'mx-5 mt-5',
           },
