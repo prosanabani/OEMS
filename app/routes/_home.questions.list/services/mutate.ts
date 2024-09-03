@@ -11,6 +11,7 @@ import {
 } from 'firebase/firestore';
 
 export const useDeleteQuestion = () => {
+  const AiGeneratedQuestionsText = 'ai-generated-questions';
   return useMutation({
     mutationFn: async (questionId: string) => {
       // Reference to the document in the main collection
@@ -23,7 +24,24 @@ export const useDeleteQuestion = () => {
       // Check if the document exists in the main collection
       const questionDocument = await getDoc(questionDocumentRef);
       if (questionDocument.exists()) {
-        // If the document exists, delete it
+        // Reference to the sub-collection
+        const aiGeneratedQuestionsCollectionRef = collection(
+          questionDocumentRef,
+          AiGeneratedQuestionsText
+        );
+
+        // Get all documents in the sub-collection
+        const aiGeneratedQuestionsSnapshot = await getDocs(
+          aiGeneratedQuestionsCollectionRef
+        );
+
+        // Delete each document in the sub-collection
+        const deletePromises = aiGeneratedQuestionsSnapshot.docs.map(
+          (document_) => deleteDoc(document_.ref)
+        );
+        await Promise.all(deletePromises);
+
+        // Delete the main question document
         await deleteDoc(questionDocumentRef);
       } else {
         // If not, search in the sub-collections
@@ -37,7 +55,7 @@ export const useDeleteQuestion = () => {
           // Reference to the sub-collection
           const aiGeneratedQuestionsCollectionRef = collection(
             question.ref,
-            'ai-generated-questions'
+            AiGeneratedQuestionsText
           );
           const aiGeneratedQuestionsSnapshot = await getDocs(
             aiGeneratedQuestionsCollectionRef
