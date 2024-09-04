@@ -1,5 +1,5 @@
-import { AddUserFormValues } from '@/routes/_home.users.list.new-user/services/types';
 import { useEditUserFromFirebase } from '../services/mutate';
+import { type AddUserFormValues } from '@/routes/_home.users.list.new-user/services/types';
 import { QueryKeys } from '@/utils/constants/QueryEnums';
 import { t, Trans } from '@lingui/macro';
 import { Button } from 'primereact/button';
@@ -7,9 +7,10 @@ import { Dialog } from 'primereact/dialog';
 import { Dropdown } from 'primereact/dropdown';
 import { FloatLabel } from 'primereact/floatlabel';
 import { InputText } from 'primereact/inputtext';
-import { Controller, useForm } from 'react-hook-form';
-import { ProgressSpinner } from 'primereact/progressspinner';
 import { Password } from 'primereact/password';
+import { ProgressSpinner } from 'primereact/progressspinner';
+import { useEffect, useState } from 'react';
+import { Controller, useForm } from 'react-hook-form';
 
 type TProps = {
   readonly userData: AddUserFormValues;
@@ -29,12 +30,11 @@ const EditUserButton = ({ userData }: TProps) => {
     watch,
   } = useForm<AddUserFormValues>({
     defaultValues: {
-      id: userData.id,
       fullName: userData.fullName,
-      role: userData.role,
-      password: userData.password,
+      id: userData.id,
       level: userData.level || '',
-      course: userData.course || '',
+      password: userData.password,
+      role: userData.role,
       // picture: userData.picture,
       userId: userData.userId || '',
     },
@@ -42,14 +42,14 @@ const EditUserButton = ({ userData }: TProps) => {
 
   useEffect(() => {
     reset(userData);
-  }, [userData, reset]);
+  }, [reset, userData]);
 
   const selectedRole = watch('role');
 
   const roles = [
     { label: t`Student`, value: 'student' },
-    { label: 'Teacher', value: 'teacher' },
-    { label: 'Admin', value: 'admin' },
+    { label: t`Teacher`, value: 'teacher' },
+    { label: t`Admin`, value: 'admin' },
   ];
   const levels = [
     { label: t`1st`, value: '1' },
@@ -82,7 +82,7 @@ const EditUserButton = ({ userData }: TProps) => {
 
                 onSuccess: () => {
                   showToast({
-                    detail: t`User Edited Successfully `,
+                    detail: t`User edited successfully`,
                     severity: 'success',
                     summary: t`Success`,
                   });
@@ -125,12 +125,9 @@ const EditUserButton = ({ userData }: TProps) => {
                   <FloatLabel>
                     <Dropdown
                       inputId="role"
-                      // onChange={(event) => field.onChange(event.value)}
                       onChange={(event) => {
                         field.onChange(event.value);
-                        console.log(event.value);
                         if (event.value !== 'student') {
-                          setValue('course', '');
                           setValue('level', '');
                           setValue('userId', '');
                         }
@@ -138,7 +135,9 @@ const EditUserButton = ({ userData }: TProps) => {
                       options={roles}
                       value={field.value}
                     />
-                    <label htmlFor="role">Role</label>
+                    <label htmlFor="role">
+                      <Trans>Role</Trans>
+                    </label>
                     {fieldState.error && (
                       <small className="p-error">
                         {fieldState.error.message}
@@ -146,7 +145,7 @@ const EditUserButton = ({ userData }: TProps) => {
                     )}
                   </FloatLabel>
                 )}
-                rules={{ required: 'Role is required' }}
+                rules={{ required: t`Role is required` }}
               />
             </div>
             <div className="field">
@@ -158,7 +157,9 @@ const EditUserButton = ({ userData }: TProps) => {
                     <>
                       <FloatLabel>
                         <InputText id="fullName" {...field} />
-                        <label htmlFor="fullName">Full Name</label>
+                        <label htmlFor="fullName">
+                          <Trans>Full Name</Trans>
+                        </label>
                       </FloatLabel>
                       {fieldState.error && (
                         <small className="p-error">
@@ -168,7 +169,7 @@ const EditUserButton = ({ userData }: TProps) => {
                     </>
                   );
                 }}
-                rules={{ required: 'Full Name is required' }}
+                rules={{ required: t`Full Name is required` }}
               />
             </div>
 
@@ -181,7 +182,9 @@ const EditUserButton = ({ userData }: TProps) => {
                     <>
                       <FloatLabel>
                         <Password inputId="password" toggleMask {...field} />
-                        <label htmlFor="password">Password</label>
+                        <label htmlFor="password">
+                          <Trans>Password</Trans>
+                        </label>
                       </FloatLabel>
                       {fieldState.error && (
                         <small className="p-error">
@@ -193,10 +196,10 @@ const EditUserButton = ({ userData }: TProps) => {
                 }}
                 rules={{
                   minLength: {
-                    message: 'Password must be at least 6 characters',
+                    message: t`Password must be at least 6 characters`,
                     value: 6,
                   },
-                  required: 'Password is required',
+                  required: t`Password is required`,
                 }}
               />
             </div>
@@ -215,7 +218,7 @@ const EditUserButton = ({ userData }: TProps) => {
                           options={levels}
                           value={field.value}
                         />
-                        <label htmlFor="role">
+                        <label htmlFor="level">
                           <Trans>Student Level</Trans>
                         </label>
                         {fieldState.error && (
@@ -236,7 +239,9 @@ const EditUserButton = ({ userData }: TProps) => {
                       return (
                         <FloatLabel>
                           <InputText id="userId" {...field} />
-                          <label htmlFor="userId">User ID</label>
+                          <label htmlFor="userId">
+                            <Trans>User ID</Trans>
+                          </label>
                           {fieldState.error && (
                             <small className="p-error">
                               {fieldState.error.message}
@@ -245,28 +250,7 @@ const EditUserButton = ({ userData }: TProps) => {
                         </FloatLabel>
                       );
                     }}
-                    rules={{ required: 'User ID is required' }}
-                  />
-                </div>
-
-                <div className="field">
-                  <Controller
-                    control={control}
-                    name="course"
-                    render={({ field, fieldState }) => {
-                      return (
-                        <FloatLabel>
-                          <InputText id="course" {...field} />
-                          <label htmlFor="course">Course</label>
-                          {fieldState.error && (
-                            <small className="p-error">
-                              {fieldState.error.message}
-                            </small>
-                          )}
-                        </FloatLabel>
-                      );
-                    }}
-                    rules={{ required: 'Course is required' }}
+                    rules={{ required: t`User ID is required` }}
                   />
                 </div>
               </>

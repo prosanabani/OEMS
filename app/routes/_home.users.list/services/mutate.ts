@@ -1,14 +1,7 @@
-import { AddUserFormValues } from '@/routes/_home.users.list.new-user/services/types';
+import { type AddUserFormValues } from '@/routes/_home.users.list.new-user/services/types';
 import { t } from '@lingui/macro';
 import { useMutation } from '@tanstack/react-query';
-import {
-  collection,
-  deleteDoc,
-  doc,
-  getDoc,
-  getDocs,
-  updateDoc,
-} from 'firebase/firestore';
+import { deleteDoc, doc, getDoc, updateDoc } from 'firebase/firestore';
 
 export const useDeleteUserFromFirebase = () => {
   return useMutation({
@@ -43,7 +36,6 @@ export const useEditUserFromFirebase = () => {
       if (userDocument.exists()) {
         // If the document exists, update it
         await updateDoc(userDocumentRef, {
-          course: payload.course,
           fullName: payload.fullName,
           level: payload.level,
           password: payload.password,

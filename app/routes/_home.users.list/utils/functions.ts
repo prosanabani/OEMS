@@ -1,4 +1,4 @@
-import { AddUserFormValues } from '@/routes/_home.users.list.new-user/services/types';
+import { type AddUserFormValues } from '@/routes/_home.users.list.new-user/services/types';
 
 export const filterData = (
   data: AddUserFormValues[],
