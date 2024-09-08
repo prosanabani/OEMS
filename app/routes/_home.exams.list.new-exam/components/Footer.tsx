@@ -1,5 +1,6 @@
 import { useAddExamToFireBase } from '../services/mutate';
 import { type TAddExamForm } from '../types/examType';
+import { QueryKeys } from '@/utils/constants/QueryEnums';
 import { t } from '@lingui/macro';
 import { Button } from 'primereact/button';
 import { useFormContext } from 'react-hook-form';
@@ -25,6 +26,9 @@ const Footer = () => {
           detail: t`Exam has been added successfully`,
           severity: 'success',
           summary: t`Success`,
+        });
+        queryClient.invalidateQueries({
+          queryKey: [QueryKeys.EXAMS_TABLE],
         });
         navigate('..');
       },
