@@ -1,7 +1,8 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import QuestionRowExpansion from './components/QuestionRowExpansion';
 import QuestionsTableHeader from './components/QuestionsTableHeader';
 import { useQuestionsTable } from './services/query';
-import { type TQuestion } from './types/types';
+import { setExpandedRows, useQuestionListStore } from './store';
 import { isRowExpandable } from './utils/functions';
 import {
   ActionBodyTemplate,
@@ -13,7 +14,11 @@ import { Column } from 'primereact/column';
 import { DataTable } from 'primereact/datatable';
 
 export function Component() {
-  const [expandedRows, setExpandedRows] = useState<TQuestion[] | null>(null);
+  const { expandedRows } = useQuestionListStore();
+
+  useEffect(() => {
+    setExpandedRows(expandedRows);
+  }, [expandedRows]);
 
   const { data, isLoading } = useQuestionsTable();
 
@@ -23,9 +28,7 @@ export function Component() {
         expandedRows={expandedRows || []}
         header={<QuestionsTableHeader />}
         loading={isLoading}
-        onRowToggle={(event: { data: TQuestion[] }) =>
-          setExpandedRows(event.data)
-        }
+        onRowToggle={(event: { data: any }) => setExpandedRows(event.data)}
         paginator
         pt={{
           header: {
@@ -44,10 +47,11 @@ export function Component() {
         rowExpansionTemplate={(rowData) => (
           <QuestionRowExpansion data={rowData.aiGeneratedQuestions} />
         )}
-        rows={20}
-        rowsPerPageOptions={[5, 10, 25, 50]}
+        rows={10}
+        rowsPerPageOptions={[5, 10, 20, 50, 100]}
         scrollHeight="55vh"
         scrollable
+        size="small"
         stripedRows
         value={data}
       >

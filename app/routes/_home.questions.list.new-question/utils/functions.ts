@@ -7,7 +7,7 @@ export const generatePrompt = (payload?: TFormQuestions) => {
     return (
       'paraphrase me 5 questions about ' +
       question +
-      ' and return them in array of {question : string , id : number } format.'
+      ' and return them in array of {question : string } format.'
     );
   }
 
@@ -15,9 +15,9 @@ export const generatePrompt = (payload?: TFormQuestions) => {
     return (
       'paraphrase me 5 questions about ' +
       question +
-      ' and make these choices  ' +
+      ' and shuffle this questionAnswers string ' +
       questionAnswers +
-      'in different order and return them in array of {question : string , id : number , choices : string } format.'
+      ' in different order and return them in array of {question : string , questionAnswers : string } format.'
     );
   }
 

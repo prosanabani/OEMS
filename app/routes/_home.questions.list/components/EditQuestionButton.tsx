@@ -50,6 +50,10 @@ const EditQuestionButton = ({ questionData }: TProps) => {
     }
   }, [currentAnswers, questionCorrectAnswer, visible]);
 
+  useEffect(() => {
+    reset(questionData);
+  }, [questionData, reset]);
+
   const handleInputChange = (
     event: React.ChangeEvent<HTMLInputElement>,
     index: number

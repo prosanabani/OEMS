@@ -1,5 +1,6 @@
 import { type TFormQuestions } from '../components/Form';
 import { generatePrompt } from '../utils/functions';
+import { QueryKeys } from '@/utils/constants/QueryEnums';
 import { GoogleGenerativeAI } from '@google/generative-ai';
 import { useQuery } from '@tanstack/react-query';
 
@@ -24,20 +25,39 @@ const useNewQuestionData = (payload?: TFormQuestions) => {
       const response = result.response;
       return JSON.parse(response.text());
     },
-    queryKey: ['newQuestionData', Prompt],
+    queryKey: [QueryKeys.NEW_QUESTION_DATA, Prompt],
 
     select: (
       data: Array<{ choices: string; id: number; question: string }>
     ) => {
+      // add correct answer and question type to the generated questions
+      const GeminiGeneratedQuestions = data.map((question) => {
+        return {
+          ...question,
+          ...(payload?.questionCorrectAnswer
+            ? { questionCorrectAnswer: payload.questionCorrectAnswer }
+            : {}),
+          questionType: payload?.questionType,
+        };
+      });
+
+      // add the default added question to the first position
+      const generatedQuestions = [
+        {
+          ...(payload?.questionAnswers
+            ? { questionAnswers: payload.questionAnswers }
+            : {}),
+          ...(payload?.questionCorrectAnswer
+            ? { questionCorrectAnswer: payload.questionCorrectAnswer }
+            : {}),
+          question: payload?.question || '',
+          questionType: payload?.questionType,
+        },
+        ...GeminiGeneratedQuestions,
+      ];
+
       return {
-        generatedQuestions: [
-          {
-            choices: payload?.questionAnswers || '',
-            id: 9_999,
-            question: payload?.question || '',
-          },
-          ...data,
-        ],
+        generatedQuestions,
         questionCorrectAnswer: payload?.questionCorrectAnswer,
         questionType: payload?.questionType,
       };

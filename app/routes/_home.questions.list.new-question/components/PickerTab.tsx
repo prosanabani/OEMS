@@ -1,4 +1,5 @@
 import useNewQuestionData from '../services/query';
+import { setTargetQuestionsToAdd, useNewQuestionStore } from '../store';
 import { type TFormQuestions } from './Form';
 import { t } from '@lingui/macro';
 import { Divider } from 'primereact/divider';
@@ -7,24 +8,35 @@ import { ProgressSpinner } from 'primereact/progressspinner';
 import { useFormContext } from 'react-hook-form';
 
 const PickerTab = () => {
-  // const [generateQuestions, setGenerateQuestions] = useState([]);
+  const targetQuestionsToAdd = useNewQuestionStore(
+    (state) => state.targetQuestionsToAdd
+  );
   const [source, setSource] = useState<
-    Array<{ choices: string; id: number; question: string }>
+    Array<
+      | {
+          choices: string;
+          id: number;
+          question: string;
+        }
+      | {
+          choices?: string | undefined;
+          question: string;
+        }
+    >
   >([]);
-  const [target, setTarget] = useState([]);
 
   const itemTemplate = (item: {
-    choices: string;
     id: number;
     question: string;
+    questionAnswers: string;
   }) => {
     return (
       <>
         <div className="flex flex-col gap-1">
           <div className=" text-blue">{item.question}</div>
           <div className="flex gap-4 ">
-            {item.choices &&
-              item.choices.split(',').map((choice, index) => (
+            {item.questionAnswers &&
+              item.questionAnswers.split(',').map((choice, index) => (
                 <div key={index}>
                   {index + 1}. {choice}
                 </div>
@@ -54,7 +66,7 @@ const PickerTab = () => {
           itemTemplate={itemTemplate}
           onChange={(event: PickListChangeEvent) => {
             setSource(event.source);
-            setTarget(event.target);
+            setTargetQuestionsToAdd(event.target);
           }}
           pt={{
             list: {
@@ -67,9 +79,11 @@ const PickerTab = () => {
               className: 'h-full',
             },
           }}
+          showSourceControls={false}
+          showTargetControls={false}
           source={source}
           sourceHeader={t`Generated`}
-          target={target}
+          target={targetQuestionsToAdd}
           targetHeader={t`Selected`}
         />
       ) : (
