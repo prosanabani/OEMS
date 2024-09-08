@@ -65,7 +65,7 @@ const PageSlider = () => {
         {
           command: () => {
             setVisible(false);
-            navigate('/users/new-user');
+            navigate('/users/list/new-user');
           },
           icon: plusIcon,
           label: t`Add new User`,
