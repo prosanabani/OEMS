@@ -1,3 +1,9 @@
+import { CoursesListComponent } from './components/CoursesListComponent';
+
 export function Component() {
-  return <div className="">courselist</div>;
+  return (
+    <div className="">
+      <CoursesListComponent />
+    </div>
+  );
 }
