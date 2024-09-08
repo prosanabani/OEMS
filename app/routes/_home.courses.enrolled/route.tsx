@@ -1,3 +1,9 @@
+import EnrolledCourse from './components/EnrolledCourse';
+
 export function Component() {
-  return <div className="">enrolled courses</div>;
+  return (
+    <div className="">
+      <EnrolledCourse />
+    </div>
+  );
 }
