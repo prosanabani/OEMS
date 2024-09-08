@@ -7,11 +7,12 @@ type TProps = {
 };
 
 const Form = ({ children }: TProps) => {
-  const values = {
+  const values: TAddExamForm = {
+    courseId: undefined,
     examDescription: '',
     examMark: 50,
     examName: '',
-    examPassMark: 0,
+    examPassMark: 25,
     examTitle: '',
   };
   const methods = useForm<TAddExamForm>({

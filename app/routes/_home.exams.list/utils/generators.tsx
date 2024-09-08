@@ -1,3 +1,4 @@
+import DeleteButton from '../components/DeleteButton';
 import { type TExamList } from '../types/examListType';
 import { t, Trans } from '@lingui/macro';
 import { Button } from 'primereact/button';
@@ -14,12 +15,7 @@ export const ActionBodyTemplate = (rowData: TExamList) => {
         severity="success"
       />
 
-      <Button
-        icon="pi pi-trash"
-        onClick={() => navigate('', { state: rowData })}
-        rounded
-        severity="danger"
-      />
+      <DeleteButton examId={rowData.id} />
     </div>
   );
 };
