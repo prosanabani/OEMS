@@ -1,12 +1,12 @@
-import { AddUserFormValues } from '@/routes/_home.users.list.new-user/services/types';
 import DeleteUserButton from '../components/DeleteUserButton';
+import EditUserButton from '../components/EditUserButton';
 import { setSearchInput, useUserListStore } from '../store';
+import { type AddUserFormValues } from '@/routes/_home.users.list.new-user/services/types';
 import { t } from '@lingui/macro';
 import { Button } from 'primereact/button';
 import { IconField } from 'primereact/iconfield';
 import { InputIcon } from 'primereact/inputicon';
 import { InputText } from 'primereact/inputtext';
-import EditUserButton from '../components/EditUserButton';
 
 export const ActionBodyTemplate = (rowData: AddUserFormValues) => {
   return (

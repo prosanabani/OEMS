@@ -1,4 +1,6 @@
 import useAddUser from '../services/query';
+import { type AddUserFormValues } from '../services/types';
+import { QueryKeys } from '@/utils/constants/QueryEnums';
 import { t, Trans } from '@lingui/macro';
 import { Button } from 'primereact/button';
 import { Dialog } from 'primereact/dialog';
@@ -9,13 +11,11 @@ import { Password } from 'primereact/password';
 import { ProgressSpinner } from 'primereact/progressspinner';
 import { Controller, useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
-import { AddUserFormValues } from '../services/types';
-import { QueryKeys } from '@/utils/constants/QueryEnums';
 
 const roles = [
-  { label: 'Student', value: 'student' },
-  { label: 'Teacher', value: 'teacher' },
-  { label: 'Admin', value: 'admin' },
+  { label: t`Student`, value: 'student' },
+  { label: t`Teacher`, value: 'teacher' },
+  { label: t`Admin`, value: 'admin' },
 ];
 const levels = [
   { label: t`1st`, value: '1' },
@@ -35,16 +35,16 @@ const AddUserComponent = () => {
     mutate(data, {
       onError: () => {
         showToast({
-          detail: 'Error adding document',
+          detail: t`Error adding document`,
           severity: 'error',
-          summary: 'Error',
+          summary: t`Error`,
         });
       },
       onSuccess: () => {
         showToast({
-          detail: 'User added successfully',
+          detail: t`User added successfully`,
           severity: 'success',
-          summary: 'Success',
+          summary: t`Success`,
         });
         queryClient.invalidateQueries({
           queryKey: [QueryKeys.USERS_TABLE],
@@ -62,7 +62,8 @@ const AddUserComponent = () => {
       footer={
         <Button
           className="mt-2"
-          label="Submit"
+          label={t`Submit`}
+          loading={isPending}
           onClick={handleSubmit(onSubmit)}
           type="submit"
         />
@@ -70,7 +71,7 @@ const AddUserComponent = () => {
       header={
         <div className="flex items-center gap-2">
           <div className="i-solar:user-linear w-1em h-1em" />
-          <div className="">New User</div>
+          <div className="">{t`New User`}</div>
         </div>
       }
       onHide={() => navigate('..')}
@@ -82,7 +83,11 @@ const AddUserComponent = () => {
       visible
     >
       {isPending ? (
-        <ProgressSpinner />
+        <ProgressSpinner
+          pt={{
+            root: { className: ' h-full flex justify-center' },
+          }}
+        />
       ) : (
         <form className="p-fluid flex flex-col gap-8">
           <div className="field mt-5">
@@ -97,7 +102,7 @@ const AddUserComponent = () => {
                     options={roles}
                     value={field.value}
                   />
-                  <label htmlFor="role">Role</label>
+                  <label htmlFor="role">{t`Role`}</label>
                   {fieldState.error && (
                     <small className="p-error">
                       {fieldState.error.message}
@@ -105,7 +110,7 @@ const AddUserComponent = () => {
                   )}
                 </FloatLabel>
               )}
-              rules={{ required: 'Role is required' }}
+              rules={{ required: t`Role is required` }}
             />
           </div>
           <div className="field">
@@ -117,7 +122,7 @@ const AddUserComponent = () => {
                   <>
                     <FloatLabel>
                       <InputText id="fullName" {...field} />
-                      <label htmlFor="fullName">Full Name</label>
+                      <label htmlFor="fullName">{t`Full Name`}</label>
                     </FloatLabel>
                     {fieldState.error && (
                       <small className="p-error">
@@ -127,7 +132,7 @@ const AddUserComponent = () => {
                   </>
                 );
               }}
-              rules={{ required: 'Full Name is required' }}
+              rules={{ required: t`Full Name is required` }}
             />
           </div>
 
@@ -140,7 +145,7 @@ const AddUserComponent = () => {
                   <>
                     <FloatLabel>
                       <Password inputId="password" toggleMask {...field} />
-                      <label htmlFor="password">Password</label>
+                      <label htmlFor="password">{t`Password`}</label>
                     </FloatLabel>
                     {fieldState.error && (
                       <small className="p-error">
@@ -152,10 +157,10 @@ const AddUserComponent = () => {
               }}
               rules={{
                 minLength: {
-                  message: 'Password must be at least 6 characters',
+                  message: t`Password must be at least 6 characters`,
                   value: 6,
                 },
-                required: 'Password is required',
+                required: t`Password is required`,
               }}
             />
           </div>
@@ -195,7 +200,7 @@ const AddUserComponent = () => {
                     return (
                       <FloatLabel>
                         <InputText id="userId" {...field} />
-                        <label htmlFor="userId">User ID</label>
+                        <label htmlFor="userId">{t`User ID`}</label>
                         {fieldState.error && (
                           <small className="p-error">
                             {fieldState.error.message}
@@ -204,28 +209,7 @@ const AddUserComponent = () => {
                       </FloatLabel>
                     );
                   }}
-                  rules={{ required: 'User ID is required' }}
-                />
-              </div>
-
-              <div className="field">
-                <Controller
-                  control={control}
-                  name="course"
-                  render={({ field, fieldState }) => {
-                    return (
-                      <FloatLabel>
-                        <InputText id="course" {...field} />
-                        <label htmlFor="course">Course</label>
-                        {fieldState.error && (
-                          <small className="p-error">
-                            {fieldState.error.message}
-                          </small>
-                        )}
-                      </FloatLabel>
-                    );
-                  }}
-                  rules={{ required: 'Course is required' }}
+                  rules={{ required: t`User ID is required` }}
                 />
               </div>
             </>

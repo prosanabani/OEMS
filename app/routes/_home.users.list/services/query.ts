@@ -1,5 +1,5 @@
 import { FirebaseDatabase } from '@/config/firebase';
-import { AddUserFormValues } from '@/routes/_home.users.list.new-user/services/types';
+import { type AddUserFormValues } from '@/routes/_home.users.list.new-user/services/types';
 import { QueryKeys } from '@/utils/constants/QueryEnums';
 import { useQuery } from '@tanstack/react-query';
 import { collection, getDocs } from 'firebase/firestore';
@@ -14,11 +14,11 @@ export const useUsersListTable = () => {
       return await Promise.all(
         querySnapshot.docs.map(async (document) => {
           const userData: AddUserFormValues = {
-            id: document.id,
             fullName: document.data().fullName,
-            role: document.data().role,
+            id: document.id,
             password: document.data().password,
-            picture: document.data().picture,
+            role: document.data().role,
+            // picture: document.data().picture,
             ...document.data(),
           };
 
