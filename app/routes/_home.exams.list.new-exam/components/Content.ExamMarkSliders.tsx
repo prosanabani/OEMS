@@ -29,14 +29,20 @@ const ExamMarkSliders = () => {
                 <Trans>Exam Mark</Trans>
               </label>
               <InputNumber
-                buttonLayout="vertical"
-                className="w-15"
+                buttonLayout="horizontal"
                 inputMode="none"
                 max={100}
                 min={0}
                 onValueChange={(event: InputNumberValueChangeEvent) => {
                   field.onChange(event.value);
                   setValue('examPassMark', (event.value || 0) / 2);
+                }}
+                pt={{
+                  input: {
+                    root: {
+                      className: 'w-12',
+                    },
+                  },
                 }}
                 showButtons
                 step={5}
@@ -72,10 +78,10 @@ const ExamMarkSliders = () => {
                 max={examMarkWatch - 1} // Ensure max is always less than examMark
                 min={0}
                 onChange={(event) => field.onChange(event.value)}
-                orientation="vertical"
+                orientation="horizontal"
                 pt={{
                   root: {
-                    className: 'bg-gray',
+                    className: 'bg-gray w-45',
                   },
                 }}
                 step={1}

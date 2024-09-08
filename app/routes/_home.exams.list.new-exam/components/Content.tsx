@@ -15,7 +15,7 @@ const Content = () => {
       <ExamTitle />
       {/* Exam Description Input */}
       <ExamDescription />
-      <div className="flex gap-5 justify-center ">
+      <div className="flex items-center gap-7 ">
         <ExamMarkSliders />
       </div>
     </div>
