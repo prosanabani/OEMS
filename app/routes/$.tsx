@@ -1,3 +1,3 @@
 export function Component() {
-  return <Navigate to="/dashboard" />;
+  // return <Navigate to="/dashboard" />;
 }

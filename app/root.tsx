@@ -1,7 +1,25 @@
 import { Trans } from '@lingui/macro';
-import { useRouteError } from 'react-router-dom';
+import { Outlet, useRouteError } from 'react-router-dom';
 
 export function Component() {
+  const navigate = useNavigate();
+
+  // useEffect(() => {
+  //   // Firebase Auth listener for real-time authentication state changes
+  //   onAuthStateChanged(FirebaseAuth, (user) => {
+  //     if (!user && !localStorage.getItem('user')) {
+  //       navigate('/login'); // If user is not authenticated, redirect to login
+  //     }
+  //   });
+
+  // }, [navigate]);
+
+  useEffect(() => {
+    if (!localStorage.getItem('user')) {
+      navigate('/login');
+    }
+  }, [navigate]);
+
   return (
     <>
       <title>OEMS</title>
