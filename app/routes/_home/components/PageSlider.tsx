@@ -87,7 +87,7 @@ const PageSlider = () => {
         {
           command: () => {
             setVisible(false);
-            navigate('/exams/new-exam');
+            navigate('/exams/list/new-exam');
           },
           icon: plusIcon,
           label: 'Add New exam',
