@@ -4,7 +4,8 @@ import './styles/main.css';
 import 'virtual:uno.css';
 import 'primereact/resources/primereact.css';
 import 'primeicons/primeicons.css';
-// import 'primereact/resources/themes/lara-light-purple/theme.css';
+// import 'primereact/resources/themes/lara-dark-blue/theme.css';
+import 'primereact/resources/themes/lara-light-blue/theme.css';
 import queryClient from './config/queryClient';
 import { I18nProvider } from '@lingui/react';
 import { QueryClientProvider } from '@tanstack/react-query';
@@ -27,6 +28,7 @@ export function Loader() {
 
 const value: Partial<APIOptions> = {
   appendTo: 'self',
+  ripple: true,
 };
 
 createRoot(document.querySelector('#root') as Element).render(
@@ -35,6 +37,7 @@ createRoot(document.querySelector('#root') as Element).render(
       <I18nProvider i18n={i18n}>
         <PrimeReactProvider value={value}>
           <RouterProvider fallbackElement={<Loader />} router={router} />
+          <OEMSToast />
           <ClickToComponent />
         </PrimeReactProvider>
       </I18nProvider>

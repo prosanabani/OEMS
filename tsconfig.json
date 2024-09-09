@@ -10,7 +10,7 @@
 
     /* Bundler mode */
     "moduleResolution": "Node",
-    "allowImportingTsExtensions": true,
+    // "allowImportingTsExtensions": true,
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
@@ -29,6 +29,6 @@
     "forceConsistentCasingInFileNames": true,
     "types": ["vite/client", "unplugin-icons/types/react"]
   },
-  "include": [ ".eslintrc.cjs" ,"unimport.d.ts", "app"],
+  "include": [".eslintrc.cjs", "unimport.d.ts", "app"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }
