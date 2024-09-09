@@ -30,7 +30,7 @@ const Footer = () => {
         queryClient.invalidateQueries({
           queryKey: [QueryKeys.EXAMS_TABLE],
         });
-        navigate('..');
+        navigate('/exams/list/add-questions', { state: data });
       },
     });
   };
