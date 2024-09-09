@@ -6,6 +6,7 @@ const useAddUser = () => {
   return useMutation({
     mutationFn: async (data: AddUserFormValues) => {
       await addDoc(collection(FirebaseDatabase, 'users'), {
+        email: data.email || '',
         fullName: data.fullName || '',
         level: data.level || '',
         password: data.password,

@@ -28,6 +28,7 @@ export function UsersListComponent() {
         <Column field="fullName" header={t`Name`} sortable />
         <Column field="role" header={t`Role`} sortable />
         <Column field="level" header={t`StudentLevel`} sortable />
+        <Column field="email" header={t`Email`} sortable />
         <Column body={ActionBodyTemplate} header={t`Actions`} />
       </DataTable>
       <Outlet />
