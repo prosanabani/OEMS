@@ -3,6 +3,7 @@ export type TQuestion = {
   question: string;
   questionAnswers: string;
   questionCorrectAnswer: string;
+  questionType?: string;
 };
 export type TFirebaseQuestion = {
   aiGeneratedQuestions: TQuestion[];
