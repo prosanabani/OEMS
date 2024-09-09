@@ -164,6 +164,33 @@ const AddUserComponent = () => {
               }}
             />
           </div>
+          <div className="field">
+            <Controller
+              control={control}
+              defaultValue="@gmail.com"
+              name="email"
+              render={({ field, fieldState }) => {
+                return (
+                  <FloatLabel>
+                    <InputText id="email" {...field} />
+                    <label htmlFor="email">{t`Email`}</label>
+                    {fieldState.error && (
+                      <small className="p-error">
+                        {fieldState.error.message}
+                      </small>
+                    )}
+                  </FloatLabel>
+                );
+              }}
+              rules={{
+                pattern: {
+                  message: t`Invalid email address`,
+                  value: /^[\w%+.-]+@[\d.A-Za-z-]+\.[A-Za-z]{2,4}$/u,
+                },
+                required: t`Email is required`,
+              }}
+            />
+          </div>
 
           {selectedRole === 'student' && (
             <>
