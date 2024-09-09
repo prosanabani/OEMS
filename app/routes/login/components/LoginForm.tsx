@@ -1,329 +1,514 @@
-// import Illustration from './Illustration';
+// import logo1 from '../logo1.jpg';
 // import { Button } from 'primereact/button';
+// import { Dropdown } from 'primereact/dropdown';
+// import { FloatLabel } from 'primereact/floatlabel';
 // import { InputText } from 'primereact/inputtext';
-// import { Password } from 'primereact/password';
 // import React, { useState } from 'react';
 // import { useForm } from 'react-hook-form';
-// import { FieldValues } from 'react-hook-form';
+// import { useNavigate } from 'react-router-dom'; // Import useNavigate hook
 
-// type SubmitHandler<TFieldValues extends FieldValues> = (
-//   data: TFieldValues,
-//   event?: Event
-// ) => void;
+// type User = {
+//   password: string;
+//   username: string;
+// };
 
-// const LoginForm = () => {
+// type Role = 'admin' | 'student' | 'lecturer';
+
+// export default function LoginForm() {
+//   const [selectedRole, setSelectedRole] = useState<Role>();
+//   const [loading, setLoading] = useState<boolean>(false);
+//   const navigate = useNavigate(); // Utilize useNavigate for navigation
+
 //   const {
+//     control,
 //     formState: { errors },
 //     handleSubmit,
-//     register,
 //   } = useForm();
 
-//   const [username, setUsername] = useState('');
-//   const [password, setPassword] = useState('');
+//   const handleLogin = async (data: User) => {
+//     // Prevent default form submission
+//     event.preventDefault();
 
-//   const onSubmit = (data: FieldValues) => {
-//     const { username, password } = data as {
-//       username: string;
-//       password: string;
-//     };
-//     console.log('Username:', username, 'Password:', password);
-//     // ...
+//     // Replace this with your actual login logic (API call, etc.)
+//     console.log(
+//       'Login clicked! Username:',
+//       data.username,
+//       'Password:',
+//       data.password
+//     );
+
+//     setLoading(true);
+
+//     try {
+//       // Simulate successful login after 1 second
+//       await new Promise((resolve) => setTimeout(resolve, 1_000));
+
+//       // Handle successful login: navigate to "_home" page
+//       navigate('/dashboard'); // Replace with your actual home route path
+
+//       console.log('Login successful!');
+//     } catch (error) {
+//       // Handle login errors
+//       console.error('Login failed:', error);
+//     } finally {
+//       setLoading(false);
+//     }
 //   };
 
-//   return (
-//     <div className="surface-card p-4 shadow-2 border-round w-full lg:w-6">
-//       <div className="text-center mb-5">
-//         <img
-//           src="/demo/images/blocks/logos/hyper.svg"
-//           alt="hyper"
-//           height={50}
-//           className="mb-3"
-//         />
-//         <div className="text-900 text-3xl font-medium mb-3">Welcome Back</div>
-//         <span className="text-600 font-medium line-height-3">
-//           Don't have an account?
-//         </span>
-//         <a className="font-medium no-underline ml-2 text-blue-500 cursor-pointer">
-//           Create today!
-//         </a>
-//       </div>
+//   const handleChangeRole = (event: React.ChangeEvent<HTMLSelectElement>) => {
+//     setSelectedRole(event.target.value as Role);
+//   };
 
-//       <div>
-//         <label htmlFor="text" className="block text-900 font-medium mb-2">
-//           <Username></Username>
-//         </label>
-//         <InputText
-//           id="email"
-//           type="text"
-//           placeholder="Email address"
-//           className="w-full mb-3"
-//         />
-
-//         <label htmlFor="password" className="block text-900 font-medium mb-2">
-//           Password
-//         </label>
-//         <InputText
-//           type="password"
-//           placeholder="Password"
-//           className="w-full mb-3"
-//         />
-
-//         <div className="flex align-items-center justify-content-between mb-6">
-//           <div className="flex align-items-center">
-//             <Checkbox
-//               id="rememberme"
-//               className="mr-2"
-//               checked={checked1}
-//               onChange={(e) => setChecked1(e.checked)}
-//             />
-//             <label htmlFor="rememberme">Remember me</label>
+//   const renderUsernameField = () => {
+//     switch (selectedRole) {
+//       case 'admin':
+//       case 'lecturer':
+//         return (
+//           <div className="mb-10">
+//             <FloatLabel>
+//               <InputText
+//                 className="w-full pi-pi-user"
+//                 {...control.register('username', {
+//                   required: 'Username is required',
+//                 })}
+//                 placeholder="Enter Name"
+//               />
+//               <label htmlFor="username">Name</label>
+//               {errors.username && (
+//                 <span className="error">{errors.username.message}</span>
+//               )}
+//             </FloatLabel>
 //           </div>
-//           <a className="font-medium no-underline ml-2 text-blue-500 text-right cursor-pointer">
-//             Forgot your password?
-//           </a>
+//         );
+//       case 'student':
+//         return (
+//           <div className="mb-10">
+//             <FloatLabel>
+//               <InputText
+//                 className="w-full pi-pi-user"
+//                 {...control.register('username', {
+//                   required: 'Username is required',
+//                   type: 'number', // Set type validation for student
+//                 })}
+//                 placeholder="Enter User ID"
+//                 type="number"
+//               />
+//               <label htmlFor="username">User ID</label>
+//               {errors.username && (
+//                 <span className="error">{errors.username.message}</span>
+//               )}
+//             </FloatLabel>
+//           </div>
+//         );
+//       default:
+//         return null;
+//     }
+//   };
+
+//   const roles = [
+//     { label: 'Admin', value: 'admin' },
+//     { label: 'Student', value: 'student' },
+//     { label: 'Lecturer', value: 'lecturer' },
+//   ];
+
+//   return (
+//     <div className="login-container flex h-min-screen bg-red-7 rounded-3xl">
+//       <form
+//         className="w-180 font-medium bg-gray-100 text-black-800 rounded-tl-2xl rounded-bl-2xl p-30"
+//         onSubmit={handleSubmit(handleLogin)}
+//       >
+//         <h2 className="text-4xl text-blue-700 font-bold ">Welcome Back</h2>
+//         <div className="mb-10">
+//           <label className="block text-sm font-medium mb-2" htmlFor="role">
+//             Choose Role:
+//           </label>
+//           <Dropdown
+//             className="w-full"
+//             id="role"
+//             name="role" // Not needed with useForm, handled by control.register
+//             onChange={handleChangeRole}
+//             options={roles}
+//             value={selectedRole}
+//           />
 //         </div>
 
-//         <Button label="Sign In" icon="pi pi-user" className="w-full" />
-//       </div>
+//         {renderUsernameField()}
+
+//         <div className="mb-10">
+//           <FloatLabel>
+//             <InputText
+//               className="w-full"
+//               {...control.register('password', {
+//                 minLength: 8,
+//                 required: 'Password is required', // Set minimum password length
+//               })}
+//               placeholder="Enter Password"
+//             />
+//             <label htmlFor="password">Password</label>
+//             {errors.password && (
+//               <span className="error">{errors.password.message}</span>
+//             )}
+//           </FloatLabel>
+//         </div>
+
+//         <Button className="w-full" label="Login" loading={loading} />
+//       </form>
+
+//       <img
+//         alt="Placeholder"
+//         className="h-min-screen object-cover rounded-tr-2xl rounded-br-2xl "
+//         src={logo1}
+//       />
 //     </div>
 //   );
-// };
-// export default LoginForm;
+// }
 
+// LoginForm.tsx
+// import logo1 from '../logo1.jpg';
+// // import { FirebaseDatabase } from 'firebase/database'; // Adjust the import path as necessary
+// import { doc, getDoc } from 'firebase/firestore';
 // import { Button } from 'primereact/button';
-// import { Checkbox } from 'primereact/checkbox';
+// import { Dropdown, type DropdownChangeEvent } from 'primereact/dropdown';
+// import { FloatLabel } from 'primereact/floatlabel';
 // import { InputText } from 'primereact/inputtext';
 // import { Password } from 'primereact/password';
-// import React from 'react';
-// import { useForm } from 'react-hook-form';
-// import { FieldValues } from 'react-hook-form';
-
-// const LoginForm: React.FC = () => {
-//   const {
-//     formState: { errors, isSubmitting },
-//     handleSubmit,
-//     register,
-//   } = useForm();
-
-//   type LoginData = {
-//     username: string;
-//     password: string;
-//     rememberMe: boolean;
-//   };
-//   const onSubmit = (data: FieldValues) => {
-//     const loginData = data as LoginData;
-//     // Handle login logic with loginData
-//     console.log('Login data:', loginData);
-//   };
-//   const [rememberMe, setRememberMe] = useState(false);
-
-//   return (
-//     <div className="login-form">
-//       <h2 className="text-2xl font-medium mb-6">Welcome Back</h2>
-//       <p>Login to your account</p>
-//       <form onSubmit={handleSubmit(onSubmit)}>
-//         <div className="mb-3">
-//           <label className="block mb-2 text-sm font-medium" htmlFor="username">
-//             Username
-//           </label>
-//           <InputText
-//             id="username"
-//             placeholder="Username"
-//             type="text"
-//             {...register('username', { required: true })}
-//           />
-//           {errors.username && (
-//             <p className="text-red-500 text-sm">Username is required</p>
-//           )}
-//         </div>
-//         <div className="mb-3">
-//           <label className="block mb-2 text-sm font-medium" htmlFor="password">
-//             Password
-//           </label>
-//           <Password
-//             id="password"
-//             type="password"
-//             {...register('password', { required: true })}
-//           />
-//           {errors.password && (
-//             <p className="text-red-500 text-sm">Password is required</p>
-//           )}
-//         </div>
-//         <div className="mb-3 flex items-center">
-//           <Checkbox
-//             checked={rememberMe}
-//             className="mr-2"
-//             id="rememberMe"
-//             name="rememberMe"
-//             onChange={(event) => setRememberMe(event.target.checked ?? true)}
-//           />
-//           <label className="text-sm font-medium" htmlFor="rememberMe">
-//             Remember Me
-//           </label>
-//         </div>
-//         <Button
-//           className="w-full bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded"
-//           disabled={isSubmitting}
-//           label="Login"
-//           type="submit"
-//         />
-//       </form>
-//     </div>
-//   );
-// };
-
 // import React, { useState } from 'react';
+// import { useForm } from 'react-hook-form';
 
-// // Global styles (optional)
+// type User = {
+//   password: string;
+//   username: string;
+// };
 
-// const LoginForm = () => {
-//   const [username, setUsername] = useState('');
-//   const [password, setPassword] = useState('');
-//   const [isLoggedIn, setIsLoggedIn] = useState(false);
+// type Role = 'admin' | 'student' | 'lecturer';
 
-//   const handleSubmit = (event: React.FormEvent) => {
-//     event.preventDefault();
-//     // Perform login validation and submission here
-//     if (username === 'user' && password === 'password') {
-//       setIsLoggedIn(true);
-//     } else {
-//       // Handle login failure
-//       console.error('Invalid credentials');
-//     }
+// export default function LoginForm() {
+//   const [selectedRole, setSelectedRole] = useState<Role>();
+//   const [loading, setLoading] = useState<boolean>(false);
+//   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
-//     if (isLoggedIn) {
-//       // Render a logged-in message or perform an action
-//       console.log('User is logged in');
+//   const {
+//     control,
+//     formState: { errors },
+//     handleSubmit,
+//   } = useForm<User>(); // Initialize useForm hook
+
+//   const handleLogin = async (data: User) => {
+//     setLoading(true);
+//     setErrorMessage(null); // Reset error message
+
+//     try {
+//       const userDocument = await getDoc(
+//         doc(FirebaseDatabase, 'users', data.username)
+//       );
+
+//       if (userDocument.exists()) {
+//         const userData = userDocument.data();
+//         // Compare the input password with the stored password
+//         if (data.password === userData.password) {
+//           console.log('Login successful!');
+//           // Handle successful login (e.g., redirect to another page)
+//         } else {
+//           setErrorMessage('Invalid password. Please try again.');
+//         }
+//       } else {
+//         setErrorMessage('Sorry, user not found.');
+//       }
+//     } catch (error) {
+//       console.error('Error logging in:', error);
+//       setErrorMessage('An error occurred while logging in. Please try again.');
+//     } finally {
+//       setLoading(false);
 //     }
 //   };
 
+//   const handleChangeRole = (event: DropdownChangeEvent) => {
+//     setSelectedRole(event.target.value as Role);
+//   };
+
+//   const renderUsernameField = () => {
+//     switch (selectedRole) {
+//       case 'admin':
+//       case 'lecturer':
+//         return (
+//           <div className="mb-10">
+//             <FloatLabel>
+//               <InputText
+//                 className="w-full pi-pi-user"
+//                 {...control.register('username', {
+//                   required: 'Username is required',
+//                 })}
+//                 placeholder="Enter Name"
+//               />
+//               <label htmlFor="username">Name</label>
+//               {errors.username && (
+//                 <span className="error">{errors.username.message}</span>
+//               )}
+//             </FloatLabel>
+//           </div>
+//         );
+//       case 'student':
+//         return (
+//           <div className="mb-10">
+//             <FloatLabel>
+//               <InputText
+//                 className="w-full pi-pi-user"
+//                 {...control.register('username', {
+//                   pattern: {
+//                     message: 'User ID must be numeric',
+//                     value: /^\d+$/u,
+//                   },
+//                   required: 'User ID is required',
+//                 })}
+//                 placeholder="Enter User ID"
+//                 type="number"
+//               />
+//               <label htmlFor="username">User ID</label>
+//               {errors.username && (
+//                 <span className="error">{errors.username.message}</span>
+//               )}
+//             </FloatLabel>
+//           </div>
+//         );
+//       default:
+//         return null;
+//     }
+//   };
+
+//   const roles = [
+//     { label: 'Admin', value: 'admin' },
+//     { label: 'Student', value: 'student' },
+//     { label: 'Lecturer', value: 'lecturer' },
+//   ];
+
 //   return (
-//     <div className="container mx-auto px-4 py-8">
-//       <h1 className="text-3xl font-bold text-center mb-8">Login</h1>
-//       <form onSubmit={handleSubmit}>
-//         <div className="mb-4">
-//           <label
-//             className="block text-gray-700 font-bold mb-2"
-//             htmlFor="username"
-//           >
-//             Username:
+//     <div className="login-container flex h-min-screen bg-red-700 rounded-3xl">
+//       <form
+//         className="w-180 font-medium bg-gray-100 text-black-800 rounded-tl-2xl rounded-bl-2xl p-30"
+//         onSubmit={handleSubmit(handleLogin)}
+//       >
+//         <h2 className="text-4xl text-blue-700 font-bold">Welcome Back</h2>
+//         <div className="mb-10">
+//           <label className="block text-sm font-medium mb-2" htmlFor="role">
+//             Choose Role:
 //           </label>
-//           <input
-//             className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:border-blue-500"
-//             id="username"
-//             onChange={(event) => setUsername(event.target.value)}
-//             required
-//             type="text"
-//             value={username}
+//           <Dropdown
+//             className="w-full"
+//             id="role"
+//             onChange={handleChangeRole}
+//             options={roles}
+//             value={selectedRole}
 //           />
 //         </div>
-//         <div className="mb-4">
-//           <label
-//             className="block text-gray-700 font-bold mb-2"
-//             htmlFor="password"
-//           >
-//             Password:
-//           </label>
-//           <input
-//             className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:border-blue-500"
-//             id="password"
-//             onChange={(event) => setPassword(event.target.value)}
-//             required
-//             type="password"
-//             value={password}
-//           />
+
+//         {renderUsernameField()}
+
+//         <div className="mb-10">
+//           <FloatLabel>
+//             <InputText
+//               className="w-full"
+//               {...control.register('password', {
+//                 minLength: {
+//                   message: 'Password must be at least 8 characters long',
+//                   value: 8,
+//                 },
+//                 required: 'Password is required',
+//               })}
+//               placeholder="Enter Password"
+//               type="password"
+//             />
+//             <label htmlFor="password">Password</label>
+//             {errors.password && (
+//               <span className="error">{errors.password.message}</span>
+//             )}
+//           </FloatLabel>
 //         </div>
-//         <button
-//           className="w-full px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600"
-//           type="submit"
-//         >
-//           Login
-//         </button>
+
+//         {errorMessage && (
+//           <span className="error text-red-600">{errorMessage}</span>
+//         )}
+
+//         <Button className="w-full" label="Login" loading={loading} />
 //       </form>
+
+//       <img
+//         alt="Placeholder"
+//         className="h-min-screen object-cover rounded-tr-2xl rounded-br-2xl"
+//         src={logo1}
+//       />
 //     </div>
 //   );
-// };
+// }
 
-// export default LoginForm;
-
-// LoginPage.tsx
-import logo from './OMES.png';
+import logo1 from '../logo1.jpg';
+import { FirebaseDatabase } from '@/config/firebase'; // Adjust the import path as necessary
+import { doc, getDoc } from 'firebase/firestore';
 import { Button } from 'primereact/button';
-import { Dropdown } from 'primereact/dropdown';
+import { Dropdown, type DropdownChangeEvent } from 'primereact/dropdown';
+import { FloatLabel } from 'primereact/floatlabel';
 import { InputText } from 'primereact/inputtext';
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 
-type FormData = {
+type User = {
   password: string;
-  role: 'admin' | 'student' | 'lecturer';
   username: string;
 };
 
-const LoginPage = () => {
+type Role = 'admin' | 'student' | 'lecturer';
+
+export default function LoginForm() {
+  const [selectedRole, setSelectedRole] = useState<Role>();
+  const [loading, setLoading] = useState<boolean>(false);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
+
   const {
+    control,
     formState: { errors },
     handleSubmit,
-    register,
-  } = useForm<FormData>();
-  const [selectedRole, setSelectedRole] = useState<
-    'admin' | 'student' | 'lecturer'
-  >('admin');
-  const onSubmit = (data: FormData) => {
-    console.log(data);
-    // Add your login logic here
+  } = useForm<User>(); // Initialize useForm hook
+
+  const handleLogin = async (data: User) => {
+    setLoading(true);
+    setErrorMessage(null); // Reset error message
+
+    try {
+      const users = await getDoc(doc(FirebaseDatabase, 'users', data.username));
+
+      if (users.exists()) {
+        const userData = users.data();
+        // Compare the input password with the stored password
+        if (data.password === userData.password) {
+          console.log('Login successful!');
+          // Handle successful login (e.g., redirect to another page)
+        } else {
+          setErrorMessage('Invalid password. Please try again.');
+        }
+      } else {
+        setErrorMessage('Sorry, user not found.');
+      }
+    } catch (error) {
+      console.error('Error logging in:', error);
+      setErrorMessage('An error occurred while logging in. Please try again.');
+    } finally {
+      setLoading(false);
+    }
   };
 
-  const handleRoleChange = (event: {
-    value: 'admin' | 'student' | 'lecturer';
-  }) => {
-    setSelectedRole(event.value);
+  const handleChangeRole = (event: DropdownChangeEvent) => {
+    setSelectedRole(event.value as Role);
   };
+
+  const renderUsernameField = () => {
+    switch (selectedRole) {
+      case 'admin':
+      case 'lecturer':
+        return (
+          <div className="mb-10">
+            <FloatLabel>
+              <InputText
+                className="w-full pi-pi-user"
+                {...control.register('username', {
+                  required: 'Username is required',
+                })}
+                placeholder="Enter Name"
+              />
+              <label htmlFor="username">Name</label>
+              {errors.username && (
+                <span className="error">{errors.username.message}</span>
+              )}
+            </FloatLabel>
+          </div>
+        );
+      case 'student':
+        return (
+          <div className="mb-10">
+            <FloatLabel>
+              <InputText
+                className="w-full pi-pi-user"
+                {...control.register('username', {
+                  pattern: {
+                    message: 'User ID must be numeric',
+                    value: /^\d+$/u,
+                  },
+                  required: 'User ID is required',
+                })}
+                placeholder="Enter User ID"
+                type="number"
+              />
+              <label htmlFor="username">User ID</label>
+              {errors.username && (
+                <span className="error">{errors.username.message}</span>
+              )}
+            </FloatLabel>
+          </div>
+        );
+      default:
+        return null;
+    }
+  };
+
+  const roles = [
+    { label: 'Admin', value: 'admin' },
+    { label: 'Student', value: 'student' },
+    { label: 'Lecturer', value: 'lecturer' },
+  ];
 
   return (
-    <div className="grid h-screen">
-      <div className="col-6 bg-blue-500 text-white p-6">
-        <div className="flex flex-column align-items-center justify-content-center h-full">
-          <img alt="OMES Logo" className="mb-4" src={logo} />
-          <h2 className="mb-4">OMES</h2>
+    <div className="login-container flex h-min-screen bg-red-700 rounded-3xl">
+      <form
+        className="w-180 font-medium bg-gray-100 text-black-800 rounded-tl-2xl rounded-bl-2xl p-30"
+        onSubmit={handleSubmit(handleLogin)}
+      >
+        <h2 className="text-4xl text-blue-700 font-bold">Welcome Back</h2>
+        <div className="mb-10">
+          <label className="block text-sm font-medium mb-2" htmlFor="role">
+            Choose Role:
+          </label>
           <Dropdown
-            className="mb-4"
-            onChange={handleRoleChange}
-            options={['admin', 'student', 'lecturer']}
-            placeholder="Select your role"
+            className="w-full"
+            id="role"
+            onChange={handleChangeRole}
+            options={roles}
             value={selectedRole}
           />
-          <form
-            className="flex flex-column align-items-center"
-            onSubmit={handleSubmit(onSubmit)}
-          >
-            <InputText
-              placeholder={selectedRole === 'admin' ? 'Your Name' : 'Your ID'}
-              {...register('username', { required: 'Username is required' })}
-              className={`mb-2 ${errors.username ? 'p-invalid' : ''}`}
-            />
-            {errors.username && (
-              <div className="text-red-500">{errors.username.message}</div>
-            )}
-            <InputText
-              placeholder="Password"
-              type="password"
-              {...register('password', { required: 'Password is required' })}
-              className={`mb-4 ${errors.password ? 'p-invalid' : ''}`}
-            />
-            {errors.password && (
-              <div className="text-red-500">{errors.password.message}</div>
-            )}
-            <Button label="Login" type="submit" />
-          </form>
         </div>
-      </div>
-      <div
-        className="col-6 bg-cover bg-center"
-        style={{ backgroundImage: `url(${logo})` }}
+
+        {renderUsernameField()}
+
+        <div className="mb-10">
+          <FloatLabel>
+            <InputText
+              className="w-full"
+              {...control.register('password', {
+                // minLength: {
+                //   message: 'Password must be at least 8 characters long',
+                //   // value: 8,
+                // },
+                required: 'Password is required',
+              })}
+              placeholder="Enter Password"
+              type="password"
+            />
+            <label htmlFor="password">Password</label>
+            {errors.password && (
+              <span className="error">{errors.password.message}</span>
+            )}
+          </FloatLabel>
+        </div>
+
+        {errorMessage && (
+          <span className="error text-red-600">{errorMessage}</span>
+        )}
+
+        <Button className="w-full" label="Login" loading={loading} />
+      </form>
+
+      <img
+        alt="Placeholder"
+        className="h-min-screen object-cover rounded-tr-2xl rounded-br-2xl"
+        src={logo1}
       />
     </div>
   );
-};
-
-export default LoginPage;
+}
