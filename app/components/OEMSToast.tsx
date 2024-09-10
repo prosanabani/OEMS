@@ -13,7 +13,13 @@ const OEMSToast = () => {
     }
   }, [toast]);
 
-  return <Toast position="top-center" ref={toastRef} />;
+  return (
+    <Toast
+      baseZIndex={999_999_999_999_999}
+      position="top-center"
+      ref={toastRef}
+    />
+  );
 };
 
 export default OEMSToast;

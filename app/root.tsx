@@ -1,7 +1,25 @@
+import { FirebaseAuth } from './config/firebase';
+import { setUser } from './stores/AppStore';
 import { Trans } from '@lingui/macro';
-import { useRouteError } from 'react-router-dom';
+import { onAuthStateChanged } from 'firebase/auth';
+import { Outlet, useRouteError } from 'react-router-dom';
 
 export function Component() {
+  const navigate = useNavigate();
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(FirebaseAuth, (user) => {
+      if (user) {
+        setUser(user);
+      } else {
+        setUser(null);
+        navigate('/login');
+      }
+    });
+
+    return () => unsubscribe();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [FirebaseAuth]);
+
   return (
     <>
       <title>OEMS</title>

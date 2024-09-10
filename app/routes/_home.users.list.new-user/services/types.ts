@@ -1,4 +1,5 @@
 export type AddUserFormValues = {
+  email: string;
   fullName: string;
   id?: string;
   level?: string;
