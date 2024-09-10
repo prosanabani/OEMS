@@ -1,5 +1,5 @@
-import LogoutButton from './components/LogoutButton';
-import { login } from './utils/functions';
+import { useLoginMutation } from './services/mutates';
+import { Button } from 'primereact/button';
 import { useForm } from 'react-hook-form';
 
 type LoginFormValues = {
@@ -9,13 +9,16 @@ type LoginFormValues = {
 
 export function Component() {
   const { handleSubmit, register } = useForm<LoginFormValues>();
+  const { mutate: Login } = useLoginMutation();
 
-  const onSubmit = (data: LoginFormValues) => {
-    login(data.email, data.password);
-  };
+  //         Login({ email: data.email, password: data.password })
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
+    <form
+      onSubmit={handleSubmit((data) =>
+        Login({ email: data.email, password: data.password })
+      )}
+    >
       <div>
         <label>Email</label>
         <input {...register('email', { required: true })} />
@@ -24,9 +27,7 @@ export function Component() {
         <label>Password</label>
         <input {...register('password', { required: true })} type="password" />
       </div>
-      <button type="submit">Login</button>
-
-      <LogoutButton />
+      <Button type="submit">Login</Button>
     </form>
   );
 }
