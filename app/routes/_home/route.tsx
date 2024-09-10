@@ -1,5 +1,5 @@
-import LeftItems from './components/LeftItems';
 import PageSlider from './components/PageSlider';
+import UserPopUp from './components/UserPopUp';
 import { Toolbar } from 'primereact/toolbar';
 
 export function Component() {
@@ -7,7 +7,7 @@ export function Component() {
     <>
       <div className="flex ">
         <Toolbar
-          end={<LeftItems />}
+          end={<UserPopUp />}
           pt={{
             root: {
               className: 'w-full',
