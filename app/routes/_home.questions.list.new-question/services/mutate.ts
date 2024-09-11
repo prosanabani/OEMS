@@ -9,7 +9,10 @@ export const useAddAiQuestionsToFirebase = () => {
       const firstQuestion = questions[0];
       const questionRef = await addDoc(
         collection(FirebaseDatabase, 'questions'),
-        firstQuestion
+        {
+          courseId: 'rBJe8PQDPAMQ0GpRuSSX',
+          ...firstQuestion,
+        }
       );
 
       // Add the remaining questions to the `ai-generated-questions` sub-collection
@@ -20,9 +23,12 @@ export const useAddAiQuestionsToFirebase = () => {
         'ai-generated-questions'
       );
 
-      const subQuestions = questions
-        .slice(1)
-        .map((question) => setDoc(doc(subCollectionRef), question));
+      const subQuestions = questions.slice(1).map((question) =>
+        setDoc(doc(subCollectionRef), {
+          courseId: 'rBJe8PQDPAMQ0GpRuSSX',
+          ...question,
+        })
+      );
 
       await Promise.all(subQuestions);
     },
