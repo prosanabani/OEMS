@@ -14,13 +14,15 @@ import { Column } from 'primereact/column';
 import { DataTable } from 'primereact/datatable';
 
 export function Component() {
+  const queryParameters = useQuestionListStore((state) => state.queryParams);
+  const { data: QuestionsList, isLoading } = useQuestionsTable(
+    queryParameters.courseId
+  );
   const { expandedRows } = useQuestionListStore();
 
   useEffect(() => {
     setExpandedRows(expandedRows);
   }, [expandedRows]);
-
-  const { data, isLoading } = useQuestionsTable();
 
   return (
     <>
@@ -53,7 +55,7 @@ export function Component() {
         scrollable
         size="small"
         stripedRows
-        value={data}
+        value={QuestionsList}
       >
         <Column expander={isRowExpandable || undefined} />
         <Column field="question" header={t`Question`} sortable />
