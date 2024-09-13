@@ -1,25 +1,96 @@
 import { useCoursesList } from '../services/query';
+import { addDoc, collection, doc } from 'firebase/firestore';
+import { Button } from 'primereact/button';
 import { Dropdown, type DropdownChangeEvent } from 'primereact/dropdown';
+import { useState, useRef } from 'react';
+import { Controller, useForm } from 'react-hook-form';
+import { EnrolledCourseFormValues } from '../types/typs';
+import { useMutation } from '@tanstack/react-query';
+import { Toast } from 'primereact/toast';
+import { t } from '@lingui/macro';
 
 export default function EnrolledCourse() {
   const [selectedCourse, setSelectedCourse] = useState(null);
+  const { data } = useCoursesList('2'); // userLevel
+  const toast = useRef<Toast>(null);
 
-  const userLevel = '2';
+  const {
+    control,
+    formState: { errors },
+    handleSubmit,
+  } = useForm<EnrolledCourseFormValues>({
+    defaultValues: {
+      selectedCourse: '',
+      studentId: 'kljlkjsdkljfsjoijr454',
+    },
+  });
 
-  const { data } = useCoursesList(userLevel);
+  const mutation = useMutation({
+    mutationFn: async (data: EnrolledCourseFormValues) => {
+      const courseDocumentRef = doc(
+        FirebaseDatabase,
+        'courses',
+        data.selectedCourse
+      );
+      const enrolledCourseRef = collection(courseDocumentRef, 'enrolledcourse');
+
+      await addDoc(enrolledCourseRef, {
+        studentId: data.studentId,
+      });
+    },
+    onSuccess: () => {
+      showToast({
+        detail: t`Enrollment successfully`,
+        severity: 'success',
+        summary: t`Success`,
+      });
+    },
+    onError: () => {
+      showToast({
+        detail: t`Enrollment failed`,
+        severity: 'error',
+        summary: t`Error`,
+      });
+    },
+  });
+
+  const onSubmit = (data: EnrolledCourseFormValues) => {
+    mutation.mutate(data);
+  };
 
   return (
     <div className="card flex justify-content-center">
-      <Dropdown
-        className="w-full md:w-14rem"
-        onChange={(event: DropdownChangeEvent) => {
-          setSelectedCourse(event.value);
-        }}
-        optionLabel="label"
-        options={data}
-        placeholder="Select a City"
-        value={selectedCourse}
-      />
+      <Toast ref={toast} />
+      <form className="p-fluid" onSubmit={handleSubmit(onSubmit)}>
+        <div className="field">
+          <label htmlFor="selectedCourse">Select a Course</label>
+          <Controller
+            control={control}
+            name="selectedCourse"
+            render={({ field }) => (
+              <Dropdown
+                id="selectedCourse"
+                {...field}
+                className={errors.selectedCourse && 'p-invalid'}
+                onChange={(event: DropdownChangeEvent) => {
+                  setSelectedCourse(event.value);
+                  field.onChange(event.value);
+                }}
+                optionLabel="label"
+                options={data}
+                placeholder="Select a Course"
+                value={selectedCourse}
+              />
+            )}
+            rules={{ required: 'Please select a course.' }}
+          />
+          {errors.selectedCourse && (
+            <small className="p-error">{errors.selectedCourse.message}</small>
+          )}
+        </div>
+
+        <Button label="Enroll" type="submit" className="mt-2" />
+      </form>
     </div>
   );
 }
