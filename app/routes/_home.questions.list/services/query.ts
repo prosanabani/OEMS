@@ -1,10 +1,11 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { fetchQuestionWithAiGeneratedQuestions } from './api';
 import { FirebaseDatabase } from '@/config/firebase';
 import { QueryKeys } from '@/utils/constants/QueryEnums';
 import { useQuery } from '@tanstack/react-query';
 import { collection, getDocs } from 'firebase/firestore';
 
-export const useQuestionsTable = () => {
+export const useQuestionsTable = (courseId: string | 'all') => {
   return useQuery({
     // placeholderData: keepPreviousData,
     queryFn: async () => {
@@ -26,7 +27,6 @@ export const useQuestionsTable = () => {
             ? aiGeneratedQuestions.map((question) => {
                 return {
                   ...question,
-                  // questionAnswers: JSON.parse(question.questionAnswers),
                 };
               })
             : [];
@@ -39,5 +39,9 @@ export const useQuestionsTable = () => {
       );
     },
     queryKey: [QueryKeys.QUESTIONS_TABLE],
+    select(data) {
+      if (courseId === 'all') return data;
+      return data.filter((question: any) => question.courseId === courseId);
+    },
   });
 };
