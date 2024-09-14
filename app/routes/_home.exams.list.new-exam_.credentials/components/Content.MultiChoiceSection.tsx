@@ -8,12 +8,15 @@ import {
 import { Controller, useFormContext, useWatch } from 'react-hook-form';
 
 const MultiChoiceSection = () => {
-  const { state } = useLocation();
-  const { control, resetField } = useFormContext<TExamCredentials>();
+  const { state } = useLocation(); // assuming state.examMark is passed to this component
+  const { clearErrors, control, resetField } =
+    useFormContext<TExamCredentials>();
+
   const multipleChoiceWatch = useWatch({
     control,
-    name: 'examFormat.multipleChoice.isIncluded',
+    name: 'examFormat.multipleChoice',
   });
+
   return (
     <>
       <h4>
@@ -32,6 +35,7 @@ const MultiChoiceSection = () => {
                   field.onChange(event.checked);
                   if (!event.checked) {
                     resetField('examFormat.multipleChoice');
+                    clearErrors('examFormat.currentFormatMarks');
                   }
                 }}
               />
@@ -42,8 +46,9 @@ const MultiChoiceSection = () => {
           )}
         />
       </div>
-      {multipleChoiceWatch && (
-        <div className="flex flex-col gap-2 ml-10 ">
+
+      {multipleChoiceWatch?.isIncluded && (
+        <div className="flex flex-col gap-2 ml-10">
           <div className="p-field">
             <Controller
               control={control}

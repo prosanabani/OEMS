@@ -9,11 +9,14 @@ import { Controller, useFormContext, useWatch } from 'react-hook-form';
 
 const TrueOrFalseSection = () => {
   const { state } = useLocation();
-  const { control, resetField } = useFormContext<TExamCredentials>();
+  const { clearErrors, control, resetField } =
+    useFormContext<TExamCredentials>();
+
   const trueOrFalseWatch = useWatch({
     control,
-    name: 'examFormat.trueOrFalse.isIncluded',
+    name: 'examFormat.trueOrFalse',
   });
+
   return (
     <>
       <h4>
@@ -32,6 +35,7 @@ const TrueOrFalseSection = () => {
                   field.onChange(event.checked);
                   if (!event.checked) {
                     resetField('examFormat.trueOrFalse');
+                    clearErrors('examFormat.currentFormatMarks');
                   }
                 }}
               />
@@ -42,7 +46,7 @@ const TrueOrFalseSection = () => {
           )}
         />
       </div>
-      {trueOrFalseWatch && (
+      {trueOrFalseWatch.isIncluded && (
         <div className="flex flex-col gap-2 ml-10">
           <div className="p-field">
             <Controller
