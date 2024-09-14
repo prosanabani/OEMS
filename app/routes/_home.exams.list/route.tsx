@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import TableHeader from './components/TableHeader';
 import { useExamsData } from './services/query';
-import QuestionRowExpansion, { ActionBodyTemplate } from './utils/generators';
+import ExamRowExpansion, { ActionBodyTemplate } from './utils/generators';
 import { t } from '@lingui/macro';
 import { Column } from 'primereact/column';
 import { DataTable } from 'primereact/datatable';
@@ -27,7 +27,7 @@ export function Component() {
           },
         }}
         resizableColumns
-        rowExpansionTemplate={QuestionRowExpansion}
+        rowExpansionTemplate={ExamRowExpansion}
         rows={10}
         rowsPerPageOptions={[5, 10, 20, 50, 100]}
         scrollHeight="55vh"

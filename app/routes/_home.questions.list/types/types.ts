@@ -3,7 +3,7 @@ export type TQuestion = {
   question: string;
   questionAnswers: string;
   questionCorrectAnswer: string;
-  questionType?: string;
+  questionType?: 'trueOrFalse' | 'theoretical' | 'multipleChoice';
 };
 export type TFirebaseQuestion = {
   aiGeneratedQuestions: TQuestion[];

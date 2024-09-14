@@ -20,7 +20,7 @@ export const ActionBodyTemplate = (rowData: TExamList) => {
   );
 };
 
-const QuestionRowExpansion = (rowData: TExamList) => {
+const ExamRowExpansion = (rowData: TExamList) => {
   return (
     <div className="p-5">
       <div>
@@ -30,4 +30,4 @@ const QuestionRowExpansion = (rowData: TExamList) => {
   );
 };
 
-export default QuestionRowExpansion;
+export default ExamRowExpansion;

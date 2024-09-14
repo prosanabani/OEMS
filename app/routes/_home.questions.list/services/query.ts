@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import { type TFirebaseQuestion } from '../types/types';
 import { fetchQuestionWithAiGeneratedQuestions } from './api';
 import { FirebaseDatabase } from '@/config/firebase';
 import { QueryKeys } from '@/utils/constants/QueryEnums';
@@ -34,7 +35,7 @@ export const useQuestionsTable = (courseId: string | 'all') => {
           return {
             ...questionData,
             aiGeneratedQuestions: parsedAiGeneratedQuestions,
-          };
+          } as TFirebaseQuestion;
         })
       );
     },
