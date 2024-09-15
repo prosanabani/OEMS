@@ -27,3 +27,22 @@ export const useCoursesList = (userLevel: string) => {
     queryKey: [QueryKeys.COURSES_LIST, userLevel],
   });
 };
+
+export const useAllCoursesList = () => {
+  return useQuery({
+    queryFn: async () => {
+      const coursesSnapshot = await getDocs(
+        collection(FirebaseDatabase, 'courses')
+      );
+
+      // Map the courses and prepend {label: "All", value: "all"}
+      return coursesSnapshot.docs.map((item) => {
+        return {
+          label: item.data().courseName, // 'label' for PrimeReact Dropdown
+          value: item.id, // 'value' for PrimeReact Dropdown
+        } as { label: string; value: string | undefined };
+      });
+    },
+    queryKey: [QueryKeys.All_COURSES_LIST],
+  });
+};

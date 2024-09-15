@@ -14,6 +14,8 @@ import { StepperPanel } from 'primereact/stepperpanel';
 import { useFormContext } from 'react-hook-form';
 
 const GenerateAiQuestionContent = () => {
+  const { state: courseId } = useLocation();
+
   const stepperRef = useRef<any>(null);
   const navigate = useNavigate();
 
@@ -21,12 +23,17 @@ const GenerateAiQuestionContent = () => {
     (state) => state.targetQuestionsToAdd
   );
 
+  const payload = {
+    courseId,
+    questions: targetQuestionsToAdd,
+  };
+
   const { handleSubmit } = useFormContext<TFormQuestions>();
 
   const { isPending, mutate } = useAddAiQuestionsToFirebase();
 
   const onSubmit = () => {
-    mutate(targetQuestionsToAdd, {
+    mutate(payload, {
       onError: () => {
         showToast({
           detail: t`Failed to add questions`,

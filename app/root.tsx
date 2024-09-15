@@ -1,24 +1,24 @@
+import { FirebaseAuth } from './config/firebase';
+import { setUser } from './stores/AppStore';
 import { Trans } from '@lingui/macro';
+import { onAuthStateChanged } from 'firebase/auth';
 import { Outlet, useRouteError } from 'react-router-dom';
 
 export function Component() {
   const navigate = useNavigate();
-
-  // useEffect(() => {
-  //   // Firebase Auth listener for real-time authentication state changes
-  //   onAuthStateChanged(FirebaseAuth, (user) => {
-  //     if (!user && !localStorage.getItem('user')) {
-  //       navigate('/login'); // If user is not authenticated, redirect to login
-  //     }
-  //   });
-
-  // }, [navigate]);
-
   useEffect(() => {
-    if (!localStorage.getItem('user')) {
-      navigate('/login');
-    }
-  }, [navigate]);
+    const unsubscribe = onAuthStateChanged(FirebaseAuth, (user) => {
+      if (user) {
+        setUser(user);
+      } else {
+        setUser(null);
+        navigate('/login');
+      }
+    });
+
+    return () => unsubscribe();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [FirebaseAuth]);
 
   return (
     <>

@@ -5,7 +5,9 @@ export const generatePrompt = (payload?: TFormQuestions) => {
 
   if (questionType === 'theoretical' || questionType === 'trueOrFalse') {
     return (
-      'paraphrase me 5 questions about ' +
+      'paraphrase me 5 ' +
+      questionType +
+      ' questions in the same language about ' +
       question +
       ' and return them in array of {question : string } format.'
     );
@@ -13,7 +15,7 @@ export const generatePrompt = (payload?: TFormQuestions) => {
 
   if (questionType === 'multipleChoice') {
     return (
-      'paraphrase me 5 questions about ' +
+      'paraphrase me 5 multipleChoice questions in the same language about ' +
       question +
       ' and shuffle this questionAnswers string ' +
       questionAnswers +

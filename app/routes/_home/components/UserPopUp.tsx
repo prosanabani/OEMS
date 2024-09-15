@@ -1,17 +1,19 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import ThemeButton from './ThemeButton';
+import { useLogoutMutation } from '@/routes/login/services/mutates';
 import moment from 'moment';
 import { Button } from 'primereact/button';
 import { ListBox } from 'primereact/listbox';
 import { OverlayPanel } from 'primereact/overlaypanel';
+import { type SelectItemOptionsType } from 'primereact/selectitem';
 
-const LeftItems = () => {
+const UserPopUp = () => {
+  const { mutate: Logout } = useLogoutMutation();
   const op = useRef<any>(null);
   const [time, setTime] = useState(moment().format('hh:mm:ss'));
-  const items = [
+  const items: SelectItemOptionsType = [
     { name: 'Username : Ali' },
     { name: `Time :${time}` },
-    { name: 'Sign Out' },
   ];
 
   useEffect(() => {
@@ -25,7 +27,7 @@ const LeftItems = () => {
   return (
     <>
       <ThemeButton />
-      <div className="card flex justify-content-center">
+      <div className="card flex  justify-center">
         <Button
           icon="pi pi-user"
           onClick={(event) => op.current.toggle(event)}
@@ -50,6 +52,7 @@ const LeftItems = () => {
                 },
               }}
             />
+            <Button label="Sign Out" onClick={() => Logout()} />
           </div>
         </OverlayPanel>
       </div>
@@ -57,4 +60,4 @@ const LeftItems = () => {
   );
 };
 
-export default LeftItems;
+export default UserPopUp;
