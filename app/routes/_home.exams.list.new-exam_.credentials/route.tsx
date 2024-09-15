@@ -10,7 +10,7 @@ export function Component() {
   return (
     <Form>
       <Dialog
-        dismissableMask
+        closable={false}
         draggable={false}
         footer={<Footer />}
         header={t`Exam Credentials`}

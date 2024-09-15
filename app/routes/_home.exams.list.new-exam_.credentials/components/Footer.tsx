@@ -4,11 +4,14 @@ import { Button } from 'primereact/button';
 import { useFormContext } from 'react-hook-form';
 
 const Footer = () => {
+  const navigate = useNavigate();
   const { handleSubmit } = useFormContext<TExamCredentials>();
   return (
     <Button
       label={t`Submit`}
-      onClick={handleSubmit((FormData) => console.log(FormData))}
+      onClick={handleSubmit((FormData) => {
+        navigate('/exams/list/new-exam/add-questions', { state: FormData });
+      })}
     />
   );
 };

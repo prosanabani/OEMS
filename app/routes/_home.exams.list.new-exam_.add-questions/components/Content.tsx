@@ -62,6 +62,7 @@ const Content = () => {
           />
           <Column headerClassName="w-3rem" selectionMode="multiple" />
           <Column field="question" header={t`Question`} />
+          <Column field="questionType" header={t`Type`} />
         </DataTable>
       )}
 
