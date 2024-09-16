@@ -17,7 +17,13 @@ export function Component() {
       command: () => navigate('/courses/enrolled'),
       icon: 'i-hugeicons:course',
       id: 'enrolled',
-      label: 'Enrolled Courses',
+      label: 'Enroll Courses',
+    },
+    {
+      command: () => navigate('/courses/enrolled-courses'),
+      icon: 'i-hugeicons:course',
+      id: 'enrolled',
+      label: 'users enrolled-courses',
     },
   ];
 
