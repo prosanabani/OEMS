@@ -8,6 +8,7 @@ import { EnrolledCourseFormValues } from '../types/typs';
 import { useMutation } from '@tanstack/react-query';
 import { Toast } from 'primereact/toast';
 import { t } from '@lingui/macro';
+import { QueryKeys } from '@/utils/constants/QueryEnums';
 
 export default function EnrolledCourse() {
   const [selectedCourse, setSelectedCourse] = useState(null);
@@ -40,14 +41,17 @@ export default function EnrolledCourse() {
     },
     onSuccess: () => {
       showToast({
-        detail: t`Enrollment successfully`,
+        detail: t`Course enrolled successfully`,
         severity: 'success',
         summary: t`Success`,
+      });
+      queryClient.invalidateQueries({
+        queryKey: [QueryKeys.STUDENT_COURSES],
       });
     },
     onError: () => {
       showToast({
-        detail: t`Enrollment failed`,
+        detail: t`Course enrollment failed`,
         severity: 'error',
         summary: t`Error`,
       });

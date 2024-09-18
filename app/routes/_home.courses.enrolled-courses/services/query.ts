@@ -38,5 +38,3 @@ export const useEnrolledCoursesList = (studentId: string) => {
     queryKey: [QueryKeys.STUDENT_COURSES, studentId],
   });
 };
-
-export { QueryKeys } from '@/utils/constants/QueryEnums';
