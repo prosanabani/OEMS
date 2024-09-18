@@ -1,21 +1,23 @@
+import { getEmailByUserId as getEmailByUserName } from '../utils/functions';
 import { t } from '@lingui/macro';
 import { useMutation } from '@tanstack/react-query';
 import { signInWithEmailAndPassword, signOut } from 'firebase/auth';
 import { useNavigate } from 'react-router-dom';
 
+type TPayload = {
+  password: string;
+  role: 'admin' | 'teacher' | 'student';
+  username: string;
+};
 // Login mutation
 export const useLoginMutation = () => {
   const navigate = useNavigate();
 
   return useMutation({
-    mutationFn: async ({
-      email,
-      password,
-    }: {
-      email: string;
-      password: string;
-    }) => {
-      await signInWithEmailAndPassword(FirebaseAuth, email, password);
+    mutationFn: async (payload: TPayload) => {
+      const email =
+        (await getEmailByUserName(payload.username, payload.role)) || '';
+      await signInWithEmailAndPassword(FirebaseAuth, email, payload.password);
     },
     onError: () => {
       showToast({
