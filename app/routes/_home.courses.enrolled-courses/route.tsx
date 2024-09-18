@@ -3,7 +3,7 @@ import CoursesEnrolledCourses from './components/Courses.enrolled-courses';
 export function Component() {
   return (
     <div className="">
-      <CoursesEnrolledCourses courseId="some-course-id" />
+      <CoursesEnrolledCourses studentId="kljlkjsdkljfsjoijr454" />
     </div>
   );
 }

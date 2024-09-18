@@ -1,62 +1,45 @@
 import { useDeleteCourseMutation } from '../services/mutate';
 import { useEnrolledCoursesList } from '../services/query';
+import { courseLevelBody } from '../utils/generators';
 import { Button } from 'primereact/button';
 import { Column } from 'primereact/column';
 import { DataTable } from 'primereact/datatable';
-import { Toast } from 'primereact/toast';
-import { useRef } from 'react';
 
-export default function CoursesEnrolledCourses({
-  courseId,
-}: {
-  readonly courseId: string;
-}) {
-  const { data: courses, isLoading } = useEnrolledCoursesList(courseId);
+type TProps = {
+  readonly studentId: string;
+};
 
-  const { mutate: deleteCourse } = useDeleteCourseMutation(courseId);
-  const toast = useRef<Toast>(null);
+export default function CoursesEnrolledCourses({ studentId }: TProps) {
+  const { data: UserEnrolledCourses, isLoading } =
+    useEnrolledCoursesList(studentId);
 
-  const onDeleteCourse = (studentId: string) => {
-    deleteCourse(studentId, {
-      onError: () => {
-        toast.current?.show({
-          detail: 'Failed to delete the course.',
-          life: 3_000,
-          severity: 'error',
-          summary: 'Error',
-        });
-      },
-      onSuccess: () => {
-        toast.current?.show({
-          detail: 'The course has been successfully deleted.',
-          life: 3_000,
-          severity: 'success',
-          summary: 'Course Deleted',
-        });
-      },
-    });
+  const { mutate: deleteCourse } = useDeleteCourseMutation();
+
+  const onDeleteCourse = (courseId: string) => {
+    deleteCourse({ courseId, studentId });
   };
 
-  const deleteButtonTemplate = (rowData: { value: string }) => {
+  const deleteButtonTemplate = (rowData: { id: string }) => {
     return (
       <Button
-        className="p-button-danger"
-        icon="pi pi-times"
-        label="Delete"
-        onClick={() => onDeleteCourse(rowData.value)}
+        icon="pi pi-trash"
+        onClick={() => onDeleteCourse(rowData.id)}
+        rounded
+        severity="danger"
       />
     );
   };
 
   return (
     <div className="card">
-      <Toast ref={toast} />
       <h3>Registered Courses</h3>
       {isLoading ? (
         <p>Loading courses...</p>
       ) : (
-        <DataTable value={courses}>
-          <Column field="label" header="Course Name" />
+        <DataTable value={UserEnrolledCourses}>
+          <Column field="courseName" header="Course Name" />
+          <Column field="courseTeacher" header="Course Teacher" />
+          <Column body={courseLevelBody} header="Course Level" />
           <Column body={deleteButtonTemplate} header="Actions" />
         </DataTable>
       )}

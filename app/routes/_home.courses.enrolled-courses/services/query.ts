@@ -1,25 +1,41 @@
 import { FirebaseDatabase } from '@/config/firebase';
 import { QueryKeys } from '@/utils/constants/QueryEnums';
 import { useQuery } from '@tanstack/react-query';
-import { collection, getDocs } from 'firebase/firestore';
+import { collection, getDocs, query, where } from 'firebase/firestore';
 
-export const useEnrolledCoursesList = (courseId: string) => {
+export const useEnrolledCoursesList = (studentId: string) => {
   return useQuery({
     queryFn: async () => {
-      // Fetch courseEnrolledStudents subcollection inside the specific course
-      const enrolledStudentsSnapshot = await getDocs(
-        collection(
-          FirebaseDatabase,
-          `courses/${courseId}/courseEnrolledStudents`
-        )
-      );
+      const coursesCollection = collection(FirebaseDatabase, 'courses');
+      const coursesSnapshot = await getDocs(coursesCollection);
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const enrolledCourses: any[] = [];
 
-      return enrolledStudentsSnapshot.docs.map((document_) => ({
-        label: document_.data().studentName, // Assuming you store studentName
-        value: document_.id, // Student document ID
-      }));
+      // Loop through each course document
+      for (const courseDocument of coursesSnapshot.docs) {
+        const enrolledCoursesStudentsCollection = collection(
+          FirebaseDatabase,
+          `courses/${courseDocument.id}/enrolledcourse`
+        );
+        const studentQuery = query(
+          enrolledCoursesStudentsCollection,
+          where('studentId', '==', studentId)
+        );
+
+        const enrolledSnapshot = await getDocs(studentQuery);
+
+        // If there is a matching studentId, add the course to the result
+        if (!enrolledSnapshot.empty) {
+          enrolledCourses.push({
+            id: courseDocument.id,
+            ...courseDocument.data(),
+          });
+        }
+      }
+
+      return enrolledCourses;
     },
-    queryKey: [QueryKeys.COURSES_LIST, courseId], // Include courseId in the query key to refetch data when the courseId changes
+    queryKey: [QueryKeys.STUDENT_COURSES, studentId],
   });
 };
 
