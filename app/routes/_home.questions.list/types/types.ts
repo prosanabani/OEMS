@@ -12,4 +12,5 @@ export type TFirebaseQuestion = {
   question: string;
   questionAnswers: string;
   questionCorrectAnswer: string;
+  questionType?: 'trueOrFalse' | 'theoretical' | 'multipleChoice';
 };

@@ -1,5 +1,9 @@
 import { useQuestionsTable } from '../services/query';
-import { setExpandedRows, useQuestionListStore } from '../store';
+import {
+  setExpandedRows,
+  setSearchInput,
+  useQuestionListStore,
+} from '../store';
 import CoursesDropDown from './Filter.CoursesDropDown';
 import { t } from '@lingui/macro';
 import { Button } from 'primereact/button';
@@ -10,7 +14,10 @@ import { ToggleButton } from 'primereact/togglebutton';
 
 const QuestionsTableHeader = () => {
   const navigate = useNavigate();
-  const queryParameters = useQuestionListStore((state) => state.queryParams);
+  const { SearchInput, queryParameters } = useQuestionListStore((state) => ({
+    queryParameters: state.queryParams,
+    SearchInput: state.SearchInput,
+  }));
   const { data: questions } = useQuestionsTable(queryParameters.courseId);
 
   const [isExpanded, setIsExpanded] = useState(false);
@@ -23,7 +30,11 @@ const QuestionsTableHeader = () => {
     <div className="flex justify-between px-2 py-4">
       <IconField iconPosition="left">
         <InputIcon className="pi pi-search" />
-        <InputText placeholder={t`Search for questions`} />
+        <InputText
+          onChange={(event) => setSearchInput(event.target.value)}
+          placeholder={t`Search for questions`}
+          value={SearchInput}
+        />
       </IconField>
 
       <CoursesDropDown />
