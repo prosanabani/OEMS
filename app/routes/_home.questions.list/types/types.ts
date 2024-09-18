@@ -7,6 +7,7 @@ export type TQuestion = {
 };
 export type TFirebaseQuestion = {
   aiGeneratedQuestions: TQuestion[];
+  courseId: string;
   id: string;
   question: string;
   questionAnswers: string;

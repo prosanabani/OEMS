@@ -1,3 +1,4 @@
+import { t } from '@lingui/macro';
 import { Button } from 'primereact/button';
 import { type MenuItem } from 'primereact/menuitem';
 import { PanelMenu } from 'primereact/panelmenu';
@@ -17,7 +18,7 @@ const PageSlider = () => {
         navigate('/dashboard');
       },
       icon: 'pi pi-qrcode',
-      label: 'Dashboard',
+      label: t`Dashboard`,
     },
     {
       icon: 'i-ic:outline-class w-18px h-18px mr-[3px] ',
@@ -28,7 +29,7 @@ const PageSlider = () => {
             navigate('/courses/course-list');
           },
           icon: listIcon,
-          label: 'Course list',
+          label: t`Course list`,
         },
         {
           command: () => {
@@ -36,7 +37,7 @@ const PageSlider = () => {
             navigate('/courses/new-course');
           },
           icon: plusIcon,
-          label: 'Add New course ',
+          label: t`Add New course`,
         },
         {
           command: () => {
@@ -44,10 +45,10 @@ const PageSlider = () => {
             navigate('/courses/enrolled');
           },
           icon: 'pi pi-eye',
-          label: 'View enrolled courses',
+          label: t`View enrolled courses`,
         },
       ],
-      label: 'Courses',
+      label: t`Courses`,
     },
 
     {
@@ -59,7 +60,7 @@ const PageSlider = () => {
             navigate('/users/list');
           },
           icon: 'pi pi-users',
-          label: 'User List',
+          label: t`User List`,
         },
         {
           command: () => {
@@ -67,10 +68,10 @@ const PageSlider = () => {
             navigate('/users/list/new-user');
           },
           icon: plusIcon,
-          label: 'Add new User',
+          label: t`Add new User`,
         },
       ],
-      label: 'Users',
+      label: t`Users`,
     },
     {
       icon: 'pi pi-book',
@@ -82,7 +83,7 @@ const PageSlider = () => {
           },
 
           icon: listIcon,
-          label: 'Exams list',
+          label: t`Exams list`,
         },
         {
           command: () => {
@@ -90,10 +91,10 @@ const PageSlider = () => {
             navigate('/exams/list/new-exam');
           },
           icon: plusIcon,
-          label: 'Add New exam',
+          label: t`Add New exam`,
         },
       ],
-      label: 'Exams',
+      label: t`Exams`,
     },
     {
       icon: 'i-quill:paper w-18px h-18px',
@@ -104,7 +105,7 @@ const PageSlider = () => {
             navigate('/questions/list/new-question');
           },
           icon: plusIcon,
-          label: 'Add New Question',
+          label: t`Add New Question`,
         },
         {
           command: () => {
@@ -112,7 +113,7 @@ const PageSlider = () => {
             navigate('/questions/list');
           },
           icon: listIcon,
-          label: 'Question list',
+          label: t`Question list`,
         },
         {
           command: () => {
@@ -120,10 +121,10 @@ const PageSlider = () => {
             navigate('/questions/ai-questions');
           },
           icon: 'i-hugeicons:artificial-intelligence-02 ',
-          label: 'AI Generated questions',
+          label: t`AI Generated questions`,
         },
       ],
-      label: 'Questions',
+      label: t`Questions`,
     },
     {
       command: () => {
@@ -131,7 +132,7 @@ const PageSlider = () => {
         navigate('/reports');
       },
       icon: 'pi pi-chart-line',
-      label: 'Reports & Analytics',
+      label: t`Reports & Analytics`,
     },
   ];
 

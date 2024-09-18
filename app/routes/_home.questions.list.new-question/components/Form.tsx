@@ -6,6 +6,7 @@ type TProps = {
 };
 
 export type TFormQuestions = {
+  id?: string;
   question: string;
   questionAnswers: string | null | undefined;
   questionCorrectAnswer: string;
