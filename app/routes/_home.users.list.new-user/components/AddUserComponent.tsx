@@ -77,7 +77,7 @@ const AddUserComponent = () => {
       onHide={() => navigate('..')}
       pt={{
         root: {
-          className: 'w-40vw h-90vh',
+          className: 'w-50vw h-100vh',
         },
       }}
       visible
@@ -89,112 +89,113 @@ const AddUserComponent = () => {
           }}
         />
       ) : (
-        <form className="p-fluid flex flex-col gap-8">
-          <div className="field mt-5">
-            <Controller
-              control={control}
-              name="role"
-              render={({ field, fieldState }) => (
-                <FloatLabel>
-                  <Dropdown
-                    inputId="role"
-                    onChange={(event) => field.onChange(event.value)}
-                    options={roles}
-                    value={field.value}
-                  />
-                  <label htmlFor="role">{t`Role`}</label>
-                  {fieldState.error && (
-                    <small className="p-error">
-                      {fieldState.error.message}
-                    </small>
-                  )}
-                </FloatLabel>
-              )}
-              rules={{ required: t`Role is required` }}
-            />
-          </div>
-          <div className="field">
-            <Controller
-              control={control}
-              name="fullName"
-              render={({ field, fieldState }) => {
-                return (
-                  <>
-                    <FloatLabel>
-                      <InputText id="fullName" {...field} />
-                      <label htmlFor="fullName">{t`Full Name`}</label>
-                    </FloatLabel>
-                    {fieldState.error && (
-                      <small className="p-error">
-                        {fieldState.error.message}
-                      </small>
-                    )}
-                  </>
-                );
-              }}
-              rules={{ required: t`Full Name is required` }}
-            />
-          </div>
-
-          <div className="field">
-            <Controller
-              control={control}
-              name="password"
-              render={({ field, fieldState }) => {
-                return (
-                  <>
-                    <FloatLabel>
-                      <Password inputId="password" toggleMask {...field} />
-                      <label htmlFor="password">{t`Password`}</label>
-                    </FloatLabel>
-                    {fieldState.error && (
-                      <small className="p-error">
-                        {fieldState.error.message}
-                      </small>
-                    )}
-                  </>
-                );
-              }}
-              rules={{
-                minLength: {
-                  message: t`Password must be at least 6 characters`,
-                  value: 6,
-                },
-                required: t`Password is required`,
-              }}
-            />
-          </div>
-          <div className="field">
-            <Controller
-              control={control}
-              defaultValue="@gmail.com"
-              name="email"
-              render={({ field, fieldState }) => {
-                return (
+        <form className="p-fluid flex gap-8">
+          <div className="w-50% flex flex-col gap-7">
+            <div className="field mt-5">
+              <Controller
+                control={control}
+                name="role"
+                render={({ field, fieldState }) => (
                   <FloatLabel>
-                    <InputText id="email" {...field} />
-                    <label htmlFor="email">{t`Email`}</label>
+                    <Dropdown
+                      inputId="role"
+                      onChange={(event) => field.onChange(event.value)}
+                      options={roles}
+                      value={field.value}
+                    />
+                    <label htmlFor="role">{t`Role`}</label>
                     {fieldState.error && (
                       <small className="p-error">
                         {fieldState.error.message}
                       </small>
                     )}
                   </FloatLabel>
-                );
-              }}
-              rules={{
-                pattern: {
-                  message: t`Invalid email address`,
-                  value: /^[\w%+.-]+@[\d.A-Za-z-]+\.[A-Za-z]{2,4}$/u,
-                },
-                required: t`Email is required`,
-              }}
-            />
+                )}
+                rules={{ required: t`Role is required` }}
+              />
+            </div>
+            <div className="field">
+              <Controller
+                control={control}
+                name="fullName"
+                render={({ field, fieldState }) => {
+                  return (
+                    <>
+                      <FloatLabel>
+                        <InputText id="fullName" {...field} />
+                        <label htmlFor="fullName">{t`Full Name`}</label>
+                      </FloatLabel>
+                      {fieldState.error && (
+                        <small className="p-error">
+                          {fieldState.error.message}
+                        </small>
+                      )}
+                    </>
+                  );
+                }}
+                rules={{ required: t`Full Name is required` }}
+              />
+            </div>
+            <div className="field">
+              <Controller
+                control={control}
+                name="password"
+                render={({ field, fieldState }) => {
+                  return (
+                    <>
+                      <FloatLabel>
+                        <Password inputId="password" toggleMask {...field} />
+                        <label htmlFor="password">{t`Password`}</label>
+                      </FloatLabel>
+                      {fieldState.error && (
+                        <small className="p-error">
+                          {fieldState.error.message}
+                        </small>
+                      )}
+                    </>
+                  );
+                }}
+                rules={{
+                  minLength: {
+                    message: t`Password must be at least 6 characters`,
+                    value: 6,
+                  },
+                  required: t`Password is required`,
+                }}
+              />
+            </div>
+            <div className="field">
+              <Controller
+                control={control}
+                defaultValue="@gmail.com"
+                name="email"
+                render={({ field, fieldState }) => {
+                  return (
+                    <FloatLabel>
+                      <InputText id="email" {...field} />
+                      <label htmlFor="email">{t`Email`}</label>
+                      {fieldState.error && (
+                        <small className="p-error">
+                          {fieldState.error.message}
+                        </small>
+                      )}
+                    </FloatLabel>
+                  );
+                }}
+                rules={{
+                  pattern: {
+                    message: t`Invalid email address`,
+                    value: /^[\w%+.-]+@[\d.A-Za-z-]+\.[A-Za-z]{2,4}$/u,
+                  },
+                  required: t`Email is required`,
+                }}
+              />
+            </div>
           </div>
 
           {selectedRole === 'student' && (
-            <>
-              <div className="field">
+            <div className="w-50% flex flex-col gap-7">
+              <div className="field mt-5">
                 <Controller
                   control={control}
                   name="level"
@@ -239,7 +240,7 @@ const AddUserComponent = () => {
                   rules={{ required: t`User ID is required` }}
                 />
               </div>
-            </>
+            </div>
           )}
         </form>
       )}
