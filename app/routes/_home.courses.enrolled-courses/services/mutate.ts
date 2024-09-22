@@ -29,7 +29,7 @@ export const useDeleteEnrolledCourseMutation = () => {
         courseId,
         'enrolledcourse'
       );
-      console.log(enrolledCoursesRef);
+
       // Query to find the document with the matching studentId
       const matchedStudentCourseQuery = query(
         enrolledCoursesRef,

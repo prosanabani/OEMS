@@ -1,13 +1,5 @@
 import { useCoursesList } from '../services/query';
-import {
-  addDoc,
-  collection,
-  doc,
-  getDocs,
-  query,
-  setDoc,
-  where,
-} from 'firebase/firestore';
+import { collection, doc, getDocs, setDoc } from 'firebase/firestore';
 import { Button } from 'primereact/button';
 import { Dropdown, type DropdownChangeEvent } from 'primereact/dropdown';
 import { useState, useRef } from 'react';
