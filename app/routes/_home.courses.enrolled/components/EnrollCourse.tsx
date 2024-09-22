@@ -1,5 +1,13 @@
 import { useCoursesList } from '../services/query';
-import { addDoc, collection, doc } from 'firebase/firestore';
+import {
+  addDoc,
+  collection,
+  doc,
+  getDocs,
+  query,
+  setDoc,
+  where,
+} from 'firebase/firestore';
 import { Button } from 'primereact/button';
 import { Dropdown, type DropdownChangeEvent } from 'primereact/dropdown';
 import { useState, useRef } from 'react';
@@ -10,7 +18,7 @@ import { Toast } from 'primereact/toast';
 import { t } from '@lingui/macro';
 import { QueryKeys } from '@/utils/constants/QueryEnums';
 
-export default function EnrolledCourse() {
+export default function EnrollCourse() {
   const [selectedCourse, setSelectedCourse] = useState(null);
   const { data } = useCoursesList('2'); // userLevel
   const toast = useRef<Toast>(null);
@@ -22,7 +30,7 @@ export default function EnrolledCourse() {
   } = useForm<EnrolledCourseFormValues>({
     defaultValues: {
       selectedCourse: '',
-      studentId: 'kljlkjsdkljfsjoijr454',
+      studentId: 'JRMYA3iNy2Ujw61xkHcAd5oi5472',
     },
   });
 
@@ -35,8 +43,26 @@ export default function EnrolledCourse() {
       );
       const enrolledCourseRef = collection(courseDocumentRef, 'enrolledcourse');
 
-      await addDoc(enrolledCourseRef, {
-        studentId: data.studentId,
+      // Fetch all documents in the 'enrolledcourse' collection
+      const querySnapshot = await getDocs(enrolledCourseRef);
+
+      // Check if any document has the same studentId or matches the document ID
+      let isAlreadyEnrolled = false;
+
+      querySnapshot.forEach((doc) => {
+        if (doc.id === data.studentId) {
+          isAlreadyEnrolled = true;
+        }
+      });
+
+      if (isAlreadyEnrolled) {
+        throw new Error('Student is already enrolled in this course.');
+      }
+
+      // Proceed with enrollment using studentId as the document ID
+      const studentDocRef = doc(enrolledCourseRef, data.studentId);
+      await setDoc(studentDocRef, {
+        verificationCode: '654649789',
       });
     },
     onSuccess: () => {
@@ -49,9 +75,13 @@ export default function EnrolledCourse() {
         queryKey: [QueryKeys.STUDENT_COURSES],
       });
     },
-    onError: () => {
+    onError: (error) => {
+      let errorMessage = t`Course enrollment failed`;
+      if (error.message === 'Student is already enrolled in this course.') {
+        errorMessage = t`Student is already enrolled in this course`;
+      }
       showToast({
-        detail: t`Course enrollment failed`,
+        detail: errorMessage,
         severity: 'error',
         summary: t`Error`,
       });

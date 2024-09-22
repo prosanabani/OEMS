@@ -1,4 +1,5 @@
 import { FirebaseDatabase } from '../../../config/firebase';
+import en from '@/locales/en';
 import { QueryKeys } from '@/utils/constants/QueryEnums';
 import { t } from '@lingui/macro';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
@@ -28,7 +29,7 @@ export const useDeleteEnrolledCourseMutation = () => {
         courseId,
         'enrolledcourse'
       );
-
+      console.log(enrolledCoursesRef);
       // Query to find the document with the matching studentId
       const matchedStudentCourseQuery = query(
         enrolledCoursesRef,
