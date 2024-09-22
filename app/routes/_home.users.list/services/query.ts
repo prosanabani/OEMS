@@ -14,6 +14,7 @@ export const useUsersListTable = () => {
       return await Promise.all(
         querySnapshot.docs.map(async (document) => {
           const userData: AddUserFormValues = {
+            email: document.data().email,
             fullName: document.data().fullName,
             id: document.id,
             password: document.data().password,
