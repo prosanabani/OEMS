@@ -1,4 +1,6 @@
 import logo from './logo.jpg'; // Replace with your image path
+import { useLoginMutation } from './services/mutates';
+import { type LoginUserFormValues } from './services/type';
 import { t } from '@lingui/macro';
 import { Button } from 'primereact/button';
 import { Dropdown } from 'primereact/dropdown';
@@ -6,8 +8,6 @@ import { FloatLabel } from 'primereact/floatlabel';
 import { InputText } from 'primereact/inputtext';
 import { Password } from 'primereact/password';
 import { Controller, useForm } from 'react-hook-form';
-import { LoginUserFormValues } from './services/type';
-import { useLoginMutation } from './services/mutates';
 
 export function Component() {
   const { mutate: Login } = useLoginMutation();
@@ -44,13 +44,13 @@ export function Component() {
               className="flex flex-col gap-10 text-black p-10"
               onSubmit={handleSubmit((FormData) => {
                 const currentField =
-                  FormData.role !== 'student'
-                    ? FormData.username
-                    : FormData.userId;
+                  FormData.role === 'student'
+                    ? FormData.userId
+                    : FormData.username;
                 return Login({
-                  username: currentField,
                   password: FormData.password,
                   role: FormData.role,
+                  username: currentField,
                 });
               })}
             >
