@@ -15,7 +15,7 @@ const TableHeader = () => {
         <InputIcon className="pi pi-search" />
         <InputText
           onChange={(event) => setSearchInput(event.target.value)}
-          placeholder={t`Search for questions`}
+          placeholder={t`Search for exam`}
           value={SearchInput}
         />
       </IconField>

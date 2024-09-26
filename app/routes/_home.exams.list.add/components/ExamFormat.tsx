@@ -69,18 +69,20 @@ const ExamFormat = () => {
     <>
       <div className="p-field ">
         <ProgressBar value={(currentFormatMarks / examMarkWatch) * 100} />
-        <label htmlFor="currentFormatMarks">
-          {t`Current Marks: ${currentFormatMarks} / ${examMarkWatch}`}
-        </label>
-        {currentFormatMarks !== examMarkWatch && (
-          <small className="p-error ml-2">
-            <Trans>
-              {currentFormatMarks > examMarkWatch
-                ? 'Total marks exceed the allowed exam marks'
-                : 'Total marks are less than the required exam marks'}
-            </Trans>
-          </small>
-        )}
+        <div className="mt-2">
+          <label htmlFor="currentFormatMarks">
+            {t`Current Marks: ${currentFormatMarks} / ${examMarkWatch}`}
+          </label>
+          {currentFormatMarks !== examMarkWatch && (
+            <small className="p-error ml-2">
+              <Trans>
+                {currentFormatMarks > examMarkWatch
+                  ? 'Total marks exceed the allowed exam marks'
+                  : 'Total marks are less than the required exam marks'}
+              </Trans>
+            </small>
+          )}
+        </div>
       </div>
       <div className="flex flex-col gap-2 mt-4">
         <div className="columns flex items-center justify-end gap-5">

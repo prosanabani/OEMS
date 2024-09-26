@@ -17,7 +17,7 @@ const PageSlider = () => {
         setVisible(false);
         navigate('/dashboard');
       },
-      icon: 'pi pi-qrcode',
+      icon: 'i-carbon:dashboard w-20px h-20px  ',
       label: t`Dashboard`,
     },
     {
@@ -93,11 +93,19 @@ const PageSlider = () => {
           icon: plusIcon,
           label: t`Add New exam`,
         },
+        {
+          command: () => {
+            setVisible(false);
+            navigate('/exams/list/start-exam');
+          },
+          icon: 'i-quill:paper w-18px h-18px',
+          label: t`Start exam`,
+        },
       ],
       label: t`Exams`,
     },
     {
-      icon: 'i-quill:paper w-18px h-18px',
+      icon: 'i-fluent:notebook-question-mark-20-regular w-18px h-18px',
       items: [
         {
           command: () => {

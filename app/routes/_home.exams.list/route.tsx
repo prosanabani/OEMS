@@ -3,7 +3,7 @@ import TableHeader from './components/TableHeader';
 import { useExamsData } from './services/query';
 import { useExamListStore } from './store';
 import { filterData } from './utils/functions';
-import ExamRowExpansion, { ActionBodyTemplate } from './utils/generators';
+import { ActionBodyTemplate, ExamRowExpansion } from './utils/generators';
 import { t } from '@lingui/macro';
 import { Column } from 'primereact/column';
 import { DataTable } from 'primereact/datatable';

@@ -66,7 +66,7 @@ const Content = () => {
     <div className="flex flex-col h-full justify-between">
       <Stepper
         activeStep={currentStep}
-        headerPosition="bottom"
+        headerPosition="top"
         onChangeStep={(event) => setCurrentStep(event.index)}
         ref={stepperRef}
       >

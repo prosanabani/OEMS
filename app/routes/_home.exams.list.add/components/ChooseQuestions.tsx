@@ -120,7 +120,7 @@ const ChooseQuestions = () => {
         <DataTable
           dataKey="id"
           emptyMessage={
-            <div className="w-fit m-auto flex  flex-col items-center justify-center">
+            <div className="w-fit m-auto flex flex-col items-center justify-center">
               <i className="pi pi-inbox text-3rem" />
               <p className="text-xl mt-1rem">
                 <Trans>No records found</Trans>
@@ -144,7 +144,8 @@ const ChooseQuestions = () => {
             <QuestionRowExpansion data={rowData.aiGeneratedQuestions} />
           )}
           rows={10}
-          // Use the form context's examQuestions for selection
+          scrollHeight="50vh"
+          scrollable
           selection={questions.filter((question) =>
             examQuestionsWatch?.includes(question.id)
           )}

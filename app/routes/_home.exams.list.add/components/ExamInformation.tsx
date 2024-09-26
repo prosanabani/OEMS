@@ -15,7 +15,7 @@ const ExamInformation = () => {
       <ExamTitle />
       {/* Exam Description Input */}
       <ExamDescription />
-      <div className="">
+      <div className="flex flex-col gap-2">
         <ExamMarkSliders />
       </div>
     </div>
