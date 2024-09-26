@@ -1,17 +1,15 @@
-import { type TExamCredentials } from '../type';
-import MultiChoiceSection from './Content.MultiChoiceSection';
-import TheoreticalSection from './Content.TheoreticalSection';
-import TrueOrFalseSection from './Content.TrueOrFalseSection';
+import { type TAddExamForm } from '../types/examType';
+import MultiChoiceSection from './ExamFormat.MultiChoiceSection';
+import TheoreticalSection from './ExamFormat.TheoreticalSection';
+import TrueOrFalseSection from './ExamFormat.TrueOrFalseSection';
 import { t, Trans } from '@lingui/macro';
 import { ProgressBar } from 'primereact/progressbar';
-import { ScrollPanel } from 'primereact/scrollpanel';
 import { useEffect, useMemo } from 'react';
 import { useFormContext, useWatch } from 'react-hook-form';
-import { useLocation } from 'react-router-dom';
 
-const Content = () => {
-  const { state } = useLocation(); // assuming state.examMark is passed to this component
-  const { clearErrors, control, setError } = useFormContext<TExamCredentials>();
+const ExamFormat = () => {
+  // console.log(state);
+  const { clearErrors, control, setError } = useFormContext<TAddExamForm>();
 
   const CurrentFormatMarks = 'examFormat.currentFormatMarks';
 
@@ -19,6 +17,10 @@ const Content = () => {
   const examFormatWatch = useWatch({
     control,
     name: 'examFormat',
+  });
+  const examMarkWatch = useWatch({
+    control,
+    name: 'examMark',
   });
 
   // Destructure examFormatWatch for easier access
@@ -48,54 +50,49 @@ const Content = () => {
 
   // Handle validation errors
   useEffect(() => {
-    if (currentFormatMarks > state.examMark) {
+    if (currentFormatMarks > examMarkWatch) {
       setError(CurrentFormatMarks, {
-        message: t`Total marks (${currentFormatMarks}) exceed the exam marks (${state.examMark})`,
+        message: t`Total marks (${currentFormatMarks}) exceed the exam marks (${examMarkWatch})`,
         type: 'manual',
       });
-    } else if (currentFormatMarks < state.examMark) {
+    } else if (currentFormatMarks < examMarkWatch) {
       setError(CurrentFormatMarks, {
-        message: t`Total marks (${currentFormatMarks}) are less than the exam marks (${state.examMark})`,
+        message: t`Total marks (${currentFormatMarks}) are less than the exam marks (${examMarkWatch})`,
         type: 'manual',
       });
     } else {
       clearErrors(CurrentFormatMarks);
     }
-  }, [currentFormatMarks, state.examMark, setError, clearErrors]);
+  }, [clearErrors, currentFormatMarks, examMarkWatch, setError]);
 
   return (
     <>
-      <div className="p-field">
-        <ProgressBar value={(currentFormatMarks / state.examMark) * 100} />
+      <div className="p-field ">
+        <ProgressBar value={(currentFormatMarks / examMarkWatch) * 100} />
         <label htmlFor="currentFormatMarks">
-          {t`Current Marks: ${currentFormatMarks} / ${state.examMark}`}
+          {t`Current Marks: ${currentFormatMarks} / ${examMarkWatch}`}
         </label>
-        {currentFormatMarks !== state.examMark && (
+        {currentFormatMarks !== examMarkWatch && (
           <small className="p-error ml-2">
             <Trans>
-              {currentFormatMarks > state.examMark
+              {currentFormatMarks > examMarkWatch
                 ? 'Total marks exceed the allowed exam marks'
                 : 'Total marks are less than the required exam marks'}
             </Trans>
           </small>
         )}
       </div>
-      <ScrollPanel
-        pt={{
-          barY: {
-            className: 'bg-blue',
-          },
-          root: {
-            className: 'h-57vh',
-          },
-        }}
-      >
+      <div className="flex flex-col gap-2 mt-4">
+        <div className="columns flex items-center justify-end gap-5">
+          <div className="">Number of Questions</div>
+          <div className="">Marks Per Questions</div>
+        </div>
         <MultiChoiceSection />
         <TheoreticalSection />
         <TrueOrFalseSection />
-      </ScrollPanel>
+      </div>
     </>
   );
 };
 
-export default Content;
+export default ExamFormat;

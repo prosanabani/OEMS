@@ -33,7 +33,7 @@ const ExamTitle = () => {
         rules={{ required: t`Exam title is required` }}
       />
       {errors.examTitle && (
-        <small className="p-error">{errors.examTitle.message}</small>
+        <small className="p-error">* {errors.examTitle.message}</small>
       )}
     </div>
   );
