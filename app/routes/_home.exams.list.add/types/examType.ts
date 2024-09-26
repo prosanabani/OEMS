@@ -24,4 +24,5 @@ export type TAddExamForm = {
   examPassMark: number;
   examQuestions: string[];
   examTitle: string;
+  id: string;
 };

@@ -1,14 +1,22 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import TableHeader from './components/TableHeader';
 import { useExamsData } from './services/query';
+import { useExamListStore } from './store';
+import { filterData } from './utils/functions';
 import ExamRowExpansion, { ActionBodyTemplate } from './utils/generators';
 import { t } from '@lingui/macro';
 import { Column } from 'primereact/column';
 import { DataTable } from 'primereact/datatable';
 
 export function Component() {
-  const { data, isLoading } = useExamsData();
+  const { SearchInput, queryParameters } = useExamListStore((state) => ({
+    queryParameters: state.queryParameters,
+    SearchInput: state.SearchInput,
+  }));
+  const { data: examList, isLoading } = useExamsData(queryParameters.courseId);
   const [expandedRows, setExpandedRows] = useState([]);
+
+  const filteredData = filterData(examList || [], SearchInput);
 
   return (
     <>
@@ -34,7 +42,7 @@ export function Component() {
         // scrollable
         size="small"
         stripedRows
-        value={data}
+        value={filteredData}
       >
         <Column expander />
         <Column field="examName" header={t`Exam Name`} sortable />

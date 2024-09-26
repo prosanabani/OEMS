@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { type TFirebaseQuestion } from '../types/types';
 import { fetchQuestionWithAiGeneratedQuestions } from './api';
 import { FirebaseDatabase } from '@/config/firebase';
@@ -42,7 +41,7 @@ export const useQuestionsTable = (courseId: string | 'all') => {
     queryKey: [QueryKeys.QUESTIONS_TABLE],
     select(data) {
       if (courseId === 'all') return data;
-      return data.filter((question: any) => question.courseId === courseId);
+      return data.filter((question) => question.courseId === courseId);
     },
   });
 };

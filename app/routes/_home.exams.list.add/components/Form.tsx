@@ -33,6 +33,7 @@ const Form = ({ children }: TProps) => {
     examPassMark: 25,
     examQuestions: [],
     examTitle: '',
+    id: '',
   };
   const methods = useForm<TAddExamForm>({
     defaultValues: values,

@@ -2,7 +2,7 @@
 import QuestionRowExpansion from './components/QuestionRowExpansion';
 import QuestionsTableHeader from './components/QuestionsTableHeader';
 import { useQuestionsTable } from './services/query';
-import { setExpandedRows, useQuestionListStore } from './store';
+import { useQuestionListStore } from './store';
 import { filterData, isRowExpandable } from './utils/functions';
 import {
   ActionBodyTemplate,
@@ -14,8 +14,7 @@ import { Column } from 'primereact/column';
 import { DataTable } from 'primereact/datatable';
 
 export function Component() {
-  const { SearchInput, expandedRows } = useQuestionListStore((state) => ({
-    expandedRows: state.expandedRows,
+  const { SearchInput } = useQuestionListStore((state) => ({
     SearchInput: state.SearchInput,
   }));
   const queryParameters = useQuestionListStore((state) => state.queryParams);
@@ -24,9 +23,7 @@ export function Component() {
   );
   const filteredData = filterData(QuestionsList || [], SearchInput);
 
-  useEffect(() => {
-    setExpandedRows(expandedRows);
-  }, [expandedRows]);
+  const [expandedRows, setExpandedRows] = useState([]);
 
   return (
     <>
