@@ -58,7 +58,7 @@ const ExamMarkSliders = () => {
           }}
         />
         {errors.examMark && (
-          <small className="p-error">{errors.examMark.message}</small>
+          <small className="p-error">* {errors.examMark.message}</small>
         )}
       </div>
       {/* Exam Pass Mark Slider */}
@@ -98,7 +98,7 @@ const ExamMarkSliders = () => {
           }}
         />
         {errors.examPassMark && (
-          <small className="p-error">{errors.examPassMark.message}</small>
+          <small className="p-error">* {errors.examPassMark.message}</small>
         )}
       </div>
     </>

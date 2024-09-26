@@ -19,11 +19,11 @@ const ExamName = () => {
             <InputText
               {...field}
               className={errors.examName ? 'p-invalid' : ''}
-              pt={{
-                root: {
-                  className: 'w-full',
-                },
-              }}
+              // pt={{
+              //   root: {
+              //     className: 'w-full',
+              //   },
+              // }}
             />
             <label>
               <Trans>Exam Name</Trans>
@@ -33,7 +33,7 @@ const ExamName = () => {
         rules={{ required: t`Exam name is required` }}
       />
       {errors.examName && (
-        <small className="p-error">{errors.examName.message}</small>
+        <small className="p-error">* {errors.examName.message}</small>
       )}
     </div>
   );
