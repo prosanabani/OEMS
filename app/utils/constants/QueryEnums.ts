@@ -1,4 +1,5 @@
 export const QueryKeys = {
+  AI_QUESTIONS: 'aiQuestions',
   All_COURSES_LIST: 'allCoursesList',
   COURSES_LIST: 'coursesList',
   EXAMS_TABLE: 'examsTable',

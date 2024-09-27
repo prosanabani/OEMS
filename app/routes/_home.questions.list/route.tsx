@@ -7,6 +7,7 @@ import { filterData, isRowExpandable } from './utils/functions';
 import {
   ActionBodyTemplate,
   AnswersTemplate,
+  CorrectAnswerBodyTemplate,
   QuestionTypeBodyTemplate,
 } from './utils/generators';
 import { t } from '@lingui/macro';
@@ -37,11 +38,6 @@ export function Component() {
           header: {
             className: 'rounded-t-5',
           },
-          // paginator: {
-          //   root: {
-          //     className: 'bg-slate-200',
-          //   },
-          // },
           root: {
             className: 'mx-5 mt-5',
           },
@@ -73,6 +69,7 @@ export function Component() {
           sortable
         />
         <Column
+          body={CorrectAnswerBodyTemplate}
           field="questionCorrectAnswer"
           header={t`Correct Answer`}
           sortable

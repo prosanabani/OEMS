@@ -13,7 +13,7 @@ const QuestionRowExpansion = ({ data }: TProps) => {
       <div className="">
         <Trans>Ai generated questions</Trans>
       </div>
-      <DataTable value={data}>
+      <DataTable size="small" value={data}>
         <Column field="question" header={t`Question`} sortable />
         <Column
           body={AnswersTemplate}
