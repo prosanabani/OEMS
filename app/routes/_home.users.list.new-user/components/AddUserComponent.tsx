@@ -1,5 +1,5 @@
 import useAddUser from '../services/query';
-import { type AddUserFormValues } from '../services/types';
+import { type TUser } from '../services/types';
 import { QueryKeys } from '@/utils/constants/QueryEnums';
 import { t, Trans } from '@lingui/macro';
 import { Button } from 'primereact/button';
@@ -25,17 +25,18 @@ const levels = [
 ];
 
 const AddUserComponent = () => {
-  const { control, handleSubmit, watch } = useForm<AddUserFormValues>();
+  const { control, handleSubmit, watch } = useForm<TUser>();
 
   const navigate = useNavigate();
 
   const { isPending, mutate } = useAddUser();
 
-  const onSubmit = (data: AddUserFormValues) => {
+  const onSubmit = (data: TUser) => {
     mutate(data, {
-      onError: () => {
+      onError: (error) => {
         showToast({
-          detail: t`Error adding document`,
+          detail: error.message,
+          // detail: t`Error adding document`,
           severity: 'error',
           summary: t`Error`,
         });

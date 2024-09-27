@@ -1,5 +1,5 @@
 import { useEditUserFromFirebase } from '../services/mutate';
-import { type AddUserFormValues } from '@/routes/_home.users.list.new-user/services/types';
+import { type TUser } from '@/routes/_home.users.list.new-user/services/types';
 import { QueryKeys } from '@/utils/constants/QueryEnums';
 import { t, Trans } from '@lingui/macro';
 import { Button } from 'primereact/button';
@@ -13,7 +13,7 @@ import { useEffect, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 
 type TProps = {
-  readonly userData: AddUserFormValues;
+  readonly userData: TUser;
 };
 
 const EditUserButton = ({ userData }: TProps) => {
@@ -28,7 +28,7 @@ const EditUserButton = ({ userData }: TProps) => {
     reset,
     setValue,
     watch,
-  } = useForm<AddUserFormValues>({
+  } = useForm<TUser>({
     defaultValues: {
       fullName: userData.fullName,
       id: userData.id,

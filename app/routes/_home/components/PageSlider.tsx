@@ -96,7 +96,7 @@ const PageSlider = () => {
         {
           command: () => {
             setVisible(false);
-            navigate('/exams/list/start-exam');
+            navigate('/exams/start-exam');
           },
           icon: 'i-quill:paper w-18px h-18px',
           label: t`Start exam`,
