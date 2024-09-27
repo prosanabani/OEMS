@@ -27,6 +27,7 @@ export const useLoginMutation = () => {
       });
     },
     onSuccess: () => {
+      console.log(FirebaseAuth);
       navigate('/dashboard');
       showToast({
         detail: t`Login success`,

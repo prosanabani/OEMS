@@ -42,7 +42,7 @@ const PageSlider = () => {
         {
           command: () => {
             setVisible(false);
-            navigate('/courses/enrolled');
+            navigate('/courses/enroll');
           },
           icon: 'pi pi-eye',
           label: t`View enrolled courses`,

@@ -1,18 +1,19 @@
 import { useCoursesList } from '../services/query';
+import { type EnrolledCourseFormValues } from '../types/typs';
+import { getRandomSixNumbers } from '../utils/function';
+import { QueryKeys } from '@/utils/constants/QueryEnums';
+import { t } from '@lingui/macro';
+import { useMutation } from '@tanstack/react-query';
 import { collection, doc, getDocs, setDoc } from 'firebase/firestore';
 import { Button } from 'primereact/button';
 import { Dropdown, type DropdownChangeEvent } from 'primereact/dropdown';
-import { useState, useRef } from 'react';
-import { Controller, useForm } from 'react-hook-form';
-import { EnrolledCourseFormValues } from '../types/typs';
-import { useMutation } from '@tanstack/react-query';
 import { Toast } from 'primereact/toast';
-import { t } from '@lingui/macro';
-import { QueryKeys } from '@/utils/constants/QueryEnums';
+import { useRef, useState } from 'react';
+import { Controller, useForm } from 'react-hook-form';
 
 export default function EnrollCourse() {
   const [selectedCourse, setSelectedCourse] = useState(null);
-  const { data } = useCoursesList('2'); // userLevel
+  const { data: coursesList } = useCoursesList('2'); // userLevel
   const toast = useRef<Toast>(null);
 
   const {
@@ -41,20 +42,32 @@ export default function EnrollCourse() {
       // Check if any document has the same studentId or matches the document ID
       let isAlreadyEnrolled = false;
 
-      querySnapshot.forEach((doc) => {
-        if (doc.id === data.studentId) {
+      for (const document of querySnapshot.docs) {
+        if (document.id === data.studentId) {
           isAlreadyEnrolled = true;
         }
-      });
+      }
 
       if (isAlreadyEnrolled) {
         throw new Error('Student is already enrolled in this course.');
       }
 
       // Proceed with enrollment using studentId as the document ID
-      const studentDocRef = doc(enrolledCourseRef, data.studentId);
-      await setDoc(studentDocRef, {
-        verificationCode: '654649789',
+      const studentDocumentRef = doc(enrolledCourseRef, data.studentId);
+      await setDoc(studentDocumentRef, {
+        verificationCode: getRandomSixNumbers(),
+      });
+    },
+    onError: (error) => {
+      let errorMessage = t`Course enrollment failed`;
+      if (error.message === 'Student is already enrolled in this course.') {
+        errorMessage = t`Student is already enrolled in this course`;
+      }
+
+      showToast({
+        detail: errorMessage,
+        severity: 'error',
+        summary: t`Error`,
       });
     },
     onSuccess: () => {
@@ -65,17 +78,6 @@ export default function EnrollCourse() {
       });
       queryClient.invalidateQueries({
         queryKey: [QueryKeys.STUDENT_COURSES],
-      });
-    },
-    onError: (error) => {
-      let errorMessage = t`Course enrollment failed`;
-      if (error.message === 'Student is already enrolled in this course.') {
-        errorMessage = t`Student is already enrolled in this course`;
-      }
-      showToast({
-        detail: errorMessage,
-        severity: 'error',
-        summary: t`Error`,
       });
     },
   });
@@ -103,7 +105,7 @@ export default function EnrollCourse() {
                   field.onChange(event.value);
                 }}
                 optionLabel="label"
-                options={data}
+                options={coursesList}
                 placeholder="Select a Course"
                 value={selectedCourse}
               />
@@ -115,7 +117,7 @@ export default function EnrollCourse() {
           )}
         </div>
 
-        <Button label="Enroll" type="submit" className="mt-2" />
+        <Button className="mt-2" label="Enroll" type="submit" />
       </form>
     </div>
   );

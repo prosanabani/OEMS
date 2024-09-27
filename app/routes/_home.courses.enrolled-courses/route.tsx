@@ -1,12 +1,14 @@
 import { useDeleteEnrolledCourseMutation } from './services/mutate';
 import { useEnrolledCoursesList } from './services/query';
 import { courseLevelBody } from './utils/generators';
+import { t, Trans } from '@lingui/macro';
 import { Button } from 'primereact/button';
 import { Column } from 'primereact/column';
+import { ConfirmDialog } from 'primereact/confirmdialog';
 import { DataTable } from 'primereact/datatable';
 
 export function Component() {
-  const studentId = 'kljlkjsdkljfsjoijr454';
+  const studentId = 'JRMYA3iNy2Ujw61xkHcAd5oi5472';
   const {
     data: UserEnrolledCourses,
     isFetching,
@@ -15,20 +17,33 @@ export function Component() {
 
   const { isPending, mutate: deleteCourse } = useDeleteEnrolledCourseMutation();
 
-  const onDeleteCourse = (courseId: string) => {
-    deleteCourse({ courseId, studentId });
-  };
-
+  const [Visible, setVisible] = useState<boolean>(false);
   const deleteButtonTemplate = (rowData: { id: string }) => {
     return (
-      <Button
-        disabled={isLoading || isPending}
-        icon="pi pi-trash"
-        loading={isLoading || isPending}
-        onClick={() => onDeleteCourse(rowData.id)}
-        rounded
-        severity="danger"
-      />
+      <>
+        <ConfirmDialog
+          accept={() => deleteCourse({ courseId: rowData.id, studentId })}
+          acceptClassName="p-button-danger"
+          defaultFocus="reject"
+          draggable={false}
+          header={t` Are you sure you want to Delete ?`}
+          icon="pi pi-exclamation-triangle text-red"
+          message={
+            <span className="p-error">
+              <Trans>Course enrolled will be deleted !</Trans>
+            </span>
+          }
+          onHide={() => setVisible(false)}
+          visible={Visible}
+        />
+        <Button
+          className="p-button-rounded mr-2"
+          icon="pi pi-trash"
+          loading={isPending}
+          onClick={() => setVisible(true)}
+          severity="danger"
+        />
+      </>
     );
   };
 

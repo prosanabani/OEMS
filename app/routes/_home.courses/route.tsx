@@ -14,15 +14,15 @@ export function Component() {
       label: 'Courses',
     },
     {
-      command: () => navigate('/courses/enrolled'),
+      command: () => navigate('/courses/enroll'),
       icon: 'i-hugeicons:course',
-      id: 'enrolled',
+      id: 'enroll',
       label: 'Enroll Courses',
     },
     {
       command: () => navigate('/courses/enrolled-courses'),
       icon: 'i-hugeicons:course',
-      id: 'enrolled',
+      id: 'enrolled-courses',
       label: 'users enrolled-courses',
     },
   ];

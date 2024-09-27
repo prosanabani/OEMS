@@ -1,7 +1,7 @@
 import { FirebaseDatabase } from '@/config/firebase';
 import { QueryKeys } from '@/utils/constants/QueryEnums';
 import { useQuery } from '@tanstack/react-query';
-import { collection, getDocs, query, where } from 'firebase/firestore';
+import { collection, doc, getDoc, getDocs } from 'firebase/firestore';
 
 export const useEnrolledCoursesList = (studentId: string) => {
   return useQuery({
@@ -13,19 +13,15 @@ export const useEnrolledCoursesList = (studentId: string) => {
 
       // Loop through each course document
       for (const courseDocument of coursesSnapshot.docs) {
-        const enrolledCoursesStudentsCollection = collection(
+        const enrolledCourseDocumentRef = doc(
           FirebaseDatabase,
-          `courses/${courseDocument.id}/enrolledcourse`
-        );
-        const studentQuery = query(
-          enrolledCoursesStudentsCollection,
-          where('studentId', '==', studentId)
+          `courses/${courseDocument.id}/enrolledcourse/${studentId}`
         );
 
-        const enrolledSnapshot = await getDocs(studentQuery);
+        const enrolledCourseDocument = await getDoc(enrolledCourseDocumentRef);
 
-        // If there is a matching studentId, add the course to the result
-        if (!enrolledSnapshot.empty) {
+        // If the document exists, add the course to the result
+        if (enrolledCourseDocument.exists()) {
           enrolledCourses.push({
             id: courseDocument.id,
             ...courseDocument.data(),
