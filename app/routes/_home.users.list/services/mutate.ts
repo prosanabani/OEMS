@@ -1,4 +1,4 @@
-import { type AddUserFormValues } from '@/routes/_home.users.list.new-user/services/types';
+import { type TUser } from '@/routes/_home.users.list.new-user/services/types';
 import { t } from '@lingui/macro';
 import { useMutation } from '@tanstack/react-query';
 import { deleteDoc, doc, getDoc, updateDoc } from 'firebase/firestore';
@@ -27,7 +27,7 @@ export const useDeleteUserFromFirebase = () => {
 
 export const useEditUserFromFirebase = () => {
   return useMutation({
-    mutationFn: async (payload: AddUserFormValues) => {
+    mutationFn: async (payload: TUser) => {
       // Reference to the document in the main collection
       const userDocumentRef = doc(FirebaseDatabase, 'users', payload.id || '');
 

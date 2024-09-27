@@ -1,5 +1,5 @@
 import { FirebaseDatabase } from '@/config/firebase';
-import { type AddUserFormValues } from '@/routes/_home.users.list.new-user/services/types';
+import { type TUser } from '@/routes/_home.users.list.new-user/services/types';
 import { QueryKeys } from '@/utils/constants/QueryEnums';
 import { useQuery } from '@tanstack/react-query';
 import { collection, getDocs } from 'firebase/firestore';
@@ -13,7 +13,7 @@ export const useUsersListTable = () => {
 
       return await Promise.all(
         querySnapshot.docs.map(async (document) => {
-          const userData: AddUserFormValues = {
+          const userData: TUser = {
             email: document.data().email,
             fullName: document.data().fullName,
             id: document.id,

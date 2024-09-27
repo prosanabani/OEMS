@@ -1,11 +1,11 @@
-import { type AddUserFormValues } from './types';
+import { type TUser } from './types';
 import { useMutation } from '@tanstack/react-query';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { doc, setDoc } from 'firebase/firestore';
 
 const useAddUser = () => {
   return useMutation({
-    mutationFn: async (data: AddUserFormValues) => {
+    mutationFn: async (data: TUser) => {
       // First, create the user in Firebase Authentication
       const userCredential = await createUserWithEmailAndPassword(
         FirebaseAuth,
