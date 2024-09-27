@@ -1,6 +1,7 @@
 import { useDeleteEnrolledCourseMutation } from './services/mutate';
 import { useEnrolledCoursesList } from './services/query';
 import { courseLevelBody } from './utils/generators';
+import { useUserInfo } from '@/services/userQueries';
 import { t, Trans } from '@lingui/macro';
 import { Button } from 'primereact/button';
 import { Column } from 'primereact/column';
@@ -8,12 +9,13 @@ import { ConfirmDialog } from 'primereact/confirmdialog';
 import { DataTable } from 'primereact/datatable';
 
 export function Component() {
-  const studentId = 'JRMYA3iNy2Ujw61xkHcAd5oi5472';
+  const { data: userInfo } = useUserInfo();
+  const studentId = userInfo?.id;
   const {
     data: UserEnrolledCourses,
     isFetching,
     isLoading,
-  } = useEnrolledCoursesList(studentId);
+  } = useEnrolledCoursesList(studentId || '');
 
   const { isPending, mutate: deleteCourse } = useDeleteEnrolledCourseMutation();
 
@@ -22,7 +24,9 @@ export function Component() {
     return (
       <>
         <ConfirmDialog
-          accept={() => deleteCourse({ courseId: rowData.id, studentId })}
+          accept={() =>
+            deleteCourse({ courseId: rowData.id, studentId: studentId || '' })
+          }
           acceptClassName="p-button-danger"
           defaultFocus="reject"
           draggable={false}
