@@ -1,4 +1,4 @@
-import { useAllCoursesList } from '../_home.courses.enrolled/services/query';
+import { useAllCoursesList } from '../_home.courses.enroll/services/query';
 import { t, Trans } from '@lingui/macro';
 import { Button } from 'primereact/button';
 import { Dialog } from 'primereact/dialog';
