@@ -1,6 +1,7 @@
 import { useCoursesList } from '../services/query';
 import { type EnrolledCourseFormValues } from '../types/typs';
 import { getRandomSixNumbers } from '../utils/function';
+import { useUserInfo } from '@/services/userQueries';
 import { QueryKeys } from '@/utils/constants/QueryEnums';
 import { t } from '@lingui/macro';
 import { useMutation } from '@tanstack/react-query';
@@ -13,7 +14,8 @@ import { Controller, useForm } from 'react-hook-form';
 
 export default function EnrollCourse() {
   const [selectedCourse, setSelectedCourse] = useState(null);
-  const { data: coursesList } = useCoursesList('2'); // userLevel
+  const { data: userInfo } = useUserInfo();
+  const { data: coursesList } = useCoursesList(userInfo?.level || ''); // userLevel
   const toast = useRef<Toast>(null);
 
   const {
@@ -23,7 +25,7 @@ export default function EnrollCourse() {
   } = useForm<EnrolledCourseFormValues>({
     defaultValues: {
       selectedCourse: '',
-      studentId: 'JRMYA3iNy2Ujw61xkHcAd5oi5472',
+      studentId: userInfo?.id || '',
     },
   });
 
