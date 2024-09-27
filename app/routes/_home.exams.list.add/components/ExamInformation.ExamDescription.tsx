@@ -22,7 +22,7 @@ const ExamDescription = () => {
               pt={{
                 root: {
                   className:
-                    'min-w-full max-w-full max-h-25vh h-10vh min-h-10vh',
+                    'min-w-10vw max-h-25vh  h-15vh w-32.8vw  min-h-10vh',
                 },
               }}
               rows={5}
@@ -35,7 +35,7 @@ const ExamDescription = () => {
         rules={{ required: t`Exam description is required` }}
       />
       {errors.examDescription && (
-        <small className="p-error">{errors.examDescription.message}</small>
+        <small className="p-error">* {errors.examDescription.message}</small>
       )}
     </div>
   );

@@ -12,9 +12,11 @@ const Form = ({ children }: TProps) => {
   const values: TExamList = {
     courseId: state.courseId,
     examDescription: state.examDescription,
+    examFormat: state.examFormat,
     examMark: state.examMark,
     examName: state.examName,
     examPassMark: state.examPassMark,
+    examQuestions: state.examQuestions,
     examTitle: state.examTitle,
     id: state.id,
   };
