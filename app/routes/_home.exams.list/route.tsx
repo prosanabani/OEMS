@@ -13,7 +13,9 @@ export function Component() {
     queryParameters: state.queryParameters,
     SearchInput: state.SearchInput,
   }));
-  const { data: examList, isLoading } = useExamsData(queryParameters.courseId);
+  const { data: examList, isLoading } = useExamsData(
+    queryParameters.courseId || ''
+  );
   const [expandedRows, setExpandedRows] = useState([]);
 
   const filteredData = filterData(examList || [], SearchInput);

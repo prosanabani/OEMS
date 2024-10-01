@@ -1,5 +1,6 @@
 import { setSearchInput, useExamListStore } from '../store';
 import CoursesDropDown from './TableHeader.CoursesDropDown';
+import { useUserInfo } from '@/services/userQueries';
 import { t } from '@lingui/macro';
 import { Button } from 'primereact/button';
 import { IconField } from 'primereact/iconfield';
@@ -8,6 +9,7 @@ import { InputText } from 'primereact/inputtext';
 
 const TableHeader = () => {
   const navigate = useNavigate();
+  const { data: userInfo, isLoading } = useUserInfo();
   const SearchInput = useExamListStore((state) => state.SearchInput);
   return (
     <div className="flex justify-between">
@@ -20,7 +22,12 @@ const TableHeader = () => {
         />
       </IconField>
       <CoursesDropDown />
-      <Button label={t`Create new Exam`} onClick={() => navigate('add')} />
+      <Button
+        disabled={userInfo?.role === 'student'}
+        label={t`Create new Exam`}
+        loading={isLoading}
+        onClick={() => navigate('add')}
+      />
     </div>
   );
 };

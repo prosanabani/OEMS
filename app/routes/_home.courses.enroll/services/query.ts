@@ -38,9 +38,9 @@ export const useAllCoursesList = () => {
       // Map the courses and prepend {label: "All", value: "all"}
       return coursesSnapshot.docs.map((item) => {
         return {
-          label: item.data().courseName, // 'label' for PrimeReact Dropdown
-          value: item.id, // 'value' for PrimeReact Dropdown
-        } as { label: string; value: string | undefined };
+          courseName: item.data().courseName, // 'label' for PrimeReact Dropdown
+          id: item.id, // 'value' for PrimeReact Dropdown
+        } as { courseName: string; id: string | undefined };
       });
     },
     queryKey: [QueryKeys.All_COURSES_LIST],

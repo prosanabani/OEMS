@@ -1,7 +1,9 @@
 export function Component() {
+  // const { examId } = useParams();
+  // console.log(examId);
   return (
     <div className="">
-      exmas layout
+      exams details
       <Outlet />
     </div>
   );
