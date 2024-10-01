@@ -19,9 +19,27 @@ export const useLoginMutation = () => {
         (await getEmailByUserName(payload.username, payload.role)) || '';
       await signInWithEmailAndPassword(FirebaseAuth, email, payload.password);
     },
-    onError: () => {
+    onError: (error) => {
+      const loginErrorMessages: Record<string, string> = {
+        'auth/account-exists-with-different-credential': t`An account already exists with a different credential.`,
+        'auth/cancelled-popup-request': t`The popup sign in was canceled. Please try again.`,
+        'auth/invalid-credential': t`The password is incorrect. Please try again.`,
+        'auth/invalid-email': t`The email address is badly formatted.`,
+        'auth/network-request-failed': t`Network error. Please check your connection and try again.`,
+        'auth/operation-not-allowed': t`Password sign-in is not enabled. Please contact support.`,
+        'auth/popup-closed-by-user': t`The popup was closed before completing the sign in. Please try again.`,
+        'auth/too-many-requests': t`Too many login attempts. Please try again later.`,
+        'auth/user-disabled': t`This user account has been disabled.`,
+        'auth/user-not-found': t`No user found with this email.`,
+      };
+      const errorMessage =
+        // @ts-expect-error typings are wrong
+        loginErrorMessages[error.code] ||
+        error.message ||
+        t`An error occurred while logging in`;
+
       showToast({
-        detail: t`Login failed`,
+        detail: errorMessage,
         severity: 'error',
         summary: t`Error`,
       });
