@@ -23,7 +23,9 @@ const CoursesDropDown = () => {
   return (
     <FloatLabel>
       <Dropdown
+        checkmark
         className="w-20vw"
+        filter
         inputId="courses-dropdown"
         loading={infoLoading || allCoursesLoading || coursesLoading}
         onChange={(event) =>

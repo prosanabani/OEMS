@@ -91,7 +91,7 @@ const PageSlider = () => {
             navigate('/exams/list/add');
           },
           icon: plusIcon,
-          label: t`Add New exam`,
+          label: t`Add new exam`,
         },
         {
           command: () => {
@@ -100,6 +100,14 @@ const PageSlider = () => {
           },
           icon: 'i-quill:paper w-18px h-18px',
           label: t`Start exam`,
+        },
+        {
+          command: () => {
+            setVisible(false);
+            navigate('/exams/verification-codes');
+          },
+          icon: 'i-simple-icons:authelia w-18px h-18px',
+          label: t`View verification codes`,
         },
       ],
       label: t`Exams`,

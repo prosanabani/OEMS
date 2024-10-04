@@ -1,5 +1,7 @@
+import { useGenerateNewVerificationCode } from '../_home.exams.verification-codes/services/mutate';
 import { useVerificationCode } from './services/query';
 import { useUserInfo } from '@/services/userQueries';
+import { QueryKeys } from '@/utils/constants/QueryEnums';
 import { t, Trans } from '@lingui/macro';
 import { Button } from 'primereact/button';
 import { InputOtp } from 'primereact/inputotp';
@@ -15,6 +17,8 @@ export function Component() {
     courseId,
     userInfo?.id || ''
   );
+
+  const { mutate } = useGenerateNewVerificationCode();
 
   const {
     control,
@@ -83,15 +87,32 @@ export function Component() {
         />
         <Button
           disabled={Boolean(errors.verificationCode) || isLoading}
-          label={t`Start exam`}
+          label={t`Begin`}
           loading={isLoading}
           onClick={handleSubmit((formData) => {
-            navigate(`/exams/${examId}/begin`, { state: formData });
-            showToast({
-              detail: t`Entered exam successfully`,
-              severity: 'success',
-              summary: t`Success`,
-            });
+            mutate(
+              { courseId, studentId: userInfo?.id || '' },
+              {
+                onError: () => {
+                  showToast({
+                    detail: t`Failed to enter exam`,
+                    severity: 'error',
+                    summary: t`Error`,
+                  });
+                },
+                onSuccess: () => {
+                  queryClient.invalidateQueries({
+                    queryKey: [QueryKeys.VERIFICATION_CODE],
+                  });
+                  navigate(`/exams/${examId}/begin`, { state: formData });
+                  showToast({
+                    detail: t`Entered exam successfully`,
+                    severity: 'success',
+                    summary: t`Success`,
+                  });
+                },
+              }
+            );
           })}
           severity={errors.verificationCode && 'danger'}
           type="submit"
