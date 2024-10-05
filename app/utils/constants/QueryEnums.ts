@@ -8,4 +8,6 @@ export const QueryKeys = {
   STUDENT_COURSES: 'studentCourses',
   USER_INFO: 'userInfo',
   USERS_TABLE: 'usersTable',
+  VERIFICATION_CODE: 'verificationCode',
+  VERIFICATION_CODE_LIST: 'verificationCodeList',
 };

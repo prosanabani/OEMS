@@ -6,7 +6,7 @@ type ExamListStore = {
     setQueryParameters: (queryParameters: { courseId: string }) => void;
     setSearchInput: (value: string) => void;
   };
-  queryParameters: { courseId: string };
+  queryParameters: { courseId: string | undefined };
 };
 
 export const useExamListStore = create<ExamListStore>((set, get) => ({
@@ -21,7 +21,7 @@ export const useExamListStore = create<ExamListStore>((set, get) => ({
     setSearchInput: (value) => set({ SearchInput: value }),
   },
   queryParameters: {
-    courseId: 'all',
+    courseId: undefined,
   },
   SearchInput: '',
 }));

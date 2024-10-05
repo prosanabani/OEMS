@@ -1,7 +1,7 @@
 import DeleteCourseButton from '../components/DeleteCourseButton';
-import EditCourseButton from '../components/EditCourseButton';
 import { type CourseFormValues } from '../services/types';
 import { setSearchInput, useCourseListStore } from '../store';
+import EditCourseButton from '@/routes/_home.courses.course-list/components/EditCourseButton';
 import { t } from '@lingui/macro';
 import { Button } from 'primereact/button';
 import { IconField } from 'primereact/iconfield';

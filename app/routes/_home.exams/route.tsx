@@ -1,3 +1,8 @@
 export function Component() {
-  return <Outlet />;
+  return (
+    <div className="">
+      exmas layout
+      <Outlet />
+    </div>
+  );
 }

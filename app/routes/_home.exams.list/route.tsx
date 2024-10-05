@@ -13,7 +13,9 @@ export function Component() {
     queryParameters: state.queryParameters,
     SearchInput: state.SearchInput,
   }));
-  const { data: examList, isLoading } = useExamsData(queryParameters.courseId);
+  const { data: examList, isLoading } = useExamsData(
+    queryParameters.courseId || ''
+  );
   const [expandedRows, setExpandedRows] = useState([]);
 
   const filteredData = filterData(examList || [], SearchInput);
@@ -39,7 +41,7 @@ export function Component() {
         rows={10}
         rowsPerPageOptions={[5, 10, 20, 50, 100]}
         scrollHeight="55vh"
-        // scrollable
+        scrollable
         size="small"
         stripedRows
         value={filteredData}

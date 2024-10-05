@@ -1,25 +1,51 @@
 import DeleteButton from '../components/DeleteButton';
 import { type TExamList } from '../types/examListType';
+import { useUserInfo } from '@/services/userQueries';
 import { t, Trans } from '@lingui/macro';
 import { Accordion, AccordionTab } from 'primereact/accordion';
 import { Button } from 'primereact/button';
 import { Panel } from 'primereact/panel';
+import { Skeleton } from 'primereact/skeleton';
 import { Tag } from 'primereact/tag';
 
 export const ActionBodyTemplate = (rowData: TExamList) => {
   const navigate = useNavigate();
-  return (
-    <div className="flex gap-2">
-      <Button
-        icon="pi pi-pencil"
-        label={t`Edit`}
-        onClick={() => navigate('edit', { state: rowData })}
-        rounded
-        severity="success"
-      />
+  const { data: userInfo, isLoading } = useUserInfo();
 
-      <DeleteButton examId={rowData.id} />
-    </div>
+  if (isLoading) {
+    return <Skeleton />;
+  }
+
+  return (
+    <>
+      {userInfo?.role === 'admin' || userInfo?.role === 'teacher' ? (
+        <div className="flex gap-2">
+          <Button
+            icon="pi pi-pencil"
+            label={t`Edit`}
+            onClick={() => navigate('edit', { state: rowData })}
+            rounded
+            severity="success"
+          />
+
+          <DeleteButton examId={rowData.id} />
+        </div>
+      ) : (
+        <Button
+          icon="pi pi-pencil"
+          label={t`Start Exam`}
+          onClick={() =>
+            navigate('/exams/start-exam', {
+              state: {
+                courseId: rowData.courseId,
+                examId: rowData.id,
+              },
+            })
+          }
+          severity="success"
+        />
+      )}
+    </>
   );
 };
 
