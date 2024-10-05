@@ -1,4 +1,4 @@
-import DialogContent from './RightItems.PopUpMenu.DialogContent';
+import ChangePassword from './RightItems.PopUpMenu.ChangePassword';
 import { getCourseLevelName } from '@/routes/_home.courses.enrolled-courses/utils/functions';
 import { useLogoutMutation } from '@/routes/login/services/mutates';
 import { useUserInfo } from '@/services/userQueries';
@@ -71,12 +71,12 @@ const PopUpMenu = () => {
             className: 'pt-5',
           },
           root: {
-            className: 'w-30vw h-55vh',
+            className: 'w-40vw h-75vh',
           },
         }}
         visible={visible}
       >
-        <DialogContent />
+        <ChangePassword />
       </Dialog>
     </>
   );
