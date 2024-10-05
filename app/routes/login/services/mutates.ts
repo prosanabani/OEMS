@@ -72,6 +72,7 @@ export const useLogoutMutation = () => {
     },
     onSuccess: () => {
       navigate('/login');
+      queryClient.resetQueries();
       showToast({
         detail: t`Logout success`,
         severity: 'success',

@@ -9,6 +9,7 @@ import { Message } from 'primereact/message';
 export function Component() {
   const navigate = useNavigate();
   const { data: AllCourses, isLoading } = useAllCoursesList();
+
   const [SelectedCourse, setSelectedCourse] = useState<string | null>(null);
 
   return (
@@ -28,7 +29,7 @@ export function Component() {
       onHide={() => navigate('..')}
       pt={{
         root: {
-          className: 'w-45vw h-60vh',
+          className: 'h-70vh',
         },
       }}
       visible
@@ -47,6 +48,8 @@ export function Component() {
             onChange={(event: DropdownChangeEvent) =>
               setSelectedCourse(event.value)
             }
+            optionLabel="courseName"
+            optionValue="id"
             options={AllCourses}
             placeholder={t`Select Course`}
             scrollHeight="200px"

@@ -1,7 +1,11 @@
+import notFoundLottie from './assets/not_found.json';
 import { FirebaseAuth } from './config/firebase';
+import { useLogoutMutation } from './routes/login/services/mutates';
 import { setUser } from './stores/AppStore';
-import { Trans } from '@lingui/macro';
+import { t } from '@lingui/macro';
 import { onAuthStateChanged } from 'firebase/auth';
+import Lottie from 'lottie-react';
+import { Button } from 'primereact/button';
 import { Outlet, useRouteError } from 'react-router-dom';
 
 export function Component() {
@@ -28,32 +32,36 @@ export function Component() {
   );
 }
 
-export function ErrorBoundray() {
+export function ErrorBoundary() {
   const navigate = useNavigate();
+  const { mutate: Logout } = useLogoutMutation();
   const error = useRouteError();
 
-  // log error in sentry or other log service
-  // eslint-disable-next-line no-console
-  console.log(error);
-
-  function logout() {
-    // also remove tokens
-    navigate('/login');
-  }
+  // console.log(error);
 
   return (
     <div className="h-screen flex flex-col items-center justify-center">
-      <h1>
-        <Trans>Sorry, there is an error.</Trans>
-      </h1>
-      <div className="flex gap-3">
-        <button onClick={() => navigate('/')} type="button">
-          <Trans>Go to Home</Trans>
-        </button>
-        <button onClick={() => logout()} type="button">
-          <Trans>Logout</Trans>
-        </button>
-      </div>
+      {
+        // @ts-expect-error no error typing
+        error?.status === 404 ? (
+          <div className="relative ">
+            <Lottie animationData={notFoundLottie} className="w-70vw h-70vh" />
+            <div className="absolute top-70% left-15% flex gap-5">
+              <Button
+                icon="pi pi-home"
+                label={t`Home`}
+                onClick={() => navigate('/')}
+              />
+              <Button
+                icon="pi pi-power-off"
+                label={t`Log out`}
+                onClick={() => Logout()}
+                severity="contrast"
+              />
+            </div>
+          </div>
+        ) : null
+      }
     </div>
   );
 }
