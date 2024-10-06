@@ -20,8 +20,9 @@ const CoursesDropDown = () => {
         onChange={(event) =>
           setQueryParameters({ courseId: event.target.value })
         }
-        optionLabel="label"
-        options={[{ label: 'All', value: 'all' }, ...(AllCourses || [])]}
+        optionLabel="courseName"
+        optionValue="id"
+        options={[{ courseName: 'All', id: 'all' }, ...(AllCourses || [])]}
         placeholder={t`Select Course`}
         value={queryParameters.courseId}
       />
