@@ -5,15 +5,7 @@ import { Toolbar } from 'primereact/toolbar';
 export function Component() {
   return (
     <>
-      <Toolbar
-        end={<RightItems />}
-        pt={{
-          root: {
-            className: 'p-0 px-5',
-          },
-        }}
-        start={<PageSlider />}
-      />
+      <Toolbar end={<RightItems />} start={<PageSlider />} />
       <Outlet />
     </>
   );

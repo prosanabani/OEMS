@@ -5,6 +5,10 @@
   box-sizing: border-box;
 }
 
+html {
+  font-size: 14px;
+}
+
 html.dark {
   /* background: #121212; */
   color-scheme: dark;
