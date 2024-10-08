@@ -27,7 +27,7 @@ const DeleteUserButton = ({ id }: TProps) => {
             },
             onSuccess: () => {
               showToast({
-                detail: t`user deleted successfully `,
+                detail: t`User deleted successfully `,
                 severity: 'success',
                 summary: t`Success`,
               });
