@@ -25,14 +25,10 @@ const CoursesDropDown = () => {
                 loading={isLoading}
                 {...field}
                 className={errors.courseId ? 'p-invalid' : ''}
-                optionLabel="label"
+                optionLabel="courseName"
+                optionValue="id"
                 options={AllCourses}
                 placeholder={t`Select Course`}
-                // pt={{
-                //   root: {
-                //     className: 'w-full',
-                //   },
-                // }}
               />
               <label htmlFor="courses-dropdown">
                 <Trans>Select Course</Trans>

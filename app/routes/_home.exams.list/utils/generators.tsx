@@ -28,7 +28,7 @@ export const ActionBodyTemplate = (rowData: TExamList) => {
             severity="success"
           />
 
-          <DeleteButton examId={rowData.id} />
+          <DeleteButton examId={rowData.id || ''} />
         </div>
       ) : (
         <Button
