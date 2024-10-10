@@ -12,6 +12,7 @@ export function Component() {
   const { state } = useLocation();
   const navigate = useNavigate();
   const { courseId, examId } = state;
+
   const { data: userInfo } = useUserInfo();
   const { data: verificationCode, isLoading } = useVerificationCode(
     courseId,
@@ -29,6 +30,7 @@ export function Component() {
 
   return (
     <div className="flex flex-col gap-5 items-center">
+      {verificationCode}
       <p>
         <Trans>Enter verification code</Trans>
       </p>

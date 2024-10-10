@@ -122,8 +122,9 @@ const ChooseQuestions = () => {
           emptyMessage={
             <div className="w-fit m-auto flex flex-col items-center justify-center">
               <i className="pi pi-inbox text-3rem" />
-              <p className="text-xl mt-1rem">
+              <p className="text-xl mt-1rem flex flex-col items-center">
                 <Trans>No records found</Trans>
+                <small>Please add questions first</small>
               </p>
             </div>
           }
@@ -144,7 +145,7 @@ const ChooseQuestions = () => {
             <QuestionRowExpansion data={rowData.aiGeneratedQuestions} />
           )}
           rows={10}
-          scrollHeight="50vh"
+          scrollHeight="40vh"
           scrollable
           selection={questions.filter((question) =>
             examQuestionsWatch?.includes(question.id)

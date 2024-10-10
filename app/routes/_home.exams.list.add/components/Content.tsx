@@ -19,6 +19,7 @@ const Content = () => {
     formState: { isValid },
     handleSubmit,
   } = useFormContext<TAddExamForm>();
+
   const navigate = useNavigate();
 
   const { isPending, mutate } = useAddExamToFireBase();
@@ -66,17 +67,18 @@ const Content = () => {
     <div className="flex flex-col h-full justify-between">
       <Stepper
         activeStep={currentStep}
-        headerPosition="top"
+        linear
+        // this onchange might need to be deleted
         onChangeStep={(event) => setCurrentStep(event.index)}
         ref={stepperRef}
       >
-        <StepperPanel header={t`Exam Information`}>
+        <StepperPanel header={t`Information`}>
           <ExamInformation />
         </StepperPanel>
-        <StepperPanel header={t`Exam Format`}>
+        <StepperPanel header={t`Format`}>
           <ExamFormat />
         </StepperPanel>
-        <StepperPanel header={t`Add Questions`}>
+        <StepperPanel header={t`Questions`}>
           <ChooseQuestions />
         </StepperPanel>
         <StepperPanel header={t`Review`} />

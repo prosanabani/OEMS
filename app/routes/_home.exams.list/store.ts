@@ -21,7 +21,7 @@ export const useExamListStore = create<ExamListStore>((set, get) => ({
     setSearchInput: (value) => set({ SearchInput: value }),
   },
   queryParameters: {
-    courseId: undefined,
+    courseId: 'all',
   },
   SearchInput: '',
 }));
