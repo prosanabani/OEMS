@@ -130,7 +130,7 @@ export function Component() {
               icon="i-ic:twotone-content-paste-go w-5 h-5"
               iconPos="right"
               label={t`Start Exam`}
-              onClick={handleSubmit(() => console.log('jchbdsjc'))}
+              onClick={handleSubmit(() => {})}
               rounded
               severity={isValid ? 'success' : 'danger'}
             />
