@@ -1,7 +1,7 @@
 import { t, Trans } from '@lingui/macro';
 import { ListBox } from 'primereact/listbox';
 import { Message } from 'primereact/message';
-import { SelectItem } from 'primereact/selectitem';
+import { type SelectItem } from 'primereact/selectitem';
 
 const ImportantInstructions = () => {
   const examGuidelinesList: SelectItem[] = [
@@ -27,7 +27,7 @@ const ImportantInstructions = () => {
 
   const instructionTemplate = (instruction: SelectItem) => (
     <div className="flex items-center">
-      <i className={`i-gridicons:notice mr-2 text-red  w-20px h-20px`} />
+      <i className="i-gridicons:notice mr-2 text-red  w-20px h-20px" />
       <span>{instruction.label}</span>
     </div>
   );
@@ -45,8 +45,8 @@ const ImportantInstructions = () => {
       />
 
       <ListBox
-        options={examGuidelinesList}
         itemTemplate={instructionTemplate}
+        options={examGuidelinesList}
       />
     </div>
   );

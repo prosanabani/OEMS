@@ -7,7 +7,7 @@ export const useEditExam = () => {
   return useMutation({
     mutationFn: async (payload: TExamList) => {
       // Reference to the document in the main collection
-      const examDocumentRef = doc(FirebaseDatabase, 'exams', payload.id);
+      const examDocumentRef = doc(FirebaseDatabase, 'exams', payload.id || '');
 
       // Check if the document exists in the main collection
       const examDocument = await getDoc(examDocumentRef);

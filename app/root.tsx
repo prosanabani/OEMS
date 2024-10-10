@@ -6,10 +6,44 @@ import { t, Trans } from '@lingui/macro';
 import { onAuthStateChanged } from 'firebase/auth';
 import Lottie from 'lottie-react';
 import { Button } from 'primereact/button';
+import { useIdleTimer } from 'react-idle-timer';
 import { Outlet, useRouteError } from 'react-router-dom';
 
 export function Component() {
   const navigate = useNavigate();
+  const { mutate: Logout } = useLogoutMutation();
+
+  useIdleTimer({
+    debounce: 500,
+    // 15 minutes
+    onIdle: async () => {
+      showToast({
+        detail: t`User is idle`,
+        severity: 'success',
+        sticky: true,
+        summary: t`Idle`,
+      });
+
+      try {
+        Logout();
+        showToast({
+          detail: t`User signed out due to inactivity`,
+          severity: 'success',
+          sticky: true,
+          summary: t`Idle`,
+        });
+      } catch {
+        showToast({
+          detail: t`Error signing out:`,
+          severity: 'success',
+          sticky: true,
+          summary: t`Idle`,
+        });
+      }
+    },
+    timeout: 1_000 * 60, // 1 minute
+  });
+
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(FirebaseAuth, (user) => {
       if (user) {

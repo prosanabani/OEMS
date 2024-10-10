@@ -4,10 +4,31 @@ import { PrimeReactContext } from 'primereact/api';
 import { Button } from 'primereact/button';
 import { Menu } from 'primereact/menu';
 import { type MenuItem } from 'primereact/menuitem';
+import { useContext, useEffect, useRef, useState } from 'react';
 
 const ThemeButton = () => {
+  const darkTheme = 'lara-dark-blue';
+  const lightTheme = 'lara-light-blue';
+  const themeLink = 'theme-link';
   const changeTheme = useContext(PrimeReactContext)?.changeTheme;
   const menuLeft = useRef(null);
+  const [systemTheme, setSystemTheme] = useState<'light' | 'dark'>('light');
+
+  useEffect(() => {
+    const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+    const handleChange = () => {
+      setSystemTheme(mediaQuery.matches ? 'dark' : 'light');
+    };
+
+    // Initial check
+    handleChange();
+
+    // Listen for changes
+    mediaQuery.addEventListener('change', handleChange);
+
+    // Cleanup listener on component unmount
+    return () => mediaQuery.removeEventListener('change', handleChange);
+  }, []);
 
   const themes: MenuItem[] = [
     {
@@ -15,7 +36,7 @@ const ThemeButton = () => {
         {
           command: () => {
             // @ts-expect-error fix later
-            changeTheme('lara-dark-blue', 'lara-light-blue', 'theme-link', () =>
+            changeTheme(darkTheme, lightTheme, themeLink, () =>
               showToast({
                 detail: t`Light theme changed successfully`,
                 severity: 'success',
@@ -29,7 +50,7 @@ const ThemeButton = () => {
         {
           command: () => {
             // @ts-expect-error fix later
-            changeTheme('lara-light-blue', 'lara-dark-blue', 'theme-link', () =>
+            changeTheme(lightTheme, darkTheme, themeLink, () =>
               showToast({
                 detail: t`Dark theme changed successfully`,
                 severity: 'success',
@@ -39,6 +60,32 @@ const ThemeButton = () => {
           },
           icon: 'pi pi-moon',
           label: t`Dark`,
+        },
+        {
+          command: () => {
+            // Apply the system theme
+            if (systemTheme === 'dark') {
+              // @ts-expect-error fix later
+              changeTheme(lightTheme, darkTheme, themeLink, () =>
+                showToast({
+                  detail: t`System theme changed to Dark mode`,
+                  severity: 'success',
+                  summary: t`Success`,
+                })
+              );
+            } else {
+              // @ts-expect-error fix later
+              changeTheme(darkTheme, lightTheme, themeLink, () =>
+                showToast({
+                  detail: t`System theme changed to Light mode`,
+                  severity: 'success',
+                  summary: t`Success`,
+                })
+              );
+            }
+          },
+          icon: 'pi pi-cog',
+          label: t`System`,
         },
       ],
       label: t`Theme`,

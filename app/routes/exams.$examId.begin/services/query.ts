@@ -1,4 +1,4 @@
-import { TAddExamForm } from '@/routes/_home.exams.list.add/types/examType';
+import { type TAddExamForm } from '@/routes/_home.exams.list.add/types/examType';
 import { QueryKeys } from '@/utils/constants/QueryEnums';
 import { t } from '@lingui/macro';
 import { useQuery } from '@tanstack/react-query';
