@@ -17,7 +17,7 @@ const PageSlider = () => {
         setVisible(false);
         navigate('/dashboard');
       },
-      icon: 'pi pi-qrcode',
+      icon: 'i-carbon:dashboard w-20px h-20px  ',
       label: t`Dashboard`,
     },
     {
@@ -42,7 +42,7 @@ const PageSlider = () => {
         {
           command: () => {
             setVisible(false);
-            navigate('/courses/enrolled');
+            navigate('/courses/enroll');
           },
           icon: 'pi pi-eye',
           label: t`View enrolled courses`,
@@ -88,16 +88,32 @@ const PageSlider = () => {
         {
           command: () => {
             setVisible(false);
-            navigate('/exams/list/new-exam');
+            navigate('/exams/list/add');
           },
           icon: plusIcon,
-          label: t`Add New exam`,
+          label: t`Add new exam`,
+        },
+        {
+          command: () => {
+            setVisible(false);
+            navigate('/exams/start-exam');
+          },
+          icon: 'i-quill:paper w-18px h-18px',
+          label: t`Start exam`,
+        },
+        {
+          command: () => {
+            setVisible(false);
+            navigate('/exams/verification-codes');
+          },
+          icon: 'i-simple-icons:authelia w-18px h-18px',
+          label: t`View verification codes`,
         },
       ],
       label: t`Exams`,
     },
     {
-      icon: 'i-quill:paper w-18px h-18px',
+      icon: 'i-fluent:notebook-question-mark-20-regular w-18px h-18px',
       items: [
         {
           command: () => {

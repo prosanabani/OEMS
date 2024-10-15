@@ -1,23 +1,16 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { create } from 'zustand';
 
 type QuestionListStore = {
+  SearchInput: string;
   actions: {
-    setExpandedRows: (
-      expandedRows:
-        | Array<{ aiGeneratedQuestions: any[]; id: string }>
-        | undefined
-    ) => void;
-
     setQueryParams: (queryParameters: { courseId: string }) => void;
+    setSearchInput: (value: string) => void;
   };
-  expandedRows: Array<{ aiGeneratedQuestions: any[]; id: string }> | undefined;
   queryParams: { courseId: string };
 };
 
 export const useQuestionListStore = create<QuestionListStore>((set, get) => ({
   actions: {
-    setExpandedRows: (expandedRows) => set({ expandedRows }),
     setQueryParams: (queryParameters) =>
       set({
         queryParams: {
@@ -25,12 +18,13 @@ export const useQuestionListStore = create<QuestionListStore>((set, get) => ({
           ...queryParameters,
         },
       }),
+    setSearchInput: (value) => set({ SearchInput: value }),
   },
-  expandedRows: [],
   queryParams: {
     courseId: 'all',
   },
+  SearchInput: '',
 }));
 
-export const { setExpandedRows, setQueryParams } =
+export const { setQueryParams, setSearchInput } =
   useQuestionListStore.getState().actions;

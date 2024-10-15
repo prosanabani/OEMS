@@ -1,8 +1,8 @@
 export function Component() {
   return (
-    <>
-      <div className="">exams</div>
+    <div className="">
+      exmas layout
       <Outlet />
-    </>
+    </div>
   );
 }

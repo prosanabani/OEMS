@@ -1,11 +1,12 @@
 // import GlobalBreadCrumb from '@/components/GlobalBreadCrumb';
+import { useUserInfo } from '@/services/userQueries';
 import { type MenuItem } from 'primereact/menuitem';
 import { TabMenu } from 'primereact/tabmenu';
 
 export function Component() {
   const navigate = useNavigate();
   const [activeIndex, setActiveIndex] = useState(0);
-
+  const { data: userInfo } = useUserInfo();
   const TapMenuItems: MenuItem[] = [
     {
       command: () => navigate('/courses/course-list'),
@@ -14,10 +15,17 @@ export function Component() {
       label: 'Courses',
     },
     {
-      command: () => navigate('/courses/enrolled'),
+      command: () => navigate('/courses/enroll'),
       icon: 'i-hugeicons:course',
-      id: 'enrolled',
-      label: 'Enrolled Courses',
+      id: 'enroll',
+      label: 'Enroll Course',
+    },
+    {
+      command: () => navigate('/courses/enrolled-courses'),
+      icon: 'i-hugeicons:course',
+      id: 'enrolled-courses',
+      label: 'users enrolled-courses',
+      visible: userInfo?.role === 'student',
     },
   ];
 

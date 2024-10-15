@@ -47,6 +47,9 @@ importers:
       firebase:
         specifier: ^10.13.1
         version: 10.13.1
+      lottie-react:
+        specifier: ^2.4.0
+        version: 2.4.0(react-dom@18.0.0(react@18.0.0))(react@18.0.0)
       moment:
         specifier: ^2.30.1
         version: 2.30.1
@@ -71,6 +74,9 @@ importers:
       react-hook-form:
         specifier: ^7.52.1
         version: 7.52.1(react@18.0.0)
+      react-idle-timer:
+        specifier: ^5.7.2
+        version: 5.7.2(react-dom@18.0.0(react@18.0.0))(react@18.0.0)
       react-router-dom:
         specifier: ^6.23.1
         version: 6.24.1(react-dom@18.0.0(react@18.0.0))(react@18.0.0)
@@ -4478,6 +4484,15 @@ packages:
     resolution: {integrity: sha512-lyuxPGr/Wfhrlem2CL/UcnUc1zcqKAImBDzukY7Y5F/yQiNdko6+fRLevlw1HgMySw7f611UIY408EtxRSoK3Q==}
     hasBin: true
 
+  lottie-react@2.4.0:
+    resolution: {integrity: sha512-pDJGj+AQlnlyHvOHFK7vLdsDcvbuqvwPZdMlJ360wrzGFurXeKPr8SiRCjLf3LrNYKANQtSsh5dz9UYQHuqx4w==}
+    peerDependencies:
+      react: ^16.8.0 || ^17.0.0 || ^18.0.0
+      react-dom: ^16.8.0 || ^17.0.0 || ^18.0.0
+
+  lottie-web@5.12.2:
+    resolution: {integrity: sha512-uvhvYPC8kGPjXT3MyKMrL3JitEAmDMp30lVkuq/590Mw9ok6pWcFCwXJveo0t5uqYw1UREQHofD+jVpdjBv8wg==}
+
   loupe@2.3.7:
     resolution: {integrity: sha512-zSMINGVYkdpYSOBmLi0D1Uo7JU9nVdQKrHxC8eYlV+9YKK9WePqAlL7lSlorG/U2Fw1w0hTBmaa/jrQ3UbPHtA==}
 
@@ -4965,6 +4980,12 @@ packages:
     engines: {node: '>=12.22.0'}
     peerDependencies:
       react: ^16.8.0 || ^17 || ^18 || ^19
+
+  react-idle-timer@5.7.2:
+    resolution: {integrity: sha512-+BaPfc7XEUU5JFkwZCx6fO1bLVK+RBlFH+iY4X34urvIzZiZINP6v2orePx3E6pAztJGE7t4DzvL7if2SL/0GQ==}
+    peerDependencies:
+      react: '>=16'
+      react-dom: '>=16'
 
   react-is@16.13.1:
     resolution: {integrity: sha512-24e6ynE2H+OKt4kqsOvNd8kBpV65zoxbA4BVsEOB3ARVWQki/DHzaUoC5KuON/BiccDaCCTZBuOcfZs70kR8bQ==}
@@ -11247,6 +11268,14 @@ snapshots:
     dependencies:
       js-tokens: 4.0.0
 
+  lottie-react@2.4.0(react-dom@18.0.0(react@18.0.0))(react@18.0.0):
+    dependencies:
+      lottie-web: 5.12.2
+      react: 18.0.0
+      react-dom: 18.0.0(react@18.0.0)
+
+  lottie-web@5.12.2: {}
+
   loupe@2.3.7:
     dependencies:
       get-func-name: 2.0.2
@@ -11699,6 +11728,11 @@ snapshots:
   react-hook-form@7.52.1(react@18.0.0):
     dependencies:
       react: 18.0.0
+
+  react-idle-timer@5.7.2(react-dom@18.0.0(react@18.0.0))(react@18.0.0):
+    dependencies:
+      react: 18.0.0
+      react-dom: 18.0.0(react@18.0.0)
 
   react-is@16.13.1: {}
 
