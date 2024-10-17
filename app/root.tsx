@@ -15,7 +15,6 @@ export function Component() {
 
   useIdleTimer({
     debounce: 500,
-    // 15 minutes
     onIdle: async () => {
       showToast({
         detail: t`User is idle`,
