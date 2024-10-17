@@ -1,29 +1,29 @@
-import useBeepSound from '../hooks/useBeepSound';
+import useBeepSound from './useBeepSound';
 import { setCheatingAttempt } from '@/routes/exams.$examId.start-exam/store';
 import { policies } from '@/utils/constants/policies';
 import { useEffect, useRef } from 'react';
 
-const OnTapMonitoring = () => {
+export const useTabMonitoring = () => {
   const { playBeepSound, stopBeepSound } = useBeepSound();
-  const timerRef = useRef<NodeJS.Timeout | null>(null);
+  const intervalRef = useRef<NodeJS.Timeout | null>(null);
 
   useEffect(() => {
     const handleVisibilityChange = () => {
       if (document.visibilityState === 'hidden') {
         playBeepSound();
-        setCheatingAttempt('tabChange');
+        setCheatingAttempt('tab-change');
 
         // Set cheating attempt after 5 seconds if the user remains out of the tab
-        timerRef.current = setInterval(() => {
-          setCheatingAttempt('tabChange');
+        intervalRef.current = setInterval(() => {
+          setCheatingAttempt('tab-change');
         }, policies.TabMonitoringCheatingTimeOut);
       } else if (document.visibilityState === 'visible') {
         stopBeepSound();
 
-        // Clear the timer if the user returns to the tab within timeout
-        if (timerRef.current) {
-          clearTimeout(timerRef.current);
-          timerRef.current = null;
+        // Clear the interval if the user returns to the tab within timeout
+        if (intervalRef.current) {
+          clearInterval(intervalRef.current);
+          intervalRef.current = null;
         }
       }
     };
@@ -32,13 +32,9 @@ const OnTapMonitoring = () => {
 
     return () => {
       document.removeEventListener('visibilitychange', handleVisibilityChange);
-      if (timerRef.current) {
-        clearTimeout(timerRef.current);
+      if (intervalRef.current) {
+        clearTimeout(intervalRef.current);
       }
     };
   }, [playBeepSound, stopBeepSound]);
-
-  return null; // This component won't render anything
 };
-
-export default OnTapMonitoring;

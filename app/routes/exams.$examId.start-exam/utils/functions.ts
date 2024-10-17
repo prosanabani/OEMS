@@ -1,5 +1,14 @@
 import { type TAddExamForm } from '@/routes/_home.exams.list.add/types/examType';
 
+export const toggleFullscreen = () => {
+  const Document = document.documentElement;
+  if (!document.fullscreenElement) {
+    Document.requestFullscreen();
+  } else if (document.exitFullscreen) {
+    document.exitFullscreen();
+  }
+};
+
 export const generateTitle = (type: string) => {
   const titleLiteralMapping: {
     [key: string]: string;
