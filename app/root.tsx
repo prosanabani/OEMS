@@ -41,7 +41,7 @@ export function Component() {
         });
       }
     },
-    timeout: 1_000 * 60, // 1 minute
+    timeout: 1_000 * 60 * 15, // 15 minute
   });
 
   useEffect(() => {

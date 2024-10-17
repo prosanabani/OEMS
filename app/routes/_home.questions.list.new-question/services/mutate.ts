@@ -15,6 +15,7 @@ export const useAddAiQuestionsToFirebase = () => {
       const questionRef = await addDoc(
         collection(FirebaseDatabase, 'questions'),
         {
+          // @ts-expect-error - Ignore TS error
           courseId,
           ...firstQuestion,
         }
@@ -30,6 +31,7 @@ export const useAddAiQuestionsToFirebase = () => {
 
       const subQuestions = questions.slice(1).map((question) =>
         setDoc(doc(subCollectionRef), {
+          // @ts-expect-error - Ignore TS error
           courseId,
           ...question,
         })

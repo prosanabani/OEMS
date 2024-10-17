@@ -89,7 +89,7 @@ export function Component() {
         />
         <Button
           disabled={Boolean(errors.verificationCode) || isLoading}
-          label={t`Begin`}
+          label={t`Enter exam`}
           loading={isLoading}
           onClick={handleSubmit((formData) => {
             mutate(
@@ -106,7 +106,12 @@ export function Component() {
                   queryClient.invalidateQueries({
                     queryKey: [QueryKeys.VERIFICATION_CODE],
                   });
-                  navigate(`/exams/${examId}/begin`, { state: formData });
+                  navigate(`/exams/${examId}/credentials`, {
+                    state: {
+                      verificationCode: formData.verificationCode,
+                      ...state,
+                    },
+                  });
                   showToast({
                     detail: t`Entered exam successfully`,
                     severity: 'success',

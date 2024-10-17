@@ -6,22 +6,25 @@ import { type SelectItem } from 'primereact/selectitem';
 const ImportantInstructions = () => {
   const examGuidelinesList: SelectItem[] = [
     {
-      label: t`Make sure you are in a quiet environment with minimal distractions.`,
-    },
-    {
       label: t`Ensure your internet connection is stable to avoid interruptions.`,
     },
     {
       label: t`Remember that AI is actively monitoring your exam session for exam integrity.`,
     },
     {
-      label: t`Please note that you are being monitored by AI during the exam to ensure a secure and fair experience.`,
+      label: t`If you cheat during the exam, you will be awarded 0 marks.`,
     },
     {
-      label: t`Your privacy is safeguarded, and all monitoring is strictly for exam integrity.`,
+      label: t`Don't close the browser during the exam.`,
     },
     {
-      label: t`In case you cheat during the exam, you will be awarded 0 marks.`,
+      label: t`Don't switch tabs during the exam.`,
+    },
+    {
+      label: t`Don't refresh the page during the exam.`,
+    },
+    {
+      label: t`Don't minimize the browser during the exam while in full-screen mode.`,
     },
   ];
 

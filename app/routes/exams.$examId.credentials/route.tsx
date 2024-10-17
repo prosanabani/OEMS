@@ -19,6 +19,7 @@ export function Component() {
   // {/* <FullscreenBeep /> */}
 
   const { examId } = useParams();
+  const navigate = useNavigate();
   const {
     control,
     formState: { isValid },
@@ -54,10 +55,10 @@ export function Component() {
               severity="info"
               text={
                 <Trans>
-                  Please note: You are being monitored by AI during the
-                  examDetails to ensure a secure and fair experience. Your
-                  privacy is safeguarded, and all monitoring is strictly for
-                  exam integrity.
+                  Please note: You are being monitored by AI during the exam(s)
+                  to ensure a secure and fair experience. Your privacy is
+                  safeguarded, and all monitoring is strictly for exam
+                  integrity.
                 </Trans>
               }
             />
@@ -130,7 +131,9 @@ export function Component() {
               icon="i-ic:twotone-content-paste-go w-5 h-5"
               iconPos="right"
               label={t`Start Exam`}
-              onClick={handleSubmit(() => {})}
+              onClick={handleSubmit(() =>
+                navigate(`/exams/${examId}/start-exam`, { state: { examId } })
+              )}
               rounded
               severity={isValid ? 'success' : 'danger'}
             />

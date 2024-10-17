@@ -29,7 +29,7 @@ export const useGenerateNewVerificationCode = () => {
     },
     onMutate: async () => {
       showToast({
-        detail: t`Generating new verification code...`,
+        detail: t`Checking verification code...`,
         severity: 'info',
         summary: t`Processing`,
       });

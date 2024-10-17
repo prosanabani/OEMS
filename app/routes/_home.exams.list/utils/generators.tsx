@@ -35,7 +35,7 @@ export const ActionBodyTemplate = (rowData: TExamList) => {
           icon="pi pi-pencil"
           label={t`Start Exam`}
           onClick={() =>
-            navigate('/exams/start-exam', {
+            navigate('/exams/verification', {
               state: {
                 courseId: rowData.courseId,
                 examId: rowData.id,

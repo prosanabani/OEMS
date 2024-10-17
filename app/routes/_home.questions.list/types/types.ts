@@ -1,4 +1,5 @@
 export type TQuestion = {
+  courseId: string;
   id: string;
   question: string;
   questionAnswers: string;
