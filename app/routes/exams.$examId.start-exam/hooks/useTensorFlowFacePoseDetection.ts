@@ -1,6 +1,7 @@
-// src/hooks/useFacePoseDetection.ts
 import '@tensorflow/tfjs-backend-webgl';
 import useBeepSound from './useBeepSound';
+import { setCheatingAttempt } from '@/routes/exams.$examId.start-exam/store';
+import { policies } from '@/utils/constants/policies';
 import * as blazeFace from '@tensorflow-models/blazeface';
 
 type Face = {
@@ -18,6 +19,7 @@ export const useTensorFlowFacePoseDetection = (
   const [faces, setFaces] = useState<Face[]>([]);
 
   const { playBeepSound, stopBeepSound } = useBeepSound();
+  const intervalRef = useRef<NodeJS.Timeout | null>(null);
 
   useEffect(() => {
     const loadModel = async () => {
@@ -29,18 +31,30 @@ export const useTensorFlowFacePoseDetection = (
   }, []);
 
   useEffect(() => {
+    // Check for face rotation every interval and set cheating attempt if needed
     if (faces.some((face) => face.rotation < 45 || face.rotation > 55)) {
       playBeepSound();
+
+      // Start an interval to trigger cheating attempt every interval if face rotation is off
+      if (!intervalRef.current) {
+        intervalRef.current = setInterval(() => {
+          setCheatingAttempt('ai-monitoring');
+        }, policies.TensorFlowFacePoseDetectionTimeOut);
+      }
     } else {
       stopBeepSound();
+
+      // Clear the interval when face rotation is back to normal
+      if (intervalRef.current) {
+        clearInterval(intervalRef.current);
+        intervalRef.current = null;
+      }
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [faces]);
+  }, [faces, playBeepSound, stopBeepSound]);
 
   useEffect(() => {
     const calculateRotation = (landmarks: number[][]): number => {
       if (landmarks.length < 6) return 0; // Ensure enough landmarks are detected
-
       // Calculate the angle between the nose and eyes
       const leftEye = landmarks[0]; // assuming landmarks[0] is the left eye
       const rightEye = landmarks[1]; // assuming landmarks[1] is the right eye
@@ -63,7 +77,6 @@ export const useTensorFlowFacePoseDetection = (
         const predictions = await model.estimateFaces(videoRef.current, false);
         const facesWithRotation = predictions.map((prediction) => ({
           ...prediction,
-
           // @ts-expect-error until it is resolved from the library
           rotation: calculateRotation(prediction.landmarks || []),
         }));
@@ -71,7 +84,7 @@ export const useTensorFlowFacePoseDetection = (
       }
     };
 
-    const interval = setInterval(detectFaces, 100); // Detect at intervals for performance
+    const interval = setInterval(detectFaces, 100); // Detect faces at intervals
     return () => clearInterval(interval);
   }, [model, videoRef]);
 

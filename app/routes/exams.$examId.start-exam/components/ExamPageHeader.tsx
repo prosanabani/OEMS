@@ -1,6 +1,5 @@
 import { useFullScreenMonitoring } from '../hooks/useFullScreenMonitoring';
 import { type TExamAnswersFormType } from '../types/ExamAnswersFormType';
-import AiMonitoring from './AiMonitoring';
 import aiMonitoring from '@/assets/monitoringAnimation.json';
 import { t } from '@lingui/macro';
 import Lottie from 'lottie-react';
@@ -27,7 +26,6 @@ const ExamPageHeader = () => {
               severity={isFullscreen ? 'info' : 'danger'}
               type="button"
             />
-            <AiMonitoring />
             <Button
               label={t`Finish Exam`}
               onClick={

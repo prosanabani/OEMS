@@ -1,4 +1,5 @@
 import { useExamDetails } from '../exams.$examId.credentials/services/query';
+import AiMonitoring from './components/AiMonitoring';
 import ExamPageHeader from './components/ExamPageHeader';
 import Form from './components/Form';
 import QuestionsStepper from './components/QuestionsStepper';
@@ -23,6 +24,7 @@ export function Component() {
   return (
     <Form>
       <ExamPageHeader />
+      <AiMonitoring />
       <div className="w-70vw m-auto">
         {questionsFormat.map((item) => {
           return (
