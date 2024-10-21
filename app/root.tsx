@@ -1,5 +1,6 @@
 import notFoundLottie from './assets/not_found.json';
 import { FirebaseAuth } from './config/firebase';
+import { useNetworkStatusMonitor } from './hooks/useNetworkStatusMonitor';
 import { useLogoutMutation } from './routes/login/services/mutates';
 import { setUser } from './stores/AppStore';
 import { t, Trans } from '@lingui/macro';
@@ -10,6 +11,7 @@ import { useIdleTimer } from 'react-idle-timer';
 import { Outlet, useRouteError } from 'react-router-dom';
 
 export function Component() {
+  useNetworkStatusMonitor()
   const navigate = useNavigate();
   const { mutate: Logout } = useLogoutMutation();
 
