@@ -11,7 +11,7 @@ import { useIdleTimer } from 'react-idle-timer';
 import { Outlet, useRouteError } from 'react-router-dom';
 
 export function Component() {
-  useNetworkStatusMonitor()
+  useNetworkStatusMonitor();
   const navigate = useNavigate();
   const { mutate: Logout } = useLogoutMutation();
 
@@ -42,7 +42,7 @@ export function Component() {
         });
       }
     },
-    timeout: 1_000 * 60 * 15, // 15 minute
+    timeout: 10_000 * 60 * 15, // 15 minute
   });
 
   useEffect(() => {

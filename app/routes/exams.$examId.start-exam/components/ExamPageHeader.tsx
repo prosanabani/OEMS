@@ -1,4 +1,3 @@
-import { useFullScreenMonitoring } from '../hooks/useFullScreenMonitoring';
 import { type TExamAnswersFormType } from '../types/ExamAnswersFormType';
 import aiMonitoring from '@/assets/monitoringAnimation.json';
 import { t } from '@lingui/macro';
@@ -8,7 +7,7 @@ import { Toolbar } from 'primereact/toolbar';
 import { useFormContext } from 'react-hook-form';
 
 const ExamPageHeader = () => {
-  const { isFullscreen, toggleFullscreen } = useFullScreenMonitoring();
+  // const { isFullscreen, toggleFullscreen } = useFullScreenMonitoring();
   const {
     formState: { isValid },
     handleSubmit,
@@ -19,13 +18,13 @@ const ExamPageHeader = () => {
       <Toolbar
         end={
           <div className="flex gap-4">
-            <Button
+            {/* <Button
               disabled={isFullscreen}
               label={isFullscreen ? t`Exit Fullscreen` : t`Go Fullscreen`}
               onClick={toggleFullscreen}
               severity={isFullscreen ? 'info' : 'danger'}
               type="button"
-            />
+            /> */}
             <Button
               label={t`Finish Exam`}
               onClick={
